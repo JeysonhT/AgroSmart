@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_profile_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.profileScreens.edit_profile_fragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:background="@color/white"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Editar datos del perfil"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="#D3D3D3"
+                android:padding="12dp"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Asegúrate de usar datos reales y que te identifiquen como una persona real."
+                android:textSize="14sp"
+                android:padding="10dp"
+                android:textColor="#000"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center_horizontal">
+
+            <!-- Campos -->
+            <TextView android:text="Nombre de usuario" style="@style/LabelStyle"/>
+            <EditText
+                android:id="@+id/etNombre"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="#D9C784"
+                android:background="@drawable/edittext_bg"
+                android:textColor="#000"/>
+
+            <TextView android:text="Agregar número de teléfono" style="@style/LabelStyle"/>
+            <EditText
+                android:id="@+id/etTelefono"
+                android:inputType="phone"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/ecru"
+                android:background="@drawable/edittext_bg"
+                android:textColor="#000"/>
+
+            <TextView android:text="Editar municipio" style="@style/LabelStyle"/>
+            <EditText
+                android:id="@+id/etMunicipio"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/ecru"
+                android:background="@drawable/edittext_bg"
+                android:textColor="#000"/>
+
+            <TextView android:text="Editar tipos de suelo" style="@style/LabelStyle"/>
+            <EditText
+                android:id="@+id/etSuelo"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="#D9C784"
+                android:background="@drawable/edittext_bg"
+                android:textColor="#000"/>
+
+            <Button
+                android:id="@+id/btnGuardar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardar Cambios"
+                android:background="@drawable/boton_grande_redondeado"
+                android:textColor="#FFF"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="30dp"/>
+        </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

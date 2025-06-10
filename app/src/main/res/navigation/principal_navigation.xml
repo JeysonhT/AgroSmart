@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/principal_navigation"
+    app:startDestination="@id/home_Fragment">
+
+    <fragment
+        android:id="@+id/home_Fragment"
+        android:name="com.example.agrosmart.Home_Fragment"
+        android:label="fragment_home_"
+        tools:layout="@layout/fragment_home_" />
+    <fragment
+        android:id="@+id/detectionFragment"
+        android:name="com.example.agrosmart.DetectionFragment"
+        android:label="fragment_detection"
+        tools:layout="@layout/fragment_detection" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.agrosmart.Profile_fragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+
+        <action
+            android:id="@+id/action_profileFragment_to_edit_profile_fragment"
+            app:destination="@id/edit_profile_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/edit_profile_fragment"
+        android:name="com.example.agrosmart.screens.profileScreens.edit_profile_fragment"
+        android:label="fragment_edit_profile_fragment"
+        tools:layout="@layout/fragment_edit_profile_fragment">
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
+</navigation>

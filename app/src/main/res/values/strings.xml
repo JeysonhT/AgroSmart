@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">AgroSmart</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="detection_fragment_title">Sistema de detecciónes</string>
+    <string name="deficiencias">Deficiencias</string>
+    <string name="adddetection">AddDetection</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="imageprofileText">imageProfile</string>
+    <string name="emailprofileExample">\@emailProfile</string>
+    <string name="editprofilephotoText">editProfilePhoto</string>
+    <string name="facebookButtonText">Facebook</string>
+    <string name="googleButtonText">Google</string>
+    <string name="google_oAuth_client">895334779402-d24vudtni5rti52uldssggn8s7lh4mdo.apps.googleusercontent.com</string>
+</resources>

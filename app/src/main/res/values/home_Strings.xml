@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="String_navigation_1">Inicio</string>
+    <string name="String_navigation_2">Detección</string>
+    <string name="String_navigation_3">Historial</string>
+    <string name="String_navigation_4">Perfil</string>
+
+
+</resources>

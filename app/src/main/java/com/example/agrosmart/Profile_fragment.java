@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
@@ -20,11 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.agrosmart.services.GoogleAuthService;
+import com.example.agrosmart.services.auth.GoogleAuthService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Profile_fragment extends Fragment {
     private View imageProfileView;
@@ -126,8 +125,11 @@ public class Profile_fragment extends Fragment {
 
     private void navigateToEdit(FirebaseUser firebaseUser){
 
+        NavDirections action = Profile_fragmentDirections
+                .actionProfileFragmentToEditProfileFragment().
+                setUsername(firebaseUser.getEmail());
 
         NavController navController = NavHostFragment.findNavController(this);
-        navController.navigate(R.id.edit_profile_fragment);
+        navController.navigate(action);
     }
 }

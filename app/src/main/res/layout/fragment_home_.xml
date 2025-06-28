@@ -41,7 +41,7 @@
 
         <Button
             android:id="@+id/buttonSintomas"
-            android:layout_width="170dp"
+            android:layout_width="180dp"
             android:layout_height="80dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
@@ -60,11 +60,11 @@
 
         <Button
             android:id="@+id/buttonNutricional"
-            android:layout_width="170dp"
+            android:layout_width="180dp"
             android:layout_height="80dp"
             android:layout_marginStart="21dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="410dp"
             android:background="@drawable/boton_grande_redondeado"
             android:drawableLeft="@drawable/hoja_24"
@@ -75,6 +75,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/buttonSintomas"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView"
             app:layout_constraintVertical_bias="0.0" />

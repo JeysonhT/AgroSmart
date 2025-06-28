@@ -1,4 +1,4 @@
-package com.example.agrosmart.services;
+package com.example.agrosmart.services.auth;
 
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;

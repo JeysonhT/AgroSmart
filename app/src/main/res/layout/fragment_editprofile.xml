@@ -4,7 +4,7 @@
     android:id="@+id/edit_profile_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.profileScreens.edit_profile_fragment">
+    tools:context=".screens.profileScreens.EditProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -53,6 +53,8 @@
             <TextView android:text="Nombre de usuario" style="@style/LabelStyle"/>
             <EditText
                 android:id="@+id/etNombre"
+                android:inputType="text"
+                android:hint="@string/etNombreString"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:backgroundTint="#D9C784"
@@ -62,6 +64,7 @@
             <TextView android:text="Agregar número de teléfono" style="@style/LabelStyle"/>
             <EditText
                 android:id="@+id/etTelefono"
+                android:hint="@string/etTelefonoString"
                 android:inputType="phone"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -72,6 +75,8 @@
             <TextView android:text="Editar municipio" style="@style/LabelStyle"/>
             <EditText
                 android:id="@+id/etMunicipio"
+                android:inputType="text"
+                android:hint="@string/etMunicipioString"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:backgroundTint="@color/ecru"
@@ -81,6 +86,8 @@
             <TextView android:text="Editar tipos de suelo" style="@style/LabelStyle"/>
             <EditText
                 android:id="@+id/etSuelo"
+                android:inputType="text"
+                android:hint="@string/etSueloString"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:backgroundTint="#D9C784"
@@ -88,7 +95,7 @@
                 android:textColor="#000"/>
 
             <Button
-                android:id="@+id/btnGuardar"
+                android:id="@+id/btnGuardarDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Guardar Cambios"

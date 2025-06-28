@@ -12,4 +12,8 @@
     <string name="facebookButtonText">Facebook</string>
     <string name="googleButtonText">Google</string>
     <string name="google_oAuth_client">895334779402-d24vudtni5rti52uldssggn8s7lh4mdo.apps.googleusercontent.com</string>
+    <string name="etNombreString">Ingrese su nombre aqui</string>
+    <string name="etTelefonoString">ingrese su numero de telefono</string>
+    <string name="etMunicipioString">Ingrese el municipio donde vive</string>
+    <string name="etSueloString">ingrese los tipos de suelo, separe con \',\'</string>
 </resources>

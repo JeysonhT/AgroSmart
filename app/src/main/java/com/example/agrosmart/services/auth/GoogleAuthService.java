@@ -1,4 +1,4 @@
-package com.example.agrosmart.services;
+package com.example.agrosmart.services.auth;
 
 import android.content.Intent;
 
@@ -20,7 +20,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.function.Consumer;
 
+import lombok.Getter;
+
 public class GoogleAuthService {
+    @Getter
     private final GoogleSignInClient googleSignInClient;
     private Fragment fragment;
     private final ActivityResultLauncher<Intent> launcher;
@@ -63,9 +66,5 @@ public class GoogleAuthService {
 
     public void starSignIn(){
         launcher.launch(googleSignInClient.getSignInIntent());
-    }
-
-    public GoogleSignInClient getGoogleSignInClient() {
-        return googleSignInClient;
     }
 }

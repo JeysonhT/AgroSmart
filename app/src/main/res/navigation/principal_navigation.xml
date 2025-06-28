@@ -25,13 +25,16 @@
             android:id="@+id/action_profileFragment_to_edit_profile_fragment"
             app:destination="@id/edit_profile_fragment" />
     </fragment>
+
     <fragment
         android:id="@+id/edit_profile_fragment"
-        android:name="com.example.agrosmart.screens.profileScreens.edit_profile_fragment"
+        android:name="com.example.agrosmart.screens.profileScreens.EditProfileFragment"
         android:label="fragment_edit_profile_fragment"
-        tools:layout="@layout/fragment_edit_profile_fragment">
+        tools:layout="@layout/fragment_editprofile">
+
         <argument
             android:name="username"
+            android:defaultValue="invitado"
             app:argType="string" />
     </fragment>
 </navigation>

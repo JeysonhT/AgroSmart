@@ -2,12 +2,10 @@ package com.example.agrosmart.screens.profileScreens;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,24 +14,11 @@ import android.widget.EditText;
 
 import com.example.agrosmart.R;
 import com.example.agrosmart.models.UserDetails;
-import com.example.agrosmart.services.repository.UserDetailsRepository;
-import com.example.agrosmart.services.utils.interfaces.OnUserDetailsLoaded;
-import com.example.agrosmart.services.viewModels.ProfileViewModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.agrosmart.services.viewModels.ProfileDetailViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class EditProfileFragment extends Fragment {
 
@@ -41,7 +26,7 @@ public class EditProfileFragment extends Fragment {
 
     private String username;
 
-    private ProfileViewModel profileViewModel;
+    private ProfileDetailViewModel profileViewModel;
 
     private EditText usernametxt;
     private EditText phoneNumbertxt;
@@ -70,7 +55,7 @@ public class EditProfileFragment extends Fragment {
         municipalitytxt = view.findViewById(R.id.etMunicipio);
         soilTypestxt = view.findViewById(R.id.etSuelo);
 
-        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        profileViewModel = new ViewModelProvider(this).get(ProfileDetailViewModel.class);
 
         // se procede a observar el view model para obtener los datos
        profileViewModel.getUserDetailsLiveData(username).observe(getViewLifecycleOwner(), detail -> {

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ProfileDetailViewModel extends ViewModel {
 
-    private MutableLiveData<UserDetails> userDetails = new MutableLiveData<>();
+    private final MutableLiveData<UserDetails> userDetails = new MutableLiveData<>();
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final UserDetailsRepository udRepository = new UserDetailsRepository();

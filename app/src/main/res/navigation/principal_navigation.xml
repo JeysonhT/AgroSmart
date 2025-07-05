@@ -14,7 +14,11 @@
         android:id="@+id/detectionFragment"
         android:name="com.example.agrosmart.DetectionFragment"
         android:label="fragment_detection"
-        tools:layout="@layout/fragment_detection" />
+        tools:layout="@layout/fragment_detection" >
+        <action
+            android:id="@+id/action_detectionFragment_to_cameraLayout2"
+            app:destination="@id/cameraLayout2" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.agrosmart.Profile_fragment"
@@ -37,4 +41,9 @@
             android:defaultValue="invitado"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/cameraLayout2"
+        android:name="com.example.agrosmart.CameraLayout"
+        android:label="fragment_camera_layout"
+        tools:layout="@layout/fragment_camera_layout" />
 </navigation>

@@ -29,11 +29,22 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
     buildFeatures {
+        viewBinding true
         mlModelBinding true
     }
 }
 
 dependencies {
+    implementation libs.camera.core
+    implementation libs.camera.camera2
+    implementation libs.camera.lifecycle
+    implementation libs.camera.video
+
+    implementation libs.camera.view
+    implementation libs.camera.extensions
+
+    implementation(libs.guava)
+
     implementation libs.firebase.firestore
     implementation platform(libs.firebase.bom)
     implementation libs.firebase.auth
@@ -50,9 +61,12 @@ dependencies {
     implementation libs.glide
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
-    implementation libs.tensorflow.lite.support
-    implementation libs.tensorflow.lite.metadata
-    implementation libs.tensorflow.lite.gpu
+
+    implementation 'com.google.ai.edge.litert:litert-support:1.0.1'
+    implementation 'com.google.ai.edge.litert:litert-metadata:1.0.1'
+
+    implementation 'com.google.ai.edge.litert:litert-gpu:1.0.1'
+
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

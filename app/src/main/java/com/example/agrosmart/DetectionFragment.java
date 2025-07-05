@@ -16,6 +16,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -101,27 +103,11 @@ DetectionFragment extends Fragment {
         });
     }
 
-    private void abrirCamara() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    public void abrirCamara() {
+        NavDirections action = DetectionFragmentDirections.actionDetectionFragmentToCameraLayout2();
 
-        if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
-            try {
-                photoFile = crearArchivoImagen(); // crea archivo físico
-            } catch (IOException ex) {
-                Toast.makeText(getContext(), "Error al crear archivo de imagen", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (photoFile != null) {
-                photoUri = FileProvider.getUriForFile(
-                        requireContext(),
-                        requireContext().getPackageName() + ".fileprovider",
-                        photoFile
-                );
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-            }
-        }
+        NavController navController = NavHostFragment.findNavController(this);
+        navController.navigate(action);
     }
 
     private File crearArchivoImagen() throws IOException {
@@ -130,13 +116,12 @@ DetectionFragment extends Fragment {
         return File.createTempFile(nombreArchivo, ".jpg", directorio);
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode == CAMERA_REQUEST_CODE && grantResults.length > 0 &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            abrirCamara();
+
         } else {
             Toast.makeText(getContext(), "Permiso de cámara denegado", Toast.LENGTH_SHORT).show();
         }

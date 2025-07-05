@@ -2,4 +2,7 @@
 <resources>
     <string name="buttonCactus">Deficiencias</string>
     <string name="buttonLeaf">Nutrición</string>
+
+    <string name="takephotoString">tomar foto</string>
+    <string name="BuscarPhotoString">buscar foto</string>
 </resources>

@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/home_Fragment"
-        android:name="com.example.agrosmart.Home_Fragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.Home_Fragment"
         android:label="fragment_home_"
         tools:layout="@layout/fragment_home_" />
     <fragment
         android:id="@+id/detectionFragment"
-        android:name="com.example.agrosmart.DetectionFragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.DetectionFragment"
         android:label="fragment_detection"
         tools:layout="@layout/fragment_detection" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.agrosmart.Profile_fragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.Profile_fragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
 
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/edit_profile_fragment"
-        android:name="com.example.agrosmart.screens.profileScreens.EditProfileFragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.EditProfileFragment"
         android:label="fragment_edit_profile_fragment"
         tools:layout="@layout/fragment_editprofile">
 
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/cameraLayout2"
-        android:name="com.example.agrosmart.CameraLayout"
+        android:name="com.example.agrosmart.presentation.ui.fragment.CameraLayout"
         android:label="fragment_camera_layout"
         tools:layout="@layout/fragment_camera_layout" />
 </navigation>

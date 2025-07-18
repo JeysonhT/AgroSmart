@@ -4,7 +4,7 @@
     android:id="@+id/edit_profile_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.profileScreens.EditProfileFragment">
+    tools:context=".presentation.ui.fragment.subfragment.EditProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.example.agrosmart.presentation.ui.fragment;
 
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,11 +25,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.agrosmart.R;
+import com.example.agrosmart.domain.usecase.ObtenerRecomendacionUseCase;
 import com.example.agrosmart.presentation.ui.adapter.ImageCarouselAdapter;
 import com.example.agrosmart.presentation.ui.adapter.ListViewAdapter;
 import com.example.agrosmart.domain.designModels.ImageCarouselData;
 import com.example.agrosmart.domain.designModels.ListView;
 import com.example.agrosmart.presentation.viewmodels.DetectionFragmentViewModel;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
@@ -96,6 +99,37 @@ DetectionFragment extends Fragment {
                 abrirCamara();
             }
         });
+
+        //usar network checker para verificar que hay internet realizar las recomendaciones
+        getParentFragmentManager().setFragmentResultListener(
+                "resultado_camara", this,
+                (requestKey, bundle) -> {
+                    String texto = bundle.getString("resultado");
+                    mostrarDialogo(texto);
+                    if(texto!=null){
+                        dfViewModel.obtenerRecomendacion(texto);
+                    }
+                }
+        );
+
+        //obtener la respuesta mediante el observador(recommendationResponse) del viewmodel
+
+        dfViewModel.getRecommendationResponse().observe(getViewLifecycleOwner(), respuesta -> {
+            mostrarDialogo(respuesta.getRespuesta());
+            System.out.println(respuesta.getRespuesta());
+        });
+    }
+
+    private void mostrarDialogo(String mensaje) {
+        new MaterialAlertDialogBuilder(getContext())
+                .setTitle("Resultado de detección")
+                .setMessage(mensaje)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     public void abrirCamara() {

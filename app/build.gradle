@@ -64,12 +64,13 @@ dependencies {
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
 
-    implementation 'com.google.ai.edge.litert:litert-support:1.0.1'
-    implementation 'com.google.ai.edge.litert:litert-metadata:1.0.1'
+    implementation libs.litert.support
+    implementation libs.litert.metadata
 
-    implementation 'com.google.ai.edge.litert:litert-gpu:1.0.1'
+    implementation libs.litert.gpu
 
-    
+    implementation libs.retrofit
+    implementation libs.converter.gson
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit

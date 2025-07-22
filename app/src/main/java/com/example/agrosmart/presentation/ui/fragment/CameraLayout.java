@@ -29,10 +29,13 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.agrosmart.R;
 import com.example.agrosmart.data.local.ml.DetectionService;
-import com.example.agrosmart.data.network.api.RecommendationService;
+import com.example.agrosmart.data.repository.impl.RecommendationServiceImpl;
 import com.example.agrosmart.core.utils.classes.NetworkChecker;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -189,14 +192,14 @@ public class CameraLayout extends Fragment {
                     });
                 } else {
                     handler.post(() -> {
-                        mostrarDialogo(resultado);
-                        if(NetworkChecker.isInternetAvailable(requireContext())){
+                            //volver al framento de deteccion para realizar las recomendaciones
+                            Bundle bundle = new Bundle();
 
-                            //hacer la peticion de la recomendacion personalizada
+                            bundle.putString("resultado", resultado);
 
-                            RecommendationService recommendationService = new RecommendationService();
+                            getParentFragmentManager().setFragmentResult("resultado_camara", bundle);
 
-                        }
+                            requireActivity().getOnBackPressedDispatcher().onBackPressed();
                     });
                 }
             }
@@ -221,12 +224,14 @@ public class CameraLayout extends Fragment {
                     });
                 } else {
                     handler.post(() -> {
-                        mostrarDialogo(resultado);
-                        if(NetworkChecker.isInternetAvailable(requireContext())){
-                            //hacer la peticion de la recomendacion personalizada
-                            RecommendationService recommendationService = new RecommendationService();
+                            //volver al framento de deteccion para realizar las recomendaciones
+                            Bundle bundle = new Bundle();
 
-                        }
+                            bundle.putString("resultado", resultado);
+
+                            getParentFragmentManager().setFragmentResult("resultado_camara", bundle);
+
+                            requireActivity().getOnBackPressedDispatcher().onBackPressed();
                     });
                 }
             }
@@ -265,7 +270,7 @@ public class CameraLayout extends Fragment {
     }
 
     private void mostrarDialogo(String mensaje) {
-                new MaterialAlertDialogBuilder(requireContext())
+                new MaterialAlertDialogBuilder(getContext())
                  .setTitle("Resultado de diagnostico")
                         .setMessage(mensaje)
                         .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {

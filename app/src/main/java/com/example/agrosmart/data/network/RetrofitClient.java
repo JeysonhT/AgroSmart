@@ -1,10 +1,12 @@
 package com.example.agrosmart.data.network;
 
+import com.example.agrosmart.BuildConfig;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String URL_BASE = "https://ca24a7bb1f36.ngrok-free.app/";
+    private static final String URL_BASE = BuildConfig.API_URL;
 
     private static Retrofit retrofit = null;
 

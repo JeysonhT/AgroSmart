@@ -76,6 +76,21 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 
+    //database
+
+    def room_version = "2.7.2"
+
+    implementation "androidx.room:room-runtime:$room_version"
+
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation libs.room.guava
+
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
+
+    // optional - Paging 3 Integration
+    implementation "androidx.room:room-paging:$room_version"
+
     compileOnly libs.lombok
     annotationProcessor libs.lombok
 }

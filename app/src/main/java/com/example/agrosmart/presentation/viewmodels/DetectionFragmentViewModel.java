@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.agrosmart.data.repository.impl.RecommendationServiceImpl;
 import com.example.agrosmart.domain.models.Deficiency;
 import com.example.agrosmart.domain.models.Respuesta;
-import com.example.agrosmart.domain.usecase.ObtenerRecomendacionUseCase;
+import com.example.agrosmart.domain.usecase.GetRecommendationUseCase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -28,10 +28,10 @@ public class DetectionFragmentViewModel extends ViewModel {
     //metodos y variables para la creacion y devolucion de recomendaciones
     private final MutableLiveData<Respuesta> recommendationResponse = new MutableLiveData<>();
 
-    private final ObtenerRecomendacionUseCase usecase;
+    private final GetRecommendationUseCase usecase;
 
     public DetectionFragmentViewModel() {
-        this.usecase = new ObtenerRecomendacionUseCase(new RecommendationServiceImpl());
+        this.usecase = new GetRecommendationUseCase(new RecommendationServiceImpl());
     }
 
     public LiveData<Respuesta> getRecommendationResponse(){

@@ -5,11 +5,11 @@ import com.example.agrosmart.domain.repository.RecomendationRepository;
 
 import retrofit2.Callback;
 
-public class ObtenerRecomendacionUseCase {
+public class GetRecommendationUseCase {
 
     private RecomendationRepository repository;
 
-    public ObtenerRecomendacionUseCase(RecomendationRepository _repository){
+    public GetRecommendationUseCase(RecomendationRepository _repository){
         this.repository = _repository;
     }
 

@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.agrosmart.R;
-import com.example.agrosmart.domain.usecase.ObtenerRecomendacionUseCase;
 import com.example.agrosmart.presentation.ui.adapter.ImageCarouselAdapter;
 import com.example.agrosmart.presentation.ui.adapter.ListViewAdapter;
 import com.example.agrosmart.domain.designModels.ImageCarouselData;

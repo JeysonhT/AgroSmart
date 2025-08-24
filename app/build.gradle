@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.androidx.navigation.safe.args) apply true
     alias(libs.plugins.secrets.gradle.plugin) apply true
 }
+//me costo un huevo aplicar este plugin
+apply plugin: 'realm-android'
 
 android {
     namespace 'com.example.agrosmart'
@@ -63,6 +65,9 @@ dependencies {
     implementation libs.glide
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
+    implementation 'com.google.android.gms:play-services-base:18.3.0'
+    implementation 'com.google.android.gms:play-services-tasks:18.0.2'
+
 
     implementation libs.litert.support
     implementation libs.litert.metadata
@@ -78,18 +83,7 @@ dependencies {
 
     //database
 
-    def room_version = "2.7.2"
-
-    implementation "androidx.room:room-runtime:$room_version"
-
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    implementation libs.room.guava
-
-    // optional - Test helpers
-    testImplementation "androidx.room:room-testing:$room_version"
-
-    // optional - Paging 3 Integration
-    implementation "androidx.room:room-paging:$room_version"
+    implementation libs.realm.android.library
 
     compileOnly libs.lombok
     annotationProcessor libs.lombok

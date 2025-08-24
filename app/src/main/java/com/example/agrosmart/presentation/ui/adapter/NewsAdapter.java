@@ -11,31 +11,31 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrosmart.R;
-import com.example.agrosmart.domain.models.Notice;
+import com.example.agrosmart.domain.models.News;
 
 import java.util.List;
 
-public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeHolder>{
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
     private Context context;
-    private List<Notice> noticias;
+    private List<News> noticias;
 
-    public NoticeAdapter(Context context, List<Notice> noticias) {
+    public NewsAdapter(Context context, List<News> noticias) {
         this.context = context;
         this.noticias = noticias;
     }
 
     @NonNull
     @Override
-    public NoticeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NewsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_notice_card, parent, false);
-        return new NoticeHolder(view);
+        return new NewsHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NoticeHolder holder, int position) {
-        Notice notice = noticias.get(position);
-        holder.imageView.setImageResource(notice.getImageResource());
-        holder.textView.setText(notice.getDescripcion());
+    public void onBindViewHolder(@NonNull NewsHolder holder, int position) {
+        News news = noticias.get(position);
+        holder.imageView.setImageResource(news.getImageResource());
+        holder.textView.setText(news.getDescription());
     }
 
     @Override
@@ -43,11 +43,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeHold
         return noticias.size();
     }
 
-    static class NoticeHolder extends RecyclerView.ViewHolder{
+    static class NewsHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView textView;
 
-        public NoticeHolder(@NonNull View view){
+        public NewsHolder(@NonNull View view){
             super(view);
 
             imageView = view.findViewById(R.id.notice_imageView);

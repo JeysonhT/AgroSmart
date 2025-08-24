@@ -11,18 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrosmart.R;
-import com.example.agrosmart.domain.designModels.ImageCarouselData;
+import com.example.agrosmart.domain.designModels.CropCarouselData;
 
 import java.util.List;
 
-public class ImageCarouselAdapter extends RecyclerView.Adapter<ImageCarouselAdapter.ImageViewHolder> {
+public class CropInfoAdapter extends RecyclerView.Adapter<CropInfoAdapter.ImageViewHolder> {
 
     private Context context;
-    private List<ImageCarouselData> imageDataList;
+    private List<CropCarouselData> cropDataList;
 
-    public ImageCarouselAdapter(Context context, List<ImageCarouselData> imageDataList){
+    public CropInfoAdapter(Context context, List<CropCarouselData> cropDataList){
         this.context = context;
-        this.imageDataList = imageDataList;
+        this.cropDataList = cropDataList;
+    }
+
+    public void updateData(List<CropCarouselData> data){
+        this.cropDataList.clear();
+        this.cropDataList.addAll(data);
+        notifyDataSetChanged(); // este ya es mi ultimo recurso
     }
 
     @NonNull
@@ -34,15 +40,15 @@ public class ImageCarouselAdapter extends RecyclerView.Adapter<ImageCarouselAdap
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        ImageCarouselData imageCarouselData = imageDataList.get(position);
-        holder.imageView.setImageResource(imageCarouselData.getImageResource());
-        holder.textImageTitle.setText(imageCarouselData.getTitle());
-        holder.textImageDescription.setText(imageCarouselData.getDescription());
+        CropCarouselData cropCarouselData = cropDataList.get(position);
+        holder.imageView.setImageResource(cropCarouselData.getImageResource());
+        holder.textImageTitle.setText(cropCarouselData.getTitle());
+        holder.textImageDescription.setText(cropCarouselData.getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return imageDataList.size();
+        return cropDataList.size();
     }
 
     static class ImageViewHolder extends RecyclerView.ViewHolder {

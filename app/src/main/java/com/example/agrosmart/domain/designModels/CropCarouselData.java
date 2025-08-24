@@ -1,11 +1,11 @@
 package com.example.agrosmart.domain.designModels;
 
-public class ImageCarouselData {
+public class CropCarouselData {
     private int imageResource;
     private String title;
     private String description;
 
-    public ImageCarouselData(int imageResource,String title, String description) {
+    public CropCarouselData(int imageResource, String title, String description) {
         this.imageResource = imageResource;
         this.title = title;
         this.description = description;

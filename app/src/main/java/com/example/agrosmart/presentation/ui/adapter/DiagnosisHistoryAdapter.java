@@ -16,11 +16,11 @@ import com.example.agrosmart.domain.designModels.ListView;
 
 import java.util.List;
 
-public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ListViewHolder>{
+public class DiagnosisHistoryAdapter extends RecyclerView.Adapter<DiagnosisHistoryAdapter.ListViewHolder>{
     private Context context;
     private List<ListView> listaModelo;
 
-    public ListViewAdapter(Context context, List<ListView> listaModelo){
+    public DiagnosisHistoryAdapter(Context context, List<ListView> listaModelo){
         this.context = context;
         this.listaModelo = listaModelo;
     }

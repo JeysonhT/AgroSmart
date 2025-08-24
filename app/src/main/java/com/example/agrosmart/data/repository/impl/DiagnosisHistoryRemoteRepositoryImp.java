@@ -1,4 +1,4 @@
 package com.example.agrosmart.data.repository.impl;
 
-public class HistoryRemoteRepositoryImp {
+public class DiagnosisHistoryRemoteRepositoryImp {
 }

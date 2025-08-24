@@ -135,6 +135,7 @@ public class CameraLayout extends Fragment {
         imageCapture = new ImageCapture.Builder()
                 //.setTargetAspectRatio(RATIO_4_3)
                 .setTargetResolution(new Size(224, 224))
+
                 .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                 .build();
 

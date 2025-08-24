@@ -2,28 +2,25 @@ package com.example.agrosmart.domain.models;
 
 import android.net.Uri;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import java.util.UUID;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter
 @AllArgsConstructor
-@Entity // define que es una entidad de room para guardar en la base de datos
+ // define que es una entidad de realm para guardar en la base de datos
 public class User {
-    @PrimaryKey
-    private int uid;
-    @ColumnInfo(name = "username")
+    //@PrimaryKey
+    private String _id;
     private String username;
-    @ColumnInfo(name = "email")
     private String email;
-    @ColumnInfo(name = "role")
     private String role;
     private Uri imageUser;
+    private Long lastUpdate;
 
     public User(String _username, String _email, Uri _imageUser){
         this.username = _username;
@@ -35,5 +32,9 @@ public class User {
         this.username = _username;
         this.email = _email;
         this.role = _role;
+    }
+
+    public User(){
+        this._id = UUID.randomUUID().toString();
     }
 }

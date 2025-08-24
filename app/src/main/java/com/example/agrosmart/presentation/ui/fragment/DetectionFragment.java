@@ -25,9 +25,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.agrosmart.R;
-import com.example.agrosmart.presentation.ui.adapter.ImageCarouselAdapter;
-import com.example.agrosmart.presentation.ui.adapter.ListViewAdapter;
-import com.example.agrosmart.domain.designModels.ImageCarouselData;
+import com.example.agrosmart.presentation.ui.adapter.CropInfoAdapter;
+import com.example.agrosmart.presentation.ui.adapter.DiagnosisHistoryAdapter;
+import com.example.agrosmart.domain.designModels.CropCarouselData;
 import com.example.agrosmart.domain.designModels.ListView;
 import com.example.agrosmart.presentation.viewmodels.DetectionFragmentViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -61,13 +61,13 @@ DetectionFragment extends Fragment {
 
         dfViewModel = new ViewModelProvider(this).get(DetectionFragmentViewModel.class);
 
-        List<ImageCarouselData> imageDataList = new ArrayList<>();
-        imageDataList.add(new ImageCarouselData(R.drawable.imagen_2, "Deficiencia de potasio", "Maíz con deficiencia de potasio"));
-        imageDataList.add(new ImageCarouselData(R.drawable.imagen_3, "Deficiencia de magnesio", "Sorgo con deficiencia de magnesio"));
-        imageDataList.add(new ImageCarouselData(R.drawable.imagen_4, "Deficiencia de zinc", "Maíz con deficiencia de zinc"));
+        List<CropCarouselData> imageDataList = new ArrayList<>();
+        imageDataList.add(new CropCarouselData(R.drawable.imagen_2, "Deficiencia de potasio", "Maíz con deficiencia de potasio"));
+        imageDataList.add(new CropCarouselData(R.drawable.imagen_3, "Deficiencia de magnesio", "Sorgo con deficiencia de magnesio"));
+        imageDataList.add(new CropCarouselData(R.drawable.imagen_4, "Deficiencia de zinc", "Maíz con deficiencia de zinc"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(new ImageCarouselAdapter(getContext(), imageDataList));
+        recyclerView.setAdapter(new CropInfoAdapter(getContext(), imageDataList));
 
         listView = view.findViewById(R.id.recyclerViewDetectionList);
 
@@ -78,7 +78,7 @@ DetectionFragment extends Fragment {
         listModel.add(new ListView(R.drawable.cactus_24, "Magnesio"));
 
         listView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        listView.setAdapter(new ListViewAdapter(getContext(), listModel));
+        listView.setAdapter(new DiagnosisHistoryAdapter(getContext(), listModel));
 
         return view;
     }

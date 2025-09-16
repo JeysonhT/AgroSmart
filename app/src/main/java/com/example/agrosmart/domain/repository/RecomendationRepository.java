@@ -9,3 +9,4 @@ import retrofit2.Callback;
 public interface RecomendationRepository {
     void obtenerRecomendacion(String pregunta, Callback<Respuesta> callback);
 }
+

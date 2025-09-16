@@ -10,6 +10,6 @@ import retrofit2.http.POST;
 // esta interfaz poseera los metodos del cliente http retrofit
 public interface RecommendationService {
 
-    @POST("api/Recommendation")
+    @POST("api/recommendation/getRecommendation")
     Call<RespuestaResponse> enviarPregunta(@Body PreguntaRequest pregunta);
 }

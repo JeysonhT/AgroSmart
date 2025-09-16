@@ -1,5 +1,7 @@
 package com.example.agrosmart.presentation.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,10 +12,15 @@ import com.example.agrosmart.domain.repository.UserDtlRepository;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
+import java.util.Collection;
 import java.util.List;
+
+import io.realm.RealmList;
 
 
 public class ProfileDetailViewModel extends ViewModel {
+
+    private final String TAG = "PROFILE_DETAIL_VIEWMODEL";
 
     private final MutableLiveData<UserDetails> userDetails = new MutableLiveData<>();
 
@@ -25,15 +32,22 @@ public class ProfileDetailViewModel extends ViewModel {
     }
 
     public LiveData<UserDetails> getUserDetailsLiveData(String username){
-        udRepository.getUserDetails(db, username, details -> {
-            userDetails.setValue(new UserDetails(
-                    username,
-                    (String) details.get("phoneNumber"),
-                    (String) details.get("municipality"),
-                    (List<String>) details.get("soilTypes")
-            ));
-
-        });
+        try {
+            RealmList<String> lista = new RealmList<>();
+            udRepository.getUserDetails(db, username, details -> {
+                if(!details.isEmpty()){
+                    lista.addAll((Collection<? extends String>) details.get("soilTypes"));
+                    userDetails.setValue(new UserDetails(
+                            username,
+                            (String) details.get("phoneNumber"),
+                            (String) details.get("municipality"),
+                            lista)
+                    );
+                }
+            });
+        } catch (NullPointerException e){
+            Log.println(Log.ERROR, TAG, "User not have details saved");
+        }
 
         return userDetails;
     }

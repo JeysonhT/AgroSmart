@@ -3,7 +3,9 @@ package com.example.agrosmart.data.local.ml;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import com.example.agrosmart.ml.AgroSmartMMLite;
+import android.util.Log;
+
+import com.example.agrosmart.ml.AgroSmartMML;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.common.ops.NormalizeOp;
@@ -20,10 +22,12 @@ import java.util.List;
 
 public class DetectionService {
 
+    private final String TAG = "DETECTION_SERVICE";
+
     public TensorImage bitmatToTensor(Bitmap bitmap){
         //se carga el bitmap a un tensor image
         TensorImage tensorImage = new TensorImage(DataType.UINT8);
-        // el tipo de dato unit9 corresponde a 0-255 referente a los bits de una imagen e formato rgb
+        // el tipo de dato unit8 corresponde a 0-255 referente a los bits de una imagen e formato rgb
         tensorImage.load(bitmap);
 
         // se tienen que normalizar los bits de la imagen en valores de entre 0 y 1 en formato float
@@ -42,13 +46,13 @@ public class DetectionService {
         String resultado = "";
         try{
             // se instancia el modelo de tensorflow entrenado
-            AgroSmartMMLite model = AgroSmartMMLite.newInstance(context);
+            AgroSmartMML model = AgroSmartMML.newInstance(context);
 
             // creamos la salida, la cual tendra como valor el resultado que entregue el modelo
-            AgroSmartMMLite.Outputs outputs = model.process(tensorImage.getTensorBuffer());
+            AgroSmartMML.Outputs outputs = model.process(tensorImage.getTensorBuffer());
 
             //obtenemos todas las clases del archivo de clases
-            List<String> clases = readClassFile(context, "clases.txt");
+            List<String> clases = readClassFile(context);
 
             if(!clases.isEmpty()){
                 // obtenemos la salida en un buffer de bytes para proceder a procesarla
@@ -63,26 +67,24 @@ public class DetectionService {
                         maxProb = coincidencias[i];
                         maxIndex=i;
                     }
-                    System.out.println("coincidencia: " + i + "= " + coincidencias[i]);
                 }
-                System.out.println(maxIndex);
                 resultado =  clases.get(maxIndex);
             } else {
                 throw new RuntimeException("Archivo de clases vacio");
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Log.println(Log.ERROR, TAG, "Model has no loaded");
         }
         return resultado;
     }
 
-    private List<String> readClassFile(Context context, String uri) {
+    private List<String> readClassFile(Context context) {
         List<String> clases = new ArrayList<>();
 
         AssetManager assetManager = context.getAssets();
 
         try(BufferedReader reader = new BufferedReader(
-                new InputStreamReader(assetManager.open(uri)))) {
+                new InputStreamReader(assetManager.open("clases.txt")))) {
             String line;
 
             while((line = reader.readLine()) != null) {

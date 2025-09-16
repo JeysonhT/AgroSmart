@@ -1,59 +1,105 @@
 package com.example.agrosmart.presentation.ui.adapter;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.collection.MutableObjectList;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrosmart.R;
-import com.example.agrosmart.domain.designModels.ListView;
+import com.example.agrosmart.core.utils.classes.ImageCacheManager;
+import com.example.agrosmart.databinding.ItemHistoryDetectionBinding;
+import com.example.agrosmart.domain.designModels.DiagnosisHistoryListView;
+import com.example.agrosmart.presentation.ui.fragment.DetectionFragmentDirections;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class DiagnosisHistoryAdapter extends RecyclerView.Adapter<DiagnosisHistoryAdapter.ListViewHolder>{
-    private Context context;
-    private List<ListView> listaModelo;
+    private MutableObjectList<DiagnosisHistoryListView> listaModelo;
+    private NavController navController;
+    Consumer<Integer> onDeleteListener;
 
-    public DiagnosisHistoryAdapter(Context context, List<ListView> listaModelo){
-        this.context = context;
+    public DiagnosisHistoryAdapter(MutableObjectList<DiagnosisHistoryListView> listaModelo, NavController navController,
+                                   Consumer<Integer> _onDeleteListener){
         this.listaModelo = listaModelo;
+        this.navController = navController;
+        this.onDeleteListener = _onDeleteListener;
+    }
+
+    public void updateData(List<DiagnosisHistoryListView> histories){
+        listaModelo.clear();
+        listaModelo.addAll(histories);
     }
 
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_list_detection, parent, false);
+        View view = LayoutInflater.from(parent.getContext() ).inflate(R.layout.item_history_detection, parent, false);
 
         return new ListViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        ListView listModel = listaModelo.get(position);
+        DiagnosisHistoryListView listModel = listaModelo.get(position);
 
-        holder.imageView.setImageResource(listModel.getIcono());
-        holder.textView.setText(listModel.getTexto());
-        holder.textView.setTextColor(Color.WHITE);
+        holder.render(listModel, navController, onDeleteListener, position);
     }
 
     @Override
     public int getItemCount() {
-        return listaModelo.size();
+        return listaModelo.count();
     }
 
     static class ListViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
-        ImageView imageView;
+        ItemHistoryDetectionBinding binding;
+
         public ListViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textViewDeficiencyList);
-            imageView = itemView.findViewById(R.id.iconImageView);
+            binding = ItemHistoryDetectionBinding.bind(itemView);
         }
+
+        public void render(DiagnosisHistoryListView listView, NavController navController,
+                           Consumer<Integer> onDeleteListener, int index){
+            binding.iconCropImage.setImageResource(listView.getCropIcon());
+            binding.iconDeficiencyImage.setImageResource(listView.getDeficiencyIcon());
+            binding.textDateDiagnosisHistory.setText(listView.getTxtDate());
+            binding.textDateDiagnosisHistory.setTextColor(Color.BLACK);
+
+            //modificar el listener a el item view completo
+            binding.listCardView.setOnClickListener( v -> {
+                try {
+                    NavDirections action = DetectionFragmentDirections.
+                            actionDetectionFragmentToDiagnosisInfoFragment(
+                                    ImageCacheManager.saveImageToCache(
+                                            binding.listCardView.getContext(),
+                                            listView.getImage()),
+                                    listView.getDeficiency().split(" ")[0],
+                                    listView.getTxtDate(),
+                                    listView.getDeficiency(),
+                                    listView.getRecommendation()
+                            );
+
+                    navController.navigate(action);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            binding.imvBotonBorrar.setOnClickListener( v -> {
+                onDeleteListener.accept(index);
+            });
+
+        }
+
+        //crear el listener del fututo boton de borrar
+
     }
 }

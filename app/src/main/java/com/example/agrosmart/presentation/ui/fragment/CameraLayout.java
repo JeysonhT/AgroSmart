@@ -1,8 +1,15 @@
 package com.example.agrosmart.presentation.ui.fragment;
 
+import static android.view.Surface.ROTATION_90;
+
+import static androidx.core.content.ContextCompat.getDisplayOrDefault;
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,9 +17,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.util.Size;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -21,6 +31,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.core.Camera;
+import androidx.camera.core.CameraInfo;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageProxy;
@@ -29,19 +40,18 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.agrosmart.R;
 import com.example.agrosmart.data.local.ml.DetectionService;
-import com.example.agrosmart.data.repository.impl.RecommendationServiceImpl;
-import com.example.agrosmart.core.utils.classes.NetworkChecker;
+import com.example.agrosmart.databinding.FragmentCameraLayoutBinding;
+import com.example.agrosmart.presentation.viewmodels.DetectionFragmentViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.tensorflow.lite.support.image.TensorImage;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -54,9 +64,9 @@ public class CameraLayout extends Fragment {
     private static final String TAG = "CameraLayout";
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-    private Button takePhoto;
-    private Button searchPhoto;
-    private PreviewView previewView;
+
+    private FragmentCameraLayoutBinding binding;
+
     private ImageCapture imageCapture;
 
     private Bitmap imageBitmap;
@@ -64,6 +74,8 @@ public class CameraLayout extends Fragment {
     private ActivityResultLauncher<String> imgGetContent;
 
     private DetectionService detectionService;
+
+    private DetectionFragmentViewModel dfViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,25 +88,23 @@ public class CameraLayout extends Fragment {
         }
 
         imgGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
-                new ActivityResultCallback<Uri>() {
-                    @Override
-                    public void onActivityResult(Uri uri) {
-                        if(uri!=null){
-                            try{
-                                InputStream inputStream = requireContext().getContentResolver().openInputStream(uri);
+                uri -> {
+                    if(uri!=null){
+                        try{
+                            InputStream inputStream = requireContext().getContentResolver()
+                                    .openInputStream(uri);
 
-                                imageBitmap = BitmapFactory.decodeStream(inputStream);
+                            imageBitmap = BitmapFactory.decodeStream(inputStream);
 
-                                sendImageToDetection(imageBitmap);
+                            sendImageToDetection(resizeBitmap(imageBitmap));
 
-                                if(inputStream!=null){
-                                    inputStream.close();
-                                }
-
-                            } catch (IOException e) {
-                                mostrarDialogo("No se pudo cargar la imagen");
-                                Log.e(TAG, e.toString());
+                            if(inputStream!=null){
+                                inputStream.close();
                             }
+
+                        } catch (IOException e) {
+                            mostrarDialogo("No se pudo cargar la imagen");
+                            Log.e(TAG, e.toString());
                         }
                     }
                 });
@@ -103,23 +113,27 @@ public class CameraLayout extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_camera_layout, container, false);
+        binding = FragmentCameraLayoutBinding.inflate(inflater, container, false);
 
-        takePhoto = view.findViewById(R.id.image_capture_button);
-        searchPhoto = view.findViewById(R.id.search_image_button);
-        previewView = view.findViewById(R.id.photo_preview);
+        dfViewModel = new ViewModelProvider(this).
+                get(DetectionFragmentViewModel.class);
 
         setUpCamera();
 
-        takePhoto.setOnClickListener(v -> {
+        binding.imageCaptureButton.setOnClickListener(v -> {
             takeImage();
         });
 
-        searchPhoto.setOnClickListener(v -> {
+        binding.searchImageButton.setOnClickListener(v -> {
             imgGetContent.launch("image/*");
         });
 
-        return view;
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     private void setUpCamera() {
@@ -135,7 +149,6 @@ public class CameraLayout extends Fragment {
         imageCapture = new ImageCapture.Builder()
                 //.setTargetAspectRatio(RATIO_4_3)
                 .setTargetResolution(new Size(224, 224))
-
                 .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                 .build();
 
@@ -146,7 +159,7 @@ public class CameraLayout extends Fragment {
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
 
                 getViewLifecycleOwner();
-                if (previewView == null) {
+                if (binding == null || binding.photoPreview == null) {
                     Log.e(TAG, "LifecycleOwner or previewView is null");
                     return;
                 }
@@ -158,25 +171,29 @@ public class CameraLayout extends Fragment {
                         imageCapture,
                         preview
                 );
+                CameraInfo cameraInfo = camera.getCameraInfo();
+                preview.setSurfaceProvider(binding.photoPreview.getSurfaceProvider());
 
-                previewView.getSurfaceProvider();
-                preview.setSurfaceProvider(previewView.getSurfaceProvider());
-
+                Log.d(TAG, "Cámara configurada correctamente: " + cameraInfo.toString());
             } catch (ExecutionException | InterruptedException e) {
                 Log.e(TAG, "Error al obtener cameraProvider", e);
             }
         }, ContextCompat.getMainExecutor(getContext()));
     }
 
+    //toma la foto desde el image capture
     public void takeImage(){
         Handler handler = new Handler(Looper.getMainLooper());
         imageCapture.takePicture(Executors.newSingleThreadExecutor(), new ImageCapture.OnImageCapturedCallback() {
             @Override
             public void onCaptureSuccess(@NonNull ImageProxy image) {
                 super.onCaptureSuccess(image);
-                // se usara este bitmap para pasarlo al modelo de machine learning
-                Bitmap bitmap = imageToBitMap(image);
-
+                // se decodifica la imagen de primero para obtener los bytes y luego convertirlos
+                // bitmap e usarlo para el analisis
+                //byte[] imgBytes = getJpegBytesFromImageProxy(image);
+                Bitmap bitmap = imageToBitmap(image);
+                byte[] improveBitmapByteArray = compressBitmap(bitmap);
+                System.out.println("Bytes de la primera conversion desde el improveBitmap = " + improveBitmapByteArray.length);
                 detectionService = new DetectionService();
 
                 // se crea un tensor image a partir de un bitmap sin dimencionar
@@ -193,10 +210,12 @@ public class CameraLayout extends Fragment {
                     });
                 } else {
                     handler.post(() -> {
+                            dfViewModel.saveDiagnosis(resultado, improveBitmapByteArray);
                             //volver al framento de deteccion para realizar las recomendaciones
                             Bundle bundle = new Bundle();
 
                             bundle.putString("resultado", resultado);
+                            //bundle.putByteArray("image", improveBitmapByteArray);
 
                             getParentFragmentManager().setFragmentResult("resultado_camara", bundle);
 
@@ -207,6 +226,7 @@ public class CameraLayout extends Fragment {
         });
     }
 
+    //toma la foto desde los archivos
     public void sendImageToDetection(Bitmap image){
         Handler handler = new Handler(Looper.getMainLooper());
         detectionService = new DetectionService();
@@ -218,6 +238,9 @@ public class CameraLayout extends Fragment {
 
                 // se captura el resultado y se envia a el mostrar dialogo
                 final String resultado = detectionService.processDetection(tensor, getContext());
+                byte[] imgBytes = compressBitmap(image);
+
+                System.out.println("numero de buyes desde la conversion de un archivo: " + imgBytes.length);
 
                 if(Objects.equals(resultado, "")){
                     handler.post(() -> {
@@ -225,6 +248,7 @@ public class CameraLayout extends Fragment {
                     });
                 } else {
                     handler.post(() -> {
+                            dfViewModel.saveDiagnosis(resultado, imgBytes);
                             //volver al framento de deteccion para realizar las recomendaciones
                             Bundle bundle = new Bundle();
 
@@ -243,44 +267,45 @@ public class CameraLayout extends Fragment {
 
     // metodos auxiliares
 
-    private Bitmap imageToBitMap(ImageProxy imageProxy){
-        // se obtiene cada uno de los bytes de la imagen, se toma la imagen jpeg que se encuentra en el primer plano del image proxy
-        ImageProxy.PlaneProxy planeProxy = imageProxy.getPlanes()[0];
+    private Bitmap imageToBitmap(ImageProxy image){
+        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
 
-        ByteBuffer buffer = planeProxy.getBuffer();
-
-        // se pasa el buffer a un nuevo array de bytes
-        byte[] bytes = new byte[buffer.remaining()];
-
-        buffer.get(bytes);
+        byte[] jpegBytes = new byte[buffer.remaining()];
+        buffer.get(jpegBytes);
 
         // decodificación del arreglo de bytes
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(jpegBytes, 0, jpegBytes.length);
 
         // se usa una matriz de graficos para corregir la rotación de la imagen
         Matrix matrix = new Matrix();
-        matrix.postRotate(imageProxy.getImageInfo().getRotationDegrees());
+        matrix.postRotate(image.getImageInfo().getRotationDegrees());
 
-        Bitmap rotatedMap = Bitmap.createBitmap(bitmap, 0, 0,
+        return Bitmap.createBitmap(bitmap, 0, 0,
                 bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
 
-        // por ultimo se redimenciona el bitmap a 224 * 224
-        return Bitmap.createScaledBitmap(rotatedMap,
-                224, 224,
-                true);
+
+    private Bitmap resizeBitmap(Bitmap bm){
+        return Bitmap.createScaledBitmap(bm, 224, 224, true);
+    }
+
+    private byte[] compressBitmap(Bitmap bm){
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 85, outputStream);
+
+        return outputStream.toByteArray();
     }
 
     private void mostrarDialogo(String mensaje) {
-                new MaterialAlertDialogBuilder(getContext())
-                 .setTitle("Resultado de diagnostico")
-                        .setMessage(mensaje)
-                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        new MaterialAlertDialogBuilder(getContext())
+                .setTitle("Resultado de diagnostico")
+                .setMessage(mensaje)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 }).show();
     }
-
 
 }

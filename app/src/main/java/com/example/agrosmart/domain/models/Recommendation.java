@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+//clase a eliminar
 @Getter @Setter @AllArgsConstructor
 public class Recommendation extends RealmObject {
     @PrimaryKey

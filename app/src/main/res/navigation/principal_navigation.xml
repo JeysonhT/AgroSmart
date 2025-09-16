@@ -9,7 +9,29 @@
         android:id="@+id/home_Fragment"
         android:name="com.example.agrosmart.presentation.ui.fragment.Home_Fragment"
         android:label="fragment_home_"
-        tools:layout="@layout/fragment_home_" />
+        tools:layout="@layout/fragment_home_">
+
+        <action android:id="@+id/action_homeFragment_to_newsInfoFragment"
+            app:destination="@+id/newsInfoFragment">
+            <argument
+                android:name="image"
+                app:argType="string"/>
+            <argument
+                android:name="title"
+                app:argType="string"/>
+            <argument
+                android:name="publicationDate"
+                app:argType="string"/>
+            <argument
+                android:name="author"
+                app:argType="string"/>
+            <argument
+                android:name="content"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
+
     <fragment
         android:id="@+id/detectionFragment"
         android:name="com.example.agrosmart.presentation.ui.fragment.DetectionFragment"
@@ -19,6 +41,25 @@
         <action
             android:id="@+id/action_detectionFragment_to_cameraLayout2"
             app:destination="@id/cameraLayout2" />
+        <action
+            android:id="@+id/action_detectionFragment_to_diagnosisInfoFragment"
+            app:destination="@id/diagnosisInfoFragment">
+            <argument
+                android:name="cropImage"
+                app:argType="string"/>
+            <argument
+                android:name="cropName"
+                app:argType="string"/>
+            <argument
+                android:name="diagnosisDate"
+                app:argType="string"/>
+            <argument
+                android:name="diagnosisName"
+                app:argType="string"/>
+            <argument
+                android:name="recommendation"
+                app:argType="string"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -51,4 +92,14 @@
             android:id="@+id/action_cameraLayout2_to_detectionFragment"
             app:destination="@id/detectionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/newsInfoFragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.NewsInfoFragment"
+        android:label="fragment_news_info"
+        tools:layout="@layout/fragment_news_info" />
+    <fragment
+        android:id="@+id/diagnosisInfoFragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.DiagnosisInfoFragment"
+        android:label="fragment_diagnosis_info"
+        tools:layout="@layout/fragment_diagnosis_info" />
 </navigation>

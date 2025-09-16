@@ -9,10 +9,10 @@ import lombok.Setter;
 
 @Getter @Setter
 public class PreguntaRequest {
-    @SerializedName("pregunta")
-    private String pregunta;
+    @SerializedName("request")
+    private String request;
 
-    public PreguntaRequest(String pregunta) {
-        this.pregunta = pregunta;
+    public PreguntaRequest(String request) {
+        this.request = request;
     }
 }

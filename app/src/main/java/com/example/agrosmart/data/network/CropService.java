@@ -1,10 +1,10 @@
 package com.example.agrosmart.data.network;
 
 import com.example.agrosmart.core.utils.interfaces.CropsCallback;
+import com.example.agrosmart.data.local.dto.CropDTO;
 import com.example.agrosmart.domain.models.Crop;
 import com.example.agrosmart.domain.repository.CropRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CropService {
@@ -14,12 +14,11 @@ public class CropService {
         this.repository = repository;
     }
 
-    public List<Crop> getCropsFromFirebase(CropsCallback callback){
-        List<Crop> cropData = new ArrayList<>();
-        cropData = repository.getCrops(callback);
-        if(!cropData.isEmpty()){
-            System.out.println(cropData.get(0).getCropName());
-        }
-        return cropData;
+    public void getCropsFromFirebase(CropsCallback callback){
+        repository.getCrops(callback);
+    }
+
+    public void getCropByName(String name, CropsCallback callback){
+        repository.getCropByName(name, callback);
     }
 }

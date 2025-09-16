@@ -2,6 +2,7 @@ package com.example.agrosmart.domain.models;
 
 import java.util.List;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -19,7 +20,8 @@ public class UserDetails extends RealmObject{
     private String municipality;
     private RealmList<String> soilTypes;
 
-    public UserDetails(String username, String phoneNumber, String municipality, RealmList<String> soilTypes) {
+    public UserDetails(String username, String phoneNumber,
+                       String municipality, RealmList<String> soilTypes) {
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.municipality = municipality;

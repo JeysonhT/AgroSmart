@@ -13,6 +13,8 @@ public class News extends RealmObject {
     @PrimaryKey
     private String _id;
     private int imageResource;
+    private byte[] image;
+    private String author;
     private String newsName;
     private String description;
     private String publicationDate;
@@ -25,6 +27,15 @@ public class News extends RealmObject {
         this.description = descripcion;
         this.publicationDate = fecha_publicacion;
         this.information = informacion;
+    }
+
+    public News(byte[] _image, String _author, String _newsName, String _description, String _date, String _information){
+        this.image = _image;
+        this.author = _author;
+        this.newsName = _newsName;
+        this.description = _description;
+        this.publicationDate = _date;
+        this.information = _information;
     }
 
     public News(){

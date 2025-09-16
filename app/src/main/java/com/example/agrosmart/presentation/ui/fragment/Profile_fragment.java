@@ -20,6 +20,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -68,15 +69,16 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        LinearLayout containerLayout = mainView.findViewById(R.id.layout_container);
+        FrameLayout topLayoutContainer = mainView.findViewById(R.id.topLayoutContainer);
+        FrameLayout bottomLayoutContainer = mainView.findViewById(R.id.bottomLayoutContainer);
 
-        imageProfileView = inflater.inflate(R.layout.item_image_profile, containerLayout, false);
+        imageProfileView = inflater.inflate(R.layout.item_image_profile, topLayoutContainer, false);
 
         ImageView imageView = imageProfileView.findViewById(R.id.imageProfile);
         TextView textNameView = imageProfileView.findViewById(R.id.textNameProfile);
         TextView textEmailView = imageProfileView.findViewById(R.id.textEmailProfile);
 
-        containerLayout.addView(imageProfileView);
+        topLayoutContainer.addView(imageProfileView);
 
         // se crea la instancia del view model de este fragmento
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
@@ -84,7 +86,7 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
         // el view model manejara los datos de inicio de sesión para mantener los datos aunque el fragmento se destruya
         profileViewModel.getUserData().observe(getViewLifecycleOwner(), user -> {
             //se limpia la zona debajo de la imagen para evitar sobre posiciones inesperadas
-            containerLayout.removeViews(1, containerLayout.getChildCount() - 1);
+            topLayoutContainer.removeViews(1, topLayoutContainer.getChildCount() - 1);
 
             // si hay un usuario iniciado sesión inflaremos la vista con el diseño correspondiente
             if(user!=null){
@@ -103,9 +105,9 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
                 textEmailView.setText(emailuser);
 
                 // inflamos la vista con el elemento de botones que corresponden a un usuario logueado
-                loginOrAccountView = inflater.inflate(R.layout.item_account_layout, containerLayout, false);
+                loginOrAccountView = inflater.inflate(R.layout.item_account_layout, bottomLayoutContainer, false);
                 // se añade a la vista
-                containerLayout.addView(loginOrAccountView);
+                bottomLayoutContainer.addView(loginOrAccountView);
 
                 // asignamos el listener al boton de editar perfil para que navegue al fragmento correspondiente
                 loginOrAccountView.findViewById(R.id.btnEditarPerfil).setOnClickListener(v -> {
@@ -123,8 +125,8 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
 
             } else {
                 // proceso correspondiente a cuando el usuario no esta logueado y solo es invitado
-                loginOrAccountView = inflater.inflate(R.layout.item_login_layout, containerLayout, false);
-                containerLayout.addView(loginOrAccountView);
+                loginOrAccountView = inflater.inflate(R.layout.item_login_layout, bottomLayoutContainer, false);
+                bottomLayoutContainer.addView(loginOrAccountView);
 
                 imageView.setImageResource(R.drawable.invitado_holi);
                 textNameView.setText("Invitado");

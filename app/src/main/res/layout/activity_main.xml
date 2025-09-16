@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".presentation.ui.activity.MainActivity">
 
   <androidx.fragment.app.FragmentContainerView
@@ -15,13 +14,19 @@
       android:layout_height="match_parent"
       android:layout_marginBottom="0dp"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
       app:navGraph="@navigation/principal_navigation"
       app:defaultNavHost="true"
       />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/mainGuide10"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.9"/>
 
   <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/bottom_navigation"
@@ -32,7 +37,6 @@
       app:labelVisibilityMode="labeled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:menu="@menu/bottom_navigation_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

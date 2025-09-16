@@ -14,6 +14,7 @@ import retrofit2.Response;
 // implementacion del repositorio de recomendaciones
 public class RecommendationServiceImpl implements RecomendationRepository {
 
+    private static final String TAG = "RECOMMENDATION_SERVICE";
     // inicialización de lo que sera el cliente http que se encargara de procesar nuestra peticion
     // de generar recomendaciones al backend
     RecommendationService api;
@@ -36,9 +37,9 @@ public class RecommendationServiceImpl implements RecomendationRepository {
                 if(response.isSuccessful() && response.body()!=null){
                     callback.onResponse(null, Response.success(new Respuesta(response
                                     .body().
-                                    getRespuesta())));
+                            getResponse())));
                 } else {
-                    callback.onFailure(null, new Throwable("error en la resuesta de la api"));
+                    callback.onFailure(null, new Throwable("error en la respuesta de la api"));
                 }
             }
 

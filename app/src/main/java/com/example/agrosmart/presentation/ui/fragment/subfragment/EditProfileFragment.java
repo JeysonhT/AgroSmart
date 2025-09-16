@@ -1,11 +1,13 @@
 package com.example.agrosmart.presentation.ui.fragment.subfragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +18,19 @@ import com.example.agrosmart.R;
 import com.example.agrosmart.domain.models.UserDetails;
 import com.example.agrosmart.presentation.ui.fragment.subfragment.EditProfileFragmentArgs;
 import com.example.agrosmart.presentation.viewmodels.ProfileDetailViewModel;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import io.realm.RealmList;
 
 public class EditProfileFragment extends Fragment {
 
-    private final String TAG = "AgroSmartFirestore";
+    private final String TAG = "EDIT_PROFILE_FRAGMENT";
 
     private String username;
 
@@ -79,9 +86,9 @@ public class EditProfileFragment extends Fragment {
            // se obtiene la lista de tipos de suelo y
            // se transforma a los string correspondientes
            // haciendo uso de text utils de android
-           List<String> soils = (List<String>) detail.getSoilTypes();
+           List<String> soils = detail.getSoilTypes();
            if (soils != null && !soils.isEmpty()) {
-               String joined = TextUtils.join(",", soils);
+               String joined = TextUtils.join(", ", soils);
                soilTypestxt.setText(joined);
            }
        });
@@ -90,7 +97,12 @@ public class EditProfileFragment extends Fragment {
         Button saveButton = view.findViewById(R.id.btnGuardarDetails);
 
         saveButton.setOnClickListener(v -> {
-            obtenerDetalles(username);
+            try {
+                obtenerDetalles(username);
+            } catch (Exception e){
+                mostrarDialogo("Error",e.getMessage());
+                Log.println(Log.ERROR, TAG, e.getMessage());
+            }
         });
 
         // se retorna la vista
@@ -102,7 +114,19 @@ public class EditProfileFragment extends Fragment {
         //declaro el objeto userDetail
         UserDetails userDetails = new UserDetails();
         userDetails.setUsername(fBSusername);
+
+        if(phoneNumbertxt.getText().toString().strip().length() < 8){
+            throw new IllegalArgumentException("numero muy corto, ingreselo correctamente");
+        } else if(municipalitytxt.getText().toString().matches("^\\d+$")){
+            throw new IllegalArgumentException("El numero telefonico solo debe incluir numeros");
+        }
         userDetails.setPhoneNumber(phoneNumbertxt.getText().toString());
+
+        if(municipalitytxt.getText().toString().strip().length() < 4){
+            throw new IllegalArgumentException("Nombre de municipio muy corto");
+        } else if(!municipalitytxt.getText().toString().matches("^[a-zA-Z]+$")){
+            throw new IllegalArgumentException("El nombre del municipio solo debe de contener letras");
+        }
         userDetails.setMunicipality(municipalitytxt.getText().toString());
 
         /* se obtiene el  texto de los tipos de suelo, luego se divide
@@ -113,11 +137,29 @@ public class EditProfileFragment extends Fragment {
         * */
         String soilText = soilTypestxt.getText().toString();
 
+        RealmList<String> lista = new RealmList<>();
+
         String[] parts = soilText.split(",");
-        userDetails.setSoilTypes(new ArrayList<>(Arrays.asList(parts)));
+        lista.addAll(List.of(parts));
+        userDetails.setSoilTypes(lista);
 
         // se guarda el userdetails con el metodo del repositorio correspondiente
-        profileViewModel.postDetails(userDetails);;
+        profileViewModel.postDetails(userDetails);
+
+        mostrarDialogo("Mensaje", "Datos guardados");
+    }
+
+    //metodos auxiliares
+    private void mostrarDialogo(String titulo,String mensaje) {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(titulo)
+                .setMessage(mensaje)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
 }

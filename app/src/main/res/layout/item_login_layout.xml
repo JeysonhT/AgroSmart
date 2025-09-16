@@ -8,7 +8,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:textSize="30sp"
         android:textColor="@color/black"
         android:text="Inicia Sesión"
@@ -17,20 +16,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:textColor="@color/bice_blue"
         android:textStyle="bold"
         android:textSize="15sp"
         android:textAlignment="center"
         android:text="No puedes acceder a las funciones de \nrespaldo e IA sin una cuenta registrada"
-
         />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
 
     <Button
         android:id="@+id/btn_auth_google"
-        android:layout_width="300dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         android:text="@string/googleButtonText"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -39,18 +40,24 @@
         android:background="@drawable/boton_grande_redondeado">
     </Button>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
     <Button
-        android:layout_width="300dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         android:text="@string/facebookButtonText"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textAlignment="center"
         android:drawableLeft="@drawable/facebook"
-
-        android:background="@drawable/boton_grande_redondeado"
-        >
+        android:background="@drawable/boton_grande_redondeado">
     </Button>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
 
 </LinearLayout>

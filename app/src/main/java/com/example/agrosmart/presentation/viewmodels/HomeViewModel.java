@@ -1,7 +1,6 @@
 package com.example.agrosmart.presentation.viewmodels;
 
-import android.os.Handler;
-import android.os.Looper;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -9,9 +8,12 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.interfaces.CropsCallback;
+import com.example.agrosmart.core.utils.interfaces.NewsCallBack;
 import com.example.agrosmart.domain.designModels.CropCarouselData;
 import com.example.agrosmart.domain.models.Crop;
+import com.example.agrosmart.domain.models.News;
 import com.example.agrosmart.domain.usecase.CropsUseCase;
+import com.example.agrosmart.domain.usecase.NewsUseCase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +21,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class HomeViewModel extends ViewModel {
+    private final String TAG = "HOME_VIEWMODEL";
     private final MutableLiveData<List<CropCarouselData>> cropsData = new MutableLiveData<>();
+    private final MutableLiveData<List<News>> newsData = new MutableLiveData<>();
 
     public LiveData<List<CropCarouselData>> getCrops(){
         return cropsData;
@@ -28,16 +32,16 @@ public class HomeViewModel extends ViewModel {
     public void loadCrops() {
         CropsUseCase useCase = new CropsUseCase();
 
-        List<Crop> crops = useCase.getCrops(new CropsCallback() {
+        useCase.getCrops(new CropsCallback() {
             @Override
             public void onCropsLoaded(List<Crop> crops) {
                 List<CropCarouselData> data = new ArrayList<>();
                 if(!crops.isEmpty()){
                     for(Crop c: crops){
-                        System.out.println(c.getContent());
                         data.add(createCropInfo(c));
                     }
                     cropsData.setValue(data);
+                    Log.println(Log.ASSERT, TAG, "Datos cargados exitosamente");
                 } else {
                     cropsData.setValue(Collections.emptyList());
                 }
@@ -49,6 +53,28 @@ public class HomeViewModel extends ViewModel {
             }
         });
     }
+
+    public LiveData<List<News>> getNews(){
+        return newsData;
+    }
+
+    public void loadNews(){
+        NewsUseCase useCase = new NewsUseCase();
+
+        useCase.getNewsUseCase(new NewsCallBack() {
+            @Override
+            public void onLoaded(List<News> news) {
+                newsData.setValue(news);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.println(Log.ERROR, TAG, e.getMessage());
+            }
+        });
+    }
+
+    //metodos auxiliares
 
     public CropCarouselData createCropInfo(Crop c){
         return new CropCarouselData(getCropImage(c.getCropName()), c.getCropName(), c.getDescription());

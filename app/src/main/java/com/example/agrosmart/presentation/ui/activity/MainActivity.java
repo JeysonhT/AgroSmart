@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.navigation.NavController;
 
 import com.example.agrosmart.R;
+import com.example.agrosmart.data.local.realmsetup.realm.RealmSetup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
@@ -27,14 +28,11 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left
-                    , systemBars.top,
-                    systemBars.right,
-                    systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
@@ -47,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "NavHostFragment no encontrado", Toast.LENGTH_LONG).show();
         }
+
+        //inicialización de realm
+        RealmSetup.setRealConfig(this);
 
         Objects.requireNonNull(getSupportActionBar()).hide(); // Para AppCompatActivity
 

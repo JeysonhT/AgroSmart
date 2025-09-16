@@ -1,11 +1,10 @@
 package com.example.agrosmart.domain.repository;
 
 import com.example.agrosmart.core.utils.interfaces.CropsCallback;
-import com.example.agrosmart.domain.models.Crop;
+import com.example.agrosmart.data.local.dto.CropDTO;
 
-import java.util.List;
 
 public interface CropRepository {
-    List<Crop> getCrops(CropsCallback callback);
-    void addCropToFavorite(Crop crop);
+    void getCrops(CropsCallback callback);
+    void getCropByName(String name, CropsCallback callback);
 }

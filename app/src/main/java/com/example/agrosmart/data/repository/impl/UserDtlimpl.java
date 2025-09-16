@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.agrosmart.data.network.dto.UserDetailsDto;
 import com.example.agrosmart.domain.models.UserDetails;
 import com.example.agrosmart.domain.repository.UserDtlRepository;
 import com.example.agrosmart.core.utils.interfaces.OnUserDetailsLoaded;
@@ -13,17 +14,25 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserDtlimpl implements UserDtlRepository {
 
-    private final String TAG = "AgroSmartFirestore";
+    private final String TAG = "USER_DETAILS_REPOSITORY";
     @Override
     public void postUserDetails(FirebaseFirestore db, UserDetails userDetails) {
+
+        UserDetailsDto usrDto = new UserDetailsDto(userDetails.getUsername(),
+                userDetails.getPhoneNumber(),
+                userDetails.getMunicipality(),
+                new ArrayList<>(userDetails.getSoilTypes()));
         // se guarda el documento y se le proporciona como identificador el Email de google
         db.collection("userDetails").document(userDetails.getUsername())
-                .set(userDetails)
+                .set(usrDto)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {

@@ -19,7 +19,7 @@ public class DiagnosisHistory extends RealmObject {
     private Date diagnosisDate;
     private String deficiency;
     private byte[] image;
-    private String observations;
+    private String recommendation;
     private Long lastUpdate;
 
     public DiagnosisHistory(){

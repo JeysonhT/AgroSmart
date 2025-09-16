@@ -1,11 +1,11 @@
 Frijol con deficiencia de magnesio
 Frijol con deficiencia de nitrogeno
 Frijol sano
-Maiz con deficiencia de fosforo
-Maiz con deficiencia de magnesio
-Maiz con deficiencia de nitrogeno
-Maiz con deficiencia de potasio
-Maiz sano
+Maíz con deficiencia de fosforo
+Maíz con deficiencia de magnesio
+Maíz con deficiencia de nitrogeno
+Maíz con deficiencia de potasio
+Maíz sano
 Sorgo con deficiencia de fosforo
 Sorgo con deficiencia de nitrogeno
 Sorgo sano

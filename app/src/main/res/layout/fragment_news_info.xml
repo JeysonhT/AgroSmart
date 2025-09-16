@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newsInfoFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.fragment.subfragment.NewsInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/newImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/newimageContentDescription" />
+
+        <TextView
+            android:id="@+id/newTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/newDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/newAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/text_margin"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/newContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textSize="16sp"
+            android:textColor="@color/black">
+
+        </TextView>
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

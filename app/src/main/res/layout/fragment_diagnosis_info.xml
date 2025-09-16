@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.ui.fragment.subfragment.DiagnosisInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_gravity="bottom"
+            app:cardCornerRadius="10dp">
+            <ImageView
+                android:id="@+id/cropImageInformation"
+                android:layout_width="match_parent"
+                android:layout_height="244dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="cropImage" />
+
+            <TextView
+                android:id="@+id/cropNameInformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:layout_gravity="bottom"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_margin"
+            android:text="Fecha"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/dateDiagnosisInformation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_margin"
+            android:text="Deficiencia"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/defiencyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_margin"
+            android:text="Recomendación"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/recommendationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_margin="@dimen/text_margin" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

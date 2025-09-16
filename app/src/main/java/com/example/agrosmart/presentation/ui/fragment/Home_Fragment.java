@@ -5,11 +5,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,7 +36,8 @@ public class Home_Fragment extends Fragment {
 
     private HomeViewModel viewModel;
     private CropInfoAdapter cropAdapter;
-    private NewsAdapter newsAdapter;
+
+    private NavController navController;
 
     @Nullable
     @Override
@@ -45,6 +50,8 @@ public class Home_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //controlador de navegación
+        navController = Navigation.findNavController(view);
 
         // ViewModel
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -64,25 +71,23 @@ public class Home_Fragment extends Fragment {
         });
 
         viewModel.loadCrops();
+        viewModel.loadNews();
 
         // RecyclerView noticias
         noticeView = view.findViewById(R.id.noticeRecyclerView);
         noticeView.setLayoutManager(
                 new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        newsAdapter = new NewsAdapter(getContext(), loadNews());
-        noticeView.setAdapter(newsAdapter);
+        renderNews();
     }
 
-    private List<News> loadNews() {
-        List<News> newsList = new ArrayList<>();
-        newsList.add(new News(
-                R.drawable.frijoles,
-                "Avanza siembra de frijol rojo en apante en Nicaragua durante el ciclo 2024/2025",
-                "Nicaragua produce más frijoles, pero es casi imposible llevarlos a la mesa por elevados precios",
-                "2024-04-04",
-                "por aqui va la informacion"
-        ));
-        return newsList;
+    private void renderNews() {
+        viewModel.getNews().observe(getViewLifecycleOwner(), news -> {
+            NewsAdapter adapter = new NewsAdapter(getContext(), new ArrayList<>(), navController);
+            noticeView.setAdapter(adapter);
+            if(!news.isEmpty()){
+                adapter.updateData(news);
+            }
+        });
     }
 
 }

@@ -4,7 +4,8 @@
     android:id="@+id/edit_profile_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.fragment.subfragment.EditProfileFragment">
+    tools:context=".presentation.ui.fragment.subfragment.EditProfileFragment"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Editar datos del perfil"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:background="#D3D3D3"
@@ -45,8 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="10dp"
-            android:layout_marginTop="50dp"
+            android:background="@drawable/item_account_background"
+            android:layout_marginHorizontal="10dp"
             android:gravity="center_horizontal">
 
             <!-- Campos -->
@@ -56,10 +57,11 @@
                 android:inputType="text"
                 android:hint="@string/etNombreString"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:backgroundTint="#D9C784"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/ecru"
                 android:background="@drawable/edittext_bg"
-                android:textColor="#000"/>
+                android:textColor="#000"
+                android:textSize="15sp"/>
 
             <TextView android:text="Agregar número de teléfono" style="@style/LabelStyle"/>
             <EditText
@@ -67,10 +69,11 @@
                 android:hint="@string/etTelefonoString"
                 android:inputType="phone"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:backgroundTint="@color/ecru"
                 android:background="@drawable/edittext_bg"
-                android:textColor="#000"/>
+                android:textColor="#000"
+                android:textSize="15sp"/>
 
             <TextView android:text="Editar municipio" style="@style/LabelStyle"/>
             <EditText
@@ -78,21 +81,25 @@
                 android:inputType="text"
                 android:hint="@string/etMunicipioString"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:backgroundTint="@color/ecru"
                 android:background="@drawable/edittext_bg"
-                android:textColor="#000"/>
+                android:textColor="#000"
+                android:textSize="15sp"
+                />
 
-            <TextView android:text="Editar tipos de suelo" style="@style/LabelStyle"/>
+            <TextView android:text="Editar tipos de suelo"
+                style="@style/LabelStyle"/>
             <EditText
                 android:id="@+id/etSuelo"
                 android:inputType="text"
                 android:hint="@string/etSueloString"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:backgroundTint="#D9C784"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/ecru"
                 android:background="@drawable/edittext_bg"
-                android:textColor="#000"/>
+                android:textColor="#000"
+                android:textSize="15sp"/>
 
             <Button
                 android:id="@+id/btnGuardarDetails"

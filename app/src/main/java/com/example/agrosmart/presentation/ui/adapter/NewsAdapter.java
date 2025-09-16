@@ -1,6 +1,10 @@
 package com.example.agrosmart.presentation.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,20 +12,36 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrosmart.R;
+import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.domain.models.News;
+import com.example.agrosmart.presentation.ui.fragment.Home_FragmentDirections;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
     private Context context;
     private List<News> noticias;
+    private NavController navController;
 
-    public NewsAdapter(Context context, List<News> noticias) {
+    public NewsAdapter(Context context, List<News> noticias, NavController navController) {
         this.context = context;
         this.noticias = noticias;
+        this.navController = navController;
+    }
+
+    public void updateData(List<News> newsData){
+        this.noticias.clear();
+        this.noticias.addAll(newsData);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -34,8 +54,27 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
     @Override
     public void onBindViewHolder(@NonNull NewsHolder holder, int position) {
         News news = noticias.get(position);
-        holder.imageView.setImageResource(news.getImageResource());
+        holder.imageView.setImageBitmap(BitmapFactory.
+                decodeByteArray(news.getImage(), 0, news.getImage().length));
         holder.textView.setText(news.getDescription());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    NavDirections action = Home_FragmentDirections.actionHomeFragmentToNewsInfoFragment(
+                            ImageCacheManager.saveImageToCache(v.getContext(), news.getImage()),
+                            news.getNewsName(),
+                            news.getPublicationDate(),
+                            news.getAuthor(),
+                            news.getInformation()
+                    );
+                    navController.navigate(action);
+                } catch (IllegalStateException | IOException e){
+                    Log.println(Log.ERROR, "NEWS_ADAPTER", Objects.requireNonNull(e.getMessage()));
+                }
+            }
+        });
     }
 
     @Override

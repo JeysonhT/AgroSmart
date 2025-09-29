@@ -75,7 +75,5 @@ public class NewsRepositoryImpl implements NewsRepository {
             Log.println(Log.ERROR, TAG, "Error to convert image");
             return null;
         }
-
-
     }
 }

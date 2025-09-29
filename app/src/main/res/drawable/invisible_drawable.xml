@@ -5,11 +5,6 @@
     <!-- Fondo transparente -->
     <solid android:color="@android:color/transparent" />
 
-    <!-- Borde circular sutil -->
-    <stroke
-        android:width="2dp"
-        android:color="#33000000" /> <!-- Negro con transparencia -->
-
     <!-- Sombra simulada (más clara hacia adentro) -->
     <padding
         android:left="2dp"

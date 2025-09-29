@@ -12,18 +12,11 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/profileGuide40"
+            android:id="@+id/bottomProfileGuide50"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.4"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/profileGuide90"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.9"/>
+            app:layout_constraintGuide_percent="0.5"/>
 
         <FrameLayout
             android:id="@+id/topLayoutContainer"
@@ -31,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/profileGuide40"
+            app:layout_constraintBottom_toTopOf="@+id/bottomProfileGuide50"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
         </FrameLayout>
@@ -42,8 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="10dp"
-            app:layout_constraintTop_toTopOf="@+id/profileGuide40"
-            app:layout_constraintBottom_toBottomOf="@+id/profileGuide90"
+            app:layout_constraintTop_toTopOf="@+id/bottomProfileGuide50"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
         </FrameLayout>

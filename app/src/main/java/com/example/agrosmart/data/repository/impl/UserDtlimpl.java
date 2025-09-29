@@ -24,14 +24,18 @@ public class UserDtlimpl implements UserDtlRepository {
 
     private final String TAG = "USER_DETAILS_REPOSITORY";
     @Override
-    public void postUserDetails(FirebaseFirestore db, UserDetails userDetails) {
+    public void postUserDetails(FirebaseFirestore db, UserDetails userDetails, String email) {
+
+        System.out.println(userDetails.getRole());
 
         UserDetailsDto usrDto = new UserDetailsDto(userDetails.getUsername(),
                 userDetails.getPhoneNumber(),
+                email,
                 userDetails.getMunicipality(),
-                new ArrayList<>(userDetails.getSoilTypes()));
+                new ArrayList<>(userDetails.getSoilTypes()),
+                userDetails.getRole(), userDetails.getStatus());
         // se guarda el documento y se le proporciona como identificador el Email de google
-        db.collection("userDetails").document(userDetails.getUsername())
+        db.collection("userDetails").document(email)
                 .set(usrDto)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -49,8 +53,6 @@ public class UserDtlimpl implements UserDtlRepository {
 
     @Override
     public void getUserDetails(FirebaseFirestore db, String fBSusername, OnUserDetailsLoaded callback) {
-        Map<String, Object> detail = new HashMap<>();
-
         // se declara la referencia de el documento de id fBSusername, que es el email de Google
         DocumentReference dodRef = db.collection("userDetails").document(fBSusername);
 
@@ -67,6 +69,8 @@ public class UserDtlimpl implements UserDtlRepository {
                     details.put("username", document.get("username", String.class));
                     details.put("phoneNumber", document.get("phoneNumber", String.class));
                     details.put("municipality", document.get("municipality", String.class));
+                    details.put("status", document.get("status", String.class));
+                    details.put("role", document.get("role", String.class));
                     details.put("soilTypes", document.get("soilTypes"));
 
                 } else {

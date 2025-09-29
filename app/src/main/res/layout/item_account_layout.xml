@@ -1,108 +1,182 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_logged_in"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="10dp"
-    android:background="@drawable/item_account_background"
-    >
+    android:background="@drawable/item_account_background">
 
-    <!-- Editar perfil -->
-    <LinearLayout
-        android:id="@+id/btnEditarPerfil"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:gravity="center_vertical"
-        android:background="?attr/selectableItemBackground"
-        android:layout_marginBottom="20dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/lapiz_de_usuario_24"
-            android:contentDescription="Editar perfil" />
-
-        <TextView
-            android:layout_marginStart="12dp"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/accountGuideTop25"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Editar datos del perfil"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25"/>
 
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/angulo_derecho_24"
-            android:contentDescription="Ir" />
-    </LinearLayout>
-
-    <!-- Ver mis datos -->
-    <LinearLayout
-        android:id="@+id/btnVerDatos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:gravity="center_vertical"
-        android:background="?attr/selectableItemBackground"
-        android:layout_marginBottom="20dp">
-
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/migracion_de_datos_24"
-            android:contentDescription="Ver datos" />
-
-        <TextView
-            android:layout_marginStart="12dp"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/accountGuideBottom25"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Ver mis datos"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.50"/>
 
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/angulo_derecho_24"
-            android:contentDescription="Ir" />
-    </LinearLayout>
-
-    <!-- Cerrar sesión -->
-    <LinearLayout
-        android:id="@+id/btnCerrarSesion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:gravity="center_vertical"
-        android:background="?attr/selectableItemBackground">
-
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/cerrar_sesion_alt_24"
-            android:contentDescription="Cerrar sesión" />
-
-        <TextView
-            android:layout_marginStart="12dp"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/accountGuideTop50"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cerrar sesión"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="15sp" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75"/>
 
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/angulo_derecho_24"
-            android:contentDescription="Ir" />
-    </LinearLayout>
+
+        <!-- Editar perfil -->
+        <LinearLayout
+            android:id="@+id/btnEditarPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/accountGuideTop25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/lapiz_de_usuario_24"
+                android:contentDescription="Editar perfil" />
+
+            <TextView
+                android:layout_marginStart="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Editar datos del perfil"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/angulo_derecho_24"
+                android:contentDescription="Ir" />
+        </LinearLayout>
+
+        <!-- Ver mis datos -->
+        <LinearLayout
+            android:id="@+id/btnVerDatos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/accountGuideTop25"
+            app:layout_constraintBottom_toTopOf="@id/accountGuideBottom25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/migracion_de_datos_24"
+                android:contentDescription="Ver datos" />
+
+            <TextView
+                android:layout_marginStart="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ver mis datos"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/angulo_derecho_24"
+                android:contentDescription="Ir" />
+        </LinearLayout>
+
+        <!-- Configuración -->
+        <LinearLayout
+            android:id="@+id/btnConfiguracion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/accountGuideBottom25"
+            app:layout_constraintBottom_toTopOf="@id/accountGuideTop50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ajustes"
+                android:contentDescription="Configuraciones" />
+
+            <TextView
+                android:layout_marginStart="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Configuraciones"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/angulo_derecho_24"
+                android:contentDescription="Ir" />
+        </LinearLayout>
+
+        <!-- Cerrar sesión -->
+        <LinearLayout
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/accountGuideTop50"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/cerrar_sesion_alt_24"
+                android:contentDescription="Cerrar sesión" />
+
+            <TextView
+                android:layout_marginStart="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cerrar sesión"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/angulo_derecho_24"
+                android:contentDescription="Ir" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

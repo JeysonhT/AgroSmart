@@ -5,6 +5,6 @@ import com.example.agrosmart.core.utils.interfaces.OnUserDetailsLoaded;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public interface UserDtlRepository {
-    void postUserDetails(FirebaseFirestore db, UserDetails userDetails);
+    void postUserDetails(FirebaseFirestore db, UserDetails userDetails, String email);
     void getUserDetails(FirebaseFirestore db, String fBSusername, OnUserDetailsLoaded callback);
 }

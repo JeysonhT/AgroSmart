@@ -13,7 +13,6 @@ import lombok.Setter;
 @Getter @Setter
 public class Deficiency extends RealmObject {
     private String _id;
-    private int deficiency_id;
     private byte[] imageResource;
     private String name;
     private String description;

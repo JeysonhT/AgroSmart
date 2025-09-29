@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface DiagnosisHistoryRepository {
     List<DiagnosisHistory> getDiagnosisHistories();
-    void saveDiagnosis(DiagnosisHistory history);
-    void deleteEmptyDiagnosis();
+    DiagnosisHistory getLastDiagnosis();
+    void saveDiagnosis(DiagnosisHistory history, DiagnosisHistoryCallback callback);
+    void updateDiagnosis(String _id, String param, String value);
     void deleteDiagnosis(String _id);
+
 }

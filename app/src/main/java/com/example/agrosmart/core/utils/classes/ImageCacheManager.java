@@ -6,8 +6,10 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class ImageCacheManager {
 
@@ -82,6 +84,27 @@ public class ImageCacheManager {
         } catch (Exception e) {
             Log.e(TAG, "Error al cargar imagen desde cache: " + e.getMessage());
             return null;
+        }
+    }
+
+    public static byte[] getArrayFromFile(Context context, String path){
+        if (path == null || path.isEmpty()) {
+            return null;
+        }
+
+        File file = new File(path);
+        byte[] loadedByteArray = null;
+
+        try (FileInputStream fis = new FileInputStream(file)) {
+            int fileSize = fis.available(); // Obtiene el tamaño del archivo
+            loadedByteArray = new byte[fileSize];
+            fis.read(loadedByteArray);
+
+            return loadedByteArray;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return  null;
         }
     }
 

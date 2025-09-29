@@ -41,8 +41,12 @@ import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.agrosmart.R;
+import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.data.local.ml.DetectionService;
 import com.example.agrosmart.databinding.FragmentCameraLayoutBinding;
 import com.example.agrosmart.presentation.viewmodels.DetectionFragmentViewModel;
@@ -76,6 +80,8 @@ public class CameraLayout extends Fragment {
     private DetectionService detectionService;
 
     private DetectionFragmentViewModel dfViewModel;
+
+    NavController navController;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,6 +123,8 @@ public class CameraLayout extends Fragment {
 
         dfViewModel = new ViewModelProvider(this).
                 get(DetectionFragmentViewModel.class);
+
+        navController = NavHostFragment.findNavController(this);
 
         setUpCamera();
 
@@ -188,9 +196,7 @@ public class CameraLayout extends Fragment {
             @Override
             public void onCaptureSuccess(@NonNull ImageProxy image) {
                 super.onCaptureSuccess(image);
-                // se decodifica la imagen de primero para obtener los bytes y luego convertirlos
-                // bitmap e usarlo para el analisis
-                //byte[] imgBytes = getJpegBytesFromImageProxy(image);
+
                 Bitmap bitmap = imageToBitmap(image);
                 byte[] improveBitmapByteArray = compressBitmap(bitmap);
                 System.out.println("Bytes de la primera conversion desde el improveBitmap = " + improveBitmapByteArray.length);
@@ -210,16 +216,15 @@ public class CameraLayout extends Fragment {
                     });
                 } else {
                     handler.post(() -> {
-                            dfViewModel.saveDiagnosis(resultado, improveBitmapByteArray);
-                            //volver al framento de deteccion para realizar las recomendaciones
-                            Bundle bundle = new Bundle();
+                            try{
+                                NavDirections action =
+                                        CameraLayoutDirections.actionCameraLayout2ToDetectionFragment(resultado,
+                                                ImageCacheManager.saveImageToCache(requireContext(), improveBitmapByteArray));
 
-                            bundle.putString("resultado", resultado);
-                            //bundle.putByteArray("image", improveBitmapByteArray);
-
-                            getParentFragmentManager().setFragmentResult("resultado_camara", bundle);
-
-                            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                                navController.navigate(action);
+                            } catch (IOException e){
+                                mostrarDialogo(e.getMessage());
+                            }
                     });
                 }
             }
@@ -248,15 +253,15 @@ public class CameraLayout extends Fragment {
                     });
                 } else {
                     handler.post(() -> {
-                            dfViewModel.saveDiagnosis(resultado, imgBytes);
-                            //volver al framento de deteccion para realizar las recomendaciones
-                            Bundle bundle = new Bundle();
+                        try{
+                            NavDirections action =
+                                    CameraLayoutDirections.actionCameraLayout2ToDetectionFragment(resultado,
+                                            ImageCacheManager.saveImageToCache(requireContext(), imgBytes));
 
-                            bundle.putString("resultado", resultado);
-
-                            getParentFragmentManager().setFragmentResult("resultado_camara", bundle);
-
-                            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                            navController.navigate(action);
+                        } catch (IOException e){
+                            mostrarDialogo(e.getMessage());
+                        }
                     });
                 }
             }

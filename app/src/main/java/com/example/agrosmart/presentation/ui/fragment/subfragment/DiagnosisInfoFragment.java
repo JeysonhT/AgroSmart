@@ -15,8 +15,7 @@ import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.databinding.FragmentDiagnosisInfoBinding;
 
-public
-class DiagnosisInfoFragment extends Fragment {
+public class DiagnosisInfoFragment extends Fragment {
 
     private FragmentDiagnosisInfoBinding binding;
 

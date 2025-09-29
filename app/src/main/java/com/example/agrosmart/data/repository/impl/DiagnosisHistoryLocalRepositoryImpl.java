@@ -1,11 +1,14 @@
 package com.example.agrosmart.data.repository.impl;
 
 import android.util.Log;
+
+import com.example.agrosmart.core.utils.interfaces.DiagnosisHistoryCallback;
 import com.example.agrosmart.domain.models.DiagnosisHistory;
 import com.example.agrosmart.domain.repository.DiagnosisHistoryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -33,8 +36,31 @@ public class DiagnosisHistoryLocalRepositoryImpl implements DiagnosisHistoryRepo
     }
 
     @Override
-    public void saveDiagnosis(DiagnosisHistory history) {
+    public DiagnosisHistory getLastDiagnosis() {
+        Realm realm;
+        DiagnosisHistory lastDiagnosis = new DiagnosisHistory();
+
+        try{
+            realm = Realm.getDefaultInstance();
+
+            lastDiagnosis = realm.copyFromRealm((realm.where(DiagnosisHistory.class)
+                    .sort("diagnosisDate", Sort.DESCENDING)
+                    .findFirst()));
+
+            realm.close();
+
+            //return lastDiagnosis;
+        } catch (RealmFileException e){
+            Log.w(TAG, "Error: " + e.getMessage());
+        }
+
+        return lastDiagnosis;
+    }
+
+    @Override
+    public void saveDiagnosis(DiagnosisHistory history, DiagnosisHistoryCallback callback) {
         Realm realm ;
+        List<DiagnosisHistory> lastDiagnosis = new ArrayList<>();
 
         try {
             realm =  Realm.getDefaultInstance();
@@ -44,27 +70,43 @@ public class DiagnosisHistoryLocalRepositoryImpl implements DiagnosisHistoryRepo
                 r.insert(history);
             });
             realm.close();
+            lastDiagnosis.add(history);
+
+            callback.onLoaded(lastDiagnosis);
         } catch (RealmFileException e){
+            callback.onError(e);
             Log.v(TAG, "Error al guardar el objeto: " + e.getMessage());
         }
     }
 
     @Override
-    public void deleteEmptyDiagnosis() {
-        Realm realm;
-        try{
-            realm = Realm.getDefaultInstance();
+    public void updateDiagnosis(String _id, String param, String value) {
+        Thread thread = new Thread(() -> {
+            Realm realm = null;
 
-            realm.executeTransaction( r -> {
-                RealmResults<DiagnosisHistory> histories = r.where(DiagnosisHistory.class)
-                                .findAll();
-                histories.deleteAllFromRealm();
-            });
+            try{
+                realm = Realm.getDefaultInstance();
 
-            realm.close();
-        } catch (RealmFileException e){
-            Log.v(TAG, "Error al abrir la instancia de realm");
-        }
+                realm.executeTransaction(r -> {
+                    DiagnosisHistory diagnosis = r.where(DiagnosisHistory.class).
+                            equalTo("_id", _id).findFirst();
+
+                    if(diagnosis!=null){
+                        diagnosis.setRecommendation(value);
+                        r.insertOrUpdate(diagnosis);
+                    }
+                });
+
+            } catch (RealmFileException | NullPointerException e){
+                Log.w(TAG, Objects.requireNonNull(e.getMessage()));
+            }  finally {
+                if (realm != null && !realm.isClosed()) {
+                    realm.close();
+                }
+            }
+        });
+
+        thread.start();
     }
 
     @Override

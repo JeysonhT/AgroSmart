@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/newsInfoFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".presentation.ui.fragment.subfragment.NewsInfoFragment">
 
     <LinearLayout
@@ -14,8 +14,14 @@
         <ImageView
             android:id="@+id/newImage"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:layout_height="wrap_content"
             android:contentDescription="@string/newimageContentDescription" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"/>
 
         <TextView
             android:id="@+id/newTitle"
@@ -27,6 +33,11 @@
             android:textColor="@color/black"
             />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
         <TextView
             android:id="@+id/newDate"
             android:layout_width="wrap_content"
@@ -43,6 +54,12 @@
             android:textSize="18sp"
             android:textColor="@color/black"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
         <TextView
             android:id="@+id/newContent"
             android:layout_width="match_parent"
@@ -53,6 +70,5 @@
 
         </TextView>
     </LinearLayout>
-
 
 </androidx.core.widget.NestedScrollView>

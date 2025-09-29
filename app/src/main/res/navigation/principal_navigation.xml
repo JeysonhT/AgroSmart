@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_profileFragment_to_edit_profile_fragment"
             app:destination="@id/edit_profile_fragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_configFragment"
+            app:destination="@id/configFragment" />
     </fragment>
 
     <fragment
@@ -90,7 +93,14 @@
         tools:layout="@layout/fragment_camera_layout" >
         <action
             android:id="@+id/action_cameraLayout2_to_detectionFragment"
-            app:destination="@id/detectionFragment" />
+            app:destination="@id/detectionFragment">
+            <argument
+                android:name="result"
+                app:argType="string"/>
+            <argument
+                android:name="imgPath"
+                app:argType="string"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/newsInfoFragment"
@@ -102,4 +112,9 @@
         android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.DiagnosisInfoFragment"
         android:label="fragment_diagnosis_info"
         tools:layout="@layout/fragment_diagnosis_info" />
+    <fragment
+        android:id="@+id/configFragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.profile.ConfigFragment"
+        android:label="fragment_config"
+        tools:layout="@layout/fragment_config" />
 </navigation>

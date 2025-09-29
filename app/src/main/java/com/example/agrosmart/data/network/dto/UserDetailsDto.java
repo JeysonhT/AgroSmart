@@ -5,23 +5,23 @@ import java.util.List;
 public class UserDetailsDto {
     private String _id;
     private String username;
+    private String email;
     private String phoneNumber;
     private String municipality;
     private List<String> soilTypes;
+    private String status;
+    private String role;
 
-    public UserDetailsDto(String _id, String username, String phoneNumber, String municipality, List<String> soilTypes) {
-        this._id = _id;
+    public UserDetailsDto(String username, String phoneNumber,
+                          String _email, String municipality, List<String> soilTypes, String _role,
+                          String _status) {
         this.username = username;
+        this.email = _email;
         this.phoneNumber = phoneNumber;
         this.municipality = municipality;
         this.soilTypes = soilTypes;
-    }
-
-    public UserDetailsDto(String username, String phoneNumber, String municipality, List<String> soilTypes) {
-        this.username = username;
-        this.phoneNumber = phoneNumber;
-        this.municipality = municipality;
-        this.soilTypes = soilTypes;
+        this.role = _role;
+        this.status = _status;
     }
 
     public String get_id() {
@@ -62,5 +62,29 @@ public class UserDetailsDto {
 
     public void setSoilTypes(List<String> soilTypes) {
         this.soilTypes = soilTypes;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

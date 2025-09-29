@@ -1,5 +1,6 @@
 package com.example.agrosmart.presentation.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,6 +39,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
         this.navController = navController;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateData(List<News> newsData){
         this.noticias.clear();
         this.noticias.addAll(newsData);

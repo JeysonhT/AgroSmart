@@ -27,8 +27,8 @@ public class ProfileDetailViewModel extends ViewModel {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final UserDtlRepository udRepository = new UserDtlimpl();
 
-    public void postDetails(UserDetails userDetails){
-        udRepository.postUserDetails(db, userDetails);
+    public void postDetails(UserDetails userDetails, String email){
+        udRepository.postUserDetails(db, userDetails, email);
     }
 
     public LiveData<UserDetails> getUserDetailsLiveData(String username){
@@ -39,9 +39,12 @@ public class ProfileDetailViewModel extends ViewModel {
                     lista.addAll((Collection<? extends String>) details.get("soilTypes"));
                     userDetails.setValue(new UserDetails(
                             username,
+                            (String) details.get("email"),
                             (String) details.get("phoneNumber"),
                             (String) details.get("municipality"),
-                            lista)
+                            lista,
+                            (String) details.get("status"),
+                            (String) details.get("role"))
                     );
                 }
             });

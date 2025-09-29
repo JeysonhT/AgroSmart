@@ -16,15 +16,13 @@ import android.widget.EditText;
 
 import com.example.agrosmart.R;
 import com.example.agrosmart.domain.models.UserDetails;
-import com.example.agrosmart.presentation.ui.fragment.subfragment.EditProfileFragmentArgs;
 import com.example.agrosmart.presentation.viewmodels.ProfileDetailViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicReference;
 
 import io.realm.RealmList;
 
@@ -32,7 +30,9 @@ public class EditProfileFragment extends Fragment {
 
     private final String TAG = "EDIT_PROFILE_FRAGMENT";
 
-    private String username;
+    private String userEmail;
+
+    FirebaseUser user;
 
     private ProfileDetailViewModel profileViewModel;
 
@@ -52,7 +52,9 @@ public class EditProfileFragment extends Fragment {
 
         //recibe los argumentos que envia fragmento que lo invoca
         EditProfileFragmentArgs args =  EditProfileFragmentArgs.fromBundle(getArguments());
-        username = args.getUsername();
+        userEmail = args.getUsername();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_editprofile, container, false);
@@ -65,8 +67,10 @@ public class EditProfileFragment extends Fragment {
 
         profileViewModel = new ViewModelProvider(this).get(ProfileDetailViewModel.class);
 
+        UserDetails userDetails = new UserDetails();
+
         // se procede a observar el view model para obtener los datos
-       profileViewModel.getUserDetailsLiveData(username).observe(getViewLifecycleOwner(), detail -> {
+       profileViewModel.getUserDetailsLiveData(userEmail).observe(getViewLifecycleOwner(), detail -> {
 
            if(detail==null){
                // si no hay detalles todavía, el formulario quedara vacío
@@ -76,6 +80,13 @@ public class EditProfileFragment extends Fragment {
                soilTypestxt.setText("");
                return;
            }
+
+
+           userDetails.setUsername(detail.getUsername());
+           userDetails.setPhoneNumber(detail.getPhoneNumber());
+           userDetails.setMunicipality(detail.getMunicipality());
+           userDetails.setRole(detail.getRole());
+
            usernametxt.setText(detail.getUsername());
            usernametxt.setEnabled(false);
            // se inhabilita el campo de username para futuras actualizaciones de usuario personalizado
@@ -88,7 +99,7 @@ public class EditProfileFragment extends Fragment {
            // haciendo uso de text utils de android
            List<String> soils = detail.getSoilTypes();
            if (soils != null && !soils.isEmpty()) {
-               String joined = TextUtils.join(", ", soils);
+               String joined = TextUtils.join(",", soils);
                soilTypestxt.setText(joined);
            }
        });
@@ -98,7 +109,7 @@ public class EditProfileFragment extends Fragment {
 
         saveButton.setOnClickListener(v -> {
             try {
-                obtenerDetalles(username);
+                obtenerDetalles(userEmail, user.getDisplayName(), userDetails);
             } catch (Exception e){
                 mostrarDialogo("Error",e.getMessage());
                 Log.println(Log.ERROR, TAG, e.getMessage());
@@ -109,15 +120,13 @@ public class EditProfileFragment extends Fragment {
         return view;
     }
 
-    private void obtenerDetalles(String fBSusername){
+    private void obtenerDetalles(String fBSuserEmail, String username, UserDetails userDetails){
         // se obtienen los textos de los editText
-        //declaro el objeto userDetail
-        UserDetails userDetails = new UserDetails();
-        userDetails.setUsername(fBSusername);
+        userDetails.setUsername(username);
 
         if(phoneNumbertxt.getText().toString().strip().length() < 8){
             throw new IllegalArgumentException("numero muy corto, ingreselo correctamente");
-        } else if(municipalitytxt.getText().toString().matches("^\\d+$")){
+        } else if(!phoneNumbertxt.getText().toString().matches("^\\d+$")){
             throw new IllegalArgumentException("El numero telefonico solo debe incluir numeros");
         }
         userDetails.setPhoneNumber(phoneNumbertxt.getText().toString());
@@ -143,8 +152,16 @@ public class EditProfileFragment extends Fragment {
         lista.addAll(List.of(parts));
         userDetails.setSoilTypes(lista);
 
+        if(userDetails.getRole()==null){
+            userDetails.setRole("Agricultor");
+        }
+
+        if(userDetails.getStatus() == null){
+            userDetails.setStatus("Activo");
+        }
+
         // se guarda el userdetails con el metodo del repositorio correspondiente
-        profileViewModel.postDetails(userDetails);
+        profileViewModel.postDetails(userDetails, fBSuserEmail);
 
         mostrarDialogo("Mensaje", "Datos guardados");
     }

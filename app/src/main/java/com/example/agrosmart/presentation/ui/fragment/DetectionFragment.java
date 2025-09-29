@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +29,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.agrosmart.R;
+import com.example.agrosmart.core.utils.classes.ImageCacheManager;
+import com.example.agrosmart.core.utils.classes.NetworkChecker;
 import com.example.agrosmart.databinding.FragmentDetectionBinding;
+import com.example.agrosmart.domain.models.DiagnosisHistory;
 import com.example.agrosmart.presentation.ui.adapter.DiagnosisHistoryAdapter;
 import com.example.agrosmart.domain.designModels.DiagnosisHistoryListView;
 import com.example.agrosmart.presentation.viewmodels.DetectionFragmentViewModel;
+import com.example.agrosmart.presentation.viewmodels.ProfileViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -44,7 +49,11 @@ import java.util.Map;
 public class
 DetectionFragment extends Fragment {
 
+    private final String TAG = "DETECTION_FRAGMENT";
+
     private DetectionFragmentViewModel dfViewModel ;
+
+    private ProfileViewModel profileViewModel;
 
     private static final int CAMERA_REQUEST_CODE = 100;
 
@@ -52,9 +61,9 @@ DetectionFragment extends Fragment {
 
     private NavController navController;
 
-    private MutableObjectList<DiagnosisHistoryListView> histories;
-
     private DiagnosisHistoryAdapter adapter;
+
+    private DiagnosisHistoryListView lastDiagnosis;
 
     @Nullable
     @Override
@@ -69,9 +78,9 @@ DetectionFragment extends Fragment {
 
         dfViewModel = new ViewModelProvider(this).get(DetectionFragmentViewModel.class);
 
-        navController = NavHostFragment.findNavController(this);
+        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
-        histories = new MutableObjectList<>();
+        navController = NavHostFragment.findNavController(this);
 
         dfViewModel.gethistoriesFromUseCase();
 
@@ -82,25 +91,53 @@ DetectionFragment extends Fragment {
             fabCameraListener();
         });
 
-        //usar network checker para verificar que hay internet para realizar las recomendaciones
-        getParentFragmentManager().setFragmentResultListener(
-                "resultado_camara", this,
-                (requestKey, bundle) -> {
-                    String texto = bundle.getString("resultado");
-                    mostrarDialogo("Resultado detección", texto);
-                    if(texto!=null){
-                        dfViewModel.obtenerRecomendacion(texto);
-                    }
-                }
-        );
+        Bundle bundle = getArguments();
+
+        if(bundle != null && !bundle.isEmpty()){
+            String resultado = bundle.getString("result");
+
+            byte[] imgBytes = ImageCacheManager.getArrayFromFile(requireContext(),
+                    bundle.getString("imgPath"));
+
+            dfViewModel.saveDiagnosis(resultado, imgBytes, this::setDiagnosisData);
+
+            ImageCacheManager.cleanupCache(requireContext());
+
+            if(NetworkChecker.isInternetAvailable(requireContext())){
+                dfViewModel.obtenerRecomendacion(resultado);
+            }
+
+            bundle.clear();
+        }
+
 
         //obtener la respuesta mediante el observador(recommendationResponse) del viewmodel
         dfViewModel.getRecommendationResponse().observe(getViewLifecycleOwner(), respuesta -> {
             if(respuesta!=null){
+
+                if(lastDiagnosis != null){
+                    String _id = lastDiagnosis.getId();
+
+                    Log.println(Log.DEBUG, TAG, "Valor obtenido: " + lastDiagnosis.getTxtDate());
+
+                    try{
+                        dfViewModel.updateDiagnosis(_id, respuesta.getRespuesta());
+                    } catch (Exception e){
+                        Log.w(TAG, "Error al actualizar: " + e.getMessage());
+                    }
+                }
+
                 mostrarDialogo("Recomendación", respuesta.getRespuesta());
+
+                Log.println(Log.DEBUG, TAG, "msg: " + respuesta.getRespuesta());
+
                 dfViewModel.cleanRecommendation();
             }
         });
+    }
+
+    public void setDiagnosisData(DiagnosisHistoryListView listView){
+        dfViewModel.addNewHistory(listView);
     }
 
     @Override
@@ -112,7 +149,7 @@ DetectionFragment extends Fragment {
     private void loadHistory(){
         //llenado del historial 1. adaptador, 2. layoutManager, 3. datos del observador
         adapter = new DiagnosisHistoryAdapter(
-                histories,
+                new ArrayList<>(),
                 navController, this::onDeleteListener
         );
 
@@ -127,16 +164,14 @@ DetectionFragment extends Fragment {
         dfViewModel.getHistory().observe(getViewLifecycleOwner(), histories -> {
             if(histories != null && !histories.isEmpty()){
                 adapter.updateData(histories);
-                layoutManager.scrollToPositionWithOffset(0,20);
             }
         });
     }
 
-    private void onDeleteListener(int index){
-        String _id = histories.get(index).getId();
+    private void onDeleteListener(String _id){
+        adapter.removeItemById(_id);
+
         dfViewModel.deleteHistory(_id);
-        histories.removeAt(index);
-        adapter.notifyItemChanged(index);
     }
 
 
@@ -145,11 +180,32 @@ DetectionFragment extends Fragment {
         //llenar la card del ultimo diagnostico en caso de que haya uno
         dfViewModel.getLastDiagnosis().observe(getViewLifecycleOwner(), diagnosis -> {
             if(diagnosis != null){
+
+                lastDiagnosis = diagnosis;
+
                 binding.cropImageView.setImageResource(diagnosis.getCropIcon());
                 binding.deficiencyImageView.setImageResource(diagnosis.getDeficiencyIcon());
 
                 binding.textDateDiagnosis.setText(diagnosis.getTxtDate());
                 binding.textDiagnosis.setText(diagnosis.getDeficiency());
+
+                binding.lastDiagnosisCard.setOnClickListener( v -> {
+                    try{
+                        NavDirections action = DetectionFragmentDirections.
+                                actionDetectionFragmentToDiagnosisInfoFragment(
+                                        ImageCacheManager.saveImageToCache(getContext(), diagnosis.getImage()),
+                                        diagnosis.getDeficiency().split(" ")[0],
+                                        diagnosis.getTxtDate(),
+                                        diagnosis.getDeficiency(),
+                                        diagnosis.getRecommendation()
+                                );
+
+                        navController.navigate(action);
+                    } catch(IOException e){
+                        Log.e(TAG, "Error: " + e.getMessage());
+                    }
+                });
+
             } else {
                 binding.textDiagnosisCard.setText(R.string.lastDeficiencyCardTextInNullCase);
             }
@@ -157,7 +213,7 @@ DetectionFragment extends Fragment {
     }
 
     private void mostrarDialogo(String title, String message) {
-        new MaterialAlertDialogBuilder(getContext())
+        new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -205,15 +261,20 @@ DetectionFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        dfViewModel.refreshData();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
 
-        dfViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+        profileViewModel.getUserData().observe(getViewLifecycleOwner(), user -> {
             if (user == null) {
-                if ((NavHostFragment.findNavController(this).getCurrentDestination() != null
-                        && NavHostFragment.findNavController(this).getCurrentDestination().getId() == R.id.detectionFragment)) {
+                //if ((NavHostFragment.findNavController(this).getCurrentDestination() != null)) {
                     NavHostFragment.findNavController(this).navigate(R.id.profileFragment);
-                }
+                //}
             }
         });
     }

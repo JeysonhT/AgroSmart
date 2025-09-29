@@ -12,7 +12,6 @@ import lombok.Setter;
 public class News extends RealmObject {
     @PrimaryKey
     private String _id;
-    private int imageResource;
     private byte[] image;
     private String author;
     private String newsName;
@@ -20,14 +19,6 @@ public class News extends RealmObject {
     private String publicationDate;
     private String information;
     private Long lastUpdate;
-
-    public News(int imageResource, String news_name, String descripcion, String fecha_publicacion, String informacion) {
-        this.imageResource = imageResource;
-        this.newsName = news_name;
-        this.description = descripcion;
-        this.publicationDate = fecha_publicacion;
-        this.information = informacion;
-    }
 
     public News(byte[] _image, String _author, String _newsName, String _description, String _date, String _information){
         this.image = _image;

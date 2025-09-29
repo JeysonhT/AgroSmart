@@ -30,6 +30,7 @@ import com.example.agrosmart.R;
 import com.example.agrosmart.data.network.auth.AuthResultListener;
 import com.example.agrosmart.data.repository.impl.AuthRepositoryImpl;
 import com.example.agrosmart.domain.models.User;
+import com.example.agrosmart.domain.models.UserDetails;
 import com.example.agrosmart.domain.repository.AuthRepository;
 import com.example.agrosmart.domain.usecase.LoginWithGoogleUseCase;
 import com.example.agrosmart.presentation.viewmodels.ProfileViewModel;
@@ -37,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Profile_fragment extends Fragment implements AuthResultListener {
     private View imageProfileView;
@@ -45,6 +47,8 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
     private String nameUser;
     private String emailuser;
     private Uri imageUser;
+
+    private UserDetails userDetails;
 
     private ProfileViewModel profileViewModel;
 
@@ -82,6 +86,18 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
 
         // se crea la instancia del view model de este fragmento
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            profileViewModel.getUserDetails(Objects.
+                            requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail())
+                    .observe(getViewLifecycleOwner(), userDetails1 -> {
+                        if(userDetails1.getStatus().contentEquals("Suspendido")){
+                            FirebaseAuth.getInstance().signOut();
+                            profileViewModel.refreshData();
+                        }
+                    });
+        }
+
 
         // el view model manejara los datos de inicio de sesión para mantener los datos aunque el fragmento se destruya
         profileViewModel.getUserData().observe(getViewLifecycleOwner(), user -> {
@@ -123,6 +139,13 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
                     });
                 }
 
+                View btnConfig = loginOrAccountView.findViewById(R.id.btnConfiguracion);
+                if(btnConfig != null){
+                    btnConfig.setOnClickListener( v -> {
+                        navigateToConfig();
+                    });
+                }
+
             } else {
                 // proceso correspondiente a cuando el usuario no esta logueado y solo es invitado
                 loginOrAccountView = inflater.inflate(R.layout.item_login_layout, bottomLayoutContainer, false);
@@ -159,6 +182,15 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
                 setUsername(firebaseUser.getEmail());
 
         NavController navController = NavHostFragment.findNavController(this);
+        navController.navigate(action);
+    }
+
+    private void navigateToConfig(){
+        NavDirections action = Profile_fragmentDirections
+                .actionProfileFragmentToConfigFragment();
+
+        NavController navController = NavHostFragment.findNavController(this);
+
         navController.navigate(action);
     }
 

@@ -40,8 +40,8 @@ public class DetectionFragmentViewModel extends ViewModel {
 
     private final String TAG = "DETECTION_FRAGMENT_VIEWMODDEL";
 
-    private final MutableLiveData<List<DiagnosisHistoryListView>> histories = new MutableLiveData<>();
-    private final MutableLiveData<DiagnosisHistoryListView> lastDiagnosis = new MutableLiveData<>();
+    private final MutableLiveData<List<DiagnosisHistory>> histories = new MutableLiveData<>();
+    private final MutableLiveData<DiagnosisHistory> lastDiagnosis = new MutableLiveData<>();
 
     //metodos y variables para la creacion y devolucion de recomendaciones
     private final MutableLiveData<Respuesta> recommendationResponse = new MutableLiveData<>();
@@ -53,13 +53,24 @@ public class DetectionFragmentViewModel extends ViewModel {
     public DetectionFragmentViewModel() {
         this.usecase = new GetRecommendationUseCase(new RecommendationServiceImpl());
         this.diagnosisUseCase = new DiagnosisHistoryUseCase();
+        this.cropsCase = new CropsUseCase();
+    }
+
+    private final CropsUseCase cropsCase;
+
+    public DetectionFragmentViewModel(GetRecommendationUseCase _usecase,
+                                      DiagnosisHistoryUseCase _diagnosisUseCase,
+                                      CropsUseCase _cropsCase){
+        this.usecase = _usecase;
+        this.diagnosisUseCase = _diagnosisUseCase;
+        this.cropsCase = _cropsCase;
     }
 
     public LiveData<Respuesta> getRecommendationResponse(){
         return recommendationResponse;
     }
 
-    public LiveData<DiagnosisHistoryListView> getLastDiagnosis() {
+    public LiveData<DiagnosisHistory> getLastDiagnosis() {
         return lastDiagnosis; }
 
     //metodo que consume el caso de uso de generacion de detecciones
@@ -71,117 +82,73 @@ public class DetectionFragmentViewModel extends ViewModel {
                 "puedes recomendar fertilizantes organicos y no organicos, " +
                 "no excedas las 300 palabras";
 
-        Handler handler = new Handler(Looper.getMainLooper());
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                usecase.ejecutar(pregunta, new Callback<Respuesta>() {
-                    @Override
-                    public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
-                        if(response.isSuccessful() && response.body() != null){
-                            handler.post(()->recommendationResponse.postValue(response.body()));
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Respuesta> call, Throwable t) {
-                        handler.post(()-> recommendationResponse.postValue(new Respuesta("error: " + t.getMessage())));
-                    }
-                });
-            }
+        usecase.ejecutar(pregunta).thenAccept(recommendationResponse::postValue).exceptionally(error -> {
+            Log.e(TAG, "Error al obtener recomendación", error);
+            return null;
         });
-
-        thread.start();
     }
 
-    public void saveDiagnosis(String diagnosis, byte[] image, Consumer<DiagnosisHistoryListView> onSave){
-        CropsUseCase cropsCase = new CropsUseCase();
-
+    public void saveDiagnosis(String diagnosis, byte[] image, Consumer<DiagnosisHistory> onSave){
         String name = diagnosis.split(" ")[0];
-        final Crop[] crop = new Crop[1];
-        Handler handler = new Handler(Looper.getMainLooper());
         cropsCase.getCropByName(name, new CropsCallback() {
             @Override
             public void onCropsLoaded(List<Crop> crops) {
-                Thread thread = new Thread(() -> {
-                    crop[0] = crops.get(0);
-                    DiagnosisHistory diagnosisHistory = DiagnosisHistory.builder()
-                                ._id(UUID.randomUUID().toString())
-                                .diagnosisDate(new Date())
-                                .Crop(crop[0])
-                                .deficiency(diagnosis)
-                                .image(image)
-                                .recommendation("")
-                                .lastUpdate(System.currentTimeMillis())
-                                .build();
-                    //pasar el valor al fragment detection
+                if (crops == null || crops.isEmpty()) {
+                    onError(new Exception("Crop not found"));
+                    return;
+                }
+                Crop crop = crops.get(0);
+                DiagnosisHistory diagnosisHistory = DiagnosisHistory.builder()
+                        ._id(UUID.randomUUID().toString())
+                        .diagnosisDate(new Date())
+                        .Crop(crop)
+                        .deficiency(diagnosis)
+                        .image(image)
+                        .recommendation("")
+                        .lastUpdate(System.currentTimeMillis())
+                        .build();
 
-                    handler.post(() -> {
-                        onSave.accept(DiagnosisToHistoryLV(diagnosisHistory));
-                        lastDiagnosis.postValue(DiagnosisToHistoryLV(diagnosisHistory));
-                    });
+                onSave.accept(diagnosisHistory);
 
-                    diagnosisUseCase.saveDiagnosis(diagnosisHistory, new DiagnosisHistoryCallback() {
-                        @Override
-                        public void onLoaded(List<DiagnosisHistory> history) {
-                            handler.post(() -> {
-                                System.out.println("valor obtenido: " + history.get(0).getDiagnosisDate());
-                                //lastDiagnosis.postValue(DiagnosisToHistoryLV(history.get(0)));
-                            });
-                        }
+                diagnosisUseCase.saveDiagnosis(diagnosisHistory, new DiagnosisHistoryCallback() {
+                    @Override
+                    public void onLoaded(List<DiagnosisHistory> history) {
+                        lastDiagnosis.postValue(history.get(0));
+                        Log.d(TAG, "Diagnosis saved successfully");
+                    }
 
-                        @Override
-                        public void onError(Exception e) {
-                            Log.println(Log.ERROR, TAG, "Error al obtener el ultimo diagnostico" +
-                                        "/n : " + e.getMessage());
-                        }
-                    });
-
-                    Log.println(Log.DEBUG, TAG, "Valor guardado: " + diagnosisHistory.getDiagnosisDate());
+                    @Override
+                    public void onError(Exception e) {
+                        Log.e(TAG, "Error saving diagnosis", e);
+                    }
                 });
-
-                thread.start();
             }
+
             @Override
             public void onError(Exception e) {
-                Log.println(Log.ERROR, TAG, Objects.requireNonNull(e.getMessage()));
+                Log.e(TAG, "Error getting crop by name", e);
             }
         });
 
     }
 
-    //metodo para obtener la info de deficiencias pendiente
-    public LiveData<List<DiagnosisHistoryListView>> getHistory(){
+    public LiveData<List<DiagnosisHistory>> getHistory(){
         return histories;
     }
 
     public void gethistoriesFromUseCase(){
-        final List<DiagnosisHistoryListView> diagnosisHistoryItems = new ArrayList<>();
-        Handler handler = new Handler(Looper.getMainLooper());
-        Thread thread = new Thread(() -> {
-            diagnosisUseCase.getHistories(historyList -> {
-                if(!historyList.isEmpty()){
-                    try{
-                        for (DiagnosisHistory dh: historyList ) {
-                            diagnosisHistoryItems.add(DiagnosisToHistoryLV(dh));
-                        }
-                        handler.post(() -> {
-                            histories.postValue(diagnosisHistoryItems);
-                            lastDiagnosis.postValue(diagnosisHistoryItems.get(0));
-                        });
-                    } catch(NullPointerException e){
-                        Log.println(Log.ERROR, TAG, Objects.requireNonNull(e.getMessage()));
-                    }
-                }
-            });
+        diagnosisUseCase.getHistories().thenAccept(values -> {
+            histories.postValue(values);
+            lastDiagnosis.postValue(values.get(0));
+        }).exceptionally( error -> {
+            Log.e(TAG, Objects.requireNonNull(error.getMessage()));
+            return null;
         });
-
-        thread.start();
     }
 
-    public void addNewHistory(DiagnosisHistoryListView newHistory) {
-        List<DiagnosisHistoryListView> currentList = histories.getValue();
-        List<DiagnosisHistoryListView> newList = new ArrayList<>();
+    public void addNewHistory(DiagnosisHistory newHistory) {
+        List<DiagnosisHistory> currentList = histories.getValue();
+        List<DiagnosisHistory> newList = new ArrayList<>();
 
         if (currentList != null) {
             newList.addAll(currentList);
@@ -199,65 +166,7 @@ public class DetectionFragmentViewModel extends ViewModel {
         diagnosisUseCase.updateDiagnosis(_id, value);
     }
 
-    private int[] setHistoryIcons(String nameCrop, String nameDeficiency){
-        int[] resources = new int[2];
-        //primero evaluamos el nombre del cultivo
-        switch (nameCrop){
-            case "Maíz":
-                resources[0] = R.drawable.maiz;
-                break;
-            case "Frijol":
-                resources[0] = R.drawable.frijoles_rojos;
-                break;
-            default:
-                resources[0] = R.drawable.wheat;
-                break;
-        }
-
-        //luego evaluamos el nombre de la deficiencias -- primero obteniendo la ultima palabra del resultado
-        int lastSpace = nameDeficiency.lastIndexOf(" ");
-        String deficiency = (lastSpace == -1) ? nameDeficiency : nameDeficiency.substring(lastSpace + 1);
-
-        switch (deficiency){
-            case "nitrogeno":
-                resources[1] = R.drawable.nitrogeno;
-                break;
-            case "fosforo":
-                resources[1] = R.drawable.fosforo;
-                break;
-            case "magnesio":
-                resources[1] = R.drawable.magnesio;
-                break;
-            case "potasio":
-                resources[1] = R.drawable.potasio;
-                break;
-            default:
-                resources[1] = R.drawable.cultivo_sano;
-                break;
-        }
-
-        return resources;
-    }
-
-    private DiagnosisHistoryListView DiagnosisToHistoryLV(DiagnosisHistory dh){
-        int [] resources = new int[2];
-        resources = setHistoryIcons(dh.getCrop().getCropName(), dh.getDeficiency());
-        Date date = dh.getDiagnosisDate();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-        String dateFormated = format.format(date);
-
-        DiagnosisHistoryListView history = new DiagnosisHistoryListView();
-
-        history.setCropIcon(resources[0]);
-        history.setDeficiencyIcon(resources[1]);
-        history.setId(dh.get_id());
-        history.setTxtDate(dateFormated);
-        history.setDeficiency(dh.getDeficiency());
-        history.setImage(dh.getImage());
-        history.setRecommendation(dh.getRecommendation());
-
-        return history;
-    }
+    
 
     //refresca la información del usuario
     public void refreshData(){

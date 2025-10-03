@@ -1,7 +1,6 @@
 package com.example.agrosmart.presentation.ui.fragment.subfragment;
 
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,16 +9,21 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.databinding.FragmentDiagnosisInfoBinding;
+import com.example.agrosmart.presentation.viewmodels.DetectionFragmentViewModel;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DiagnosisInfoFragment extends Fragment {
 
     private FragmentDiagnosisInfoBinding binding;
 
     private final String TAG = "DIAGNOSIS_DATE_FRAGMENT";
+
+    private DetectionFragmentViewModel viewModel;
 
     public DiagnosisInfoFragment(){
 
@@ -30,9 +34,7 @@ public class DiagnosisInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         binding = FragmentDiagnosisInfoBinding.inflate(inflater, container, false);
-
         return binding.getRoot();
     }
 
@@ -41,10 +43,12 @@ public class DiagnosisInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Bundle bundle = getArguments();
+        viewModel = new ViewModelProvider(this).get(DetectionFragmentViewModel.class);
 
         if(bundle!=null){
             Bitmap image = ImageCacheManager.
                     loadImageFromCache(getContext(), bundle.getString("cropImage"));
+            String _id = bundle.getString("idDiagnosis");
             String cropName = bundle.getString("cropName");
             String diagnosisDate = bundle.getString("diagnosisDate");
             String diagnosisName = bundle.getString("diagnosisName");
@@ -64,6 +68,21 @@ public class DiagnosisInfoFragment extends Fragment {
             } catch (NullPointerException e){
                 Log.println(Log.ERROR, TAG, "Error: " + e.getMessage());
             }
+
+            //testear todo este flujo
+            viewModel.getRecommendationResponse().observe(getViewLifecycleOwner(), respuesta -> {
+                if(respuesta!=null){
+                    binding.recommendationText.setText(respuesta.getRespuesta());
+
+                    viewModel.updateDiagnosis(_id, respuesta.getRespuesta());
+                }
+            });
+
+            binding.btnGenerateRecommendation.setOnClickListener(v -> {
+                if(binding.recommendationText.getText().toString().isBlank()){
+                    viewModel.obtenerRecomendacion(recommendation);
+                }
+            });
         }
     }
 

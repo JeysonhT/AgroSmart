@@ -26,8 +26,10 @@ navigationUi = "2.9.0"
 playServicesAuth = "21.3.0"
 realmAndroidLibrary = "10.19.0"
 retrofit = "2.9.0"
+androidxArchCoreTesting = "2.2.0"
 
 [libraries]
+androidx-arch-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "androidxArchCoreTesting" }
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
 camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
 camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "cameraCore" }

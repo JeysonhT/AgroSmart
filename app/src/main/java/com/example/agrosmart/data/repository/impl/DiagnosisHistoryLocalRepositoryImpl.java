@@ -9,6 +9,9 @@ import com.example.agrosmart.domain.repository.DiagnosisHistoryRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -18,21 +21,28 @@ import io.realm.exceptions.RealmFileException;
 public class DiagnosisHistoryLocalRepositoryImpl implements DiagnosisHistoryRepository {
     private final String TAG = "DIAGNOSIS_HISTORY_REPOSITORY";
 
+    private final ExecutorService executor = Executors.newCachedThreadPool();
+
     @Override
-    public List<DiagnosisHistory> getDiagnosisHistories() {
-        Realm realm;
-        List<DiagnosisHistory> historyList = new ArrayList<>();
-        //deleteEmptyDiagnosis();
-        try{
-            realm = Realm.getDefaultInstance();
-            historyList = realm.copyFromRealm(realm.where(DiagnosisHistory.class)
-                            .sort("diagnosisDate", Sort.DESCENDING)
-                    .limit(10L).findAll());
-            realm.close();
-        } catch (RealmFileException e) {
-            Log.v(TAG, "Error al obtener el historial: " + e.getMessage());
-        }
-        return historyList;
+    public CompletableFuture<List<DiagnosisHistory>> getDiagnosisHistories() {
+
+        return CompletableFuture.supplyAsync(() ->{
+            Realm realm;
+            List<DiagnosisHistory> historyList = new ArrayList<>();
+            //deleteEmptyDiagnosis();
+            try{
+                realm = Realm.getDefaultInstance();
+                historyList = realm.copyFromRealm(realm.where(DiagnosisHistory.class)
+                        .sort("diagnosisDate", Sort.DESCENDING)
+                        .limit(10L).findAll());
+                realm.close();
+
+                return historyList;
+            } catch (RealmFileException e) {
+                Log.v(TAG, "Error al obtener el historial: " + e.getMessage());
+                throw new RuntimeException(e);
+            }
+        }, executor);
     }
 
     @Override
@@ -59,29 +69,31 @@ public class DiagnosisHistoryLocalRepositoryImpl implements DiagnosisHistoryRepo
 
     @Override
     public void saveDiagnosis(DiagnosisHistory history, DiagnosisHistoryCallback callback) {
-        Realm realm ;
-        List<DiagnosisHistory> lastDiagnosis = new ArrayList<>();
+        executor.execute(() -> {
+            Realm realm ;
+            List<DiagnosisHistory> lastDiagnosis = new ArrayList<>();
 
-        try {
-            realm =  Realm.getDefaultInstance();
-            //depuración
+            try {
+                realm =  Realm.getDefaultInstance();
+                //depuración
 
-            realm.executeTransaction( r -> {
-                r.insert(history);
-            });
-            realm.close();
-            lastDiagnosis.add(history);
+                realm.executeTransaction( r -> {
+                    r.insert(history);
+                });
+                realm.close();
+                lastDiagnosis.add(history);
 
-            callback.onLoaded(lastDiagnosis);
-        } catch (RealmFileException e){
-            callback.onError(e);
-            Log.v(TAG, "Error al guardar el objeto: " + e.getMessage());
-        }
+                callback.onLoaded(lastDiagnosis);
+            } catch (RealmFileException e){
+                callback.onError(e);
+                Log.v(TAG, "Error al guardar el objeto: " + e.getMessage());
+            }
+        });
     }
 
     @Override
     public void updateDiagnosis(String _id, String param, String value) {
-        Thread thread = new Thread(() -> {
+        executor.execute(() -> {
             Realm realm = null;
 
             try{
@@ -105,8 +117,6 @@ public class DiagnosisHistoryLocalRepositoryImpl implements DiagnosisHistoryRepo
                 }
             }
         });
-
-        thread.start();
     }
 
     @Override

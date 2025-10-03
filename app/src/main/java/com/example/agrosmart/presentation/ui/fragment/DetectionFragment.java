@@ -2,13 +2,11 @@ package com.example.agrosmart.presentation.ui.fragment;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.Manifest;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.collection.MutableObjectList;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -17,15 +15,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.agrosmart.R;
@@ -38,13 +33,14 @@ import com.example.agrosmart.domain.designModels.DiagnosisHistoryListView;
 import com.example.agrosmart.presentation.viewmodels.DetectionFragmentViewModel;
 import com.example.agrosmart.presentation.viewmodels.ProfileViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 
 public class
 DetectionFragment extends Fragment {
@@ -136,8 +132,8 @@ DetectionFragment extends Fragment {
         });
     }
 
-    public void setDiagnosisData(DiagnosisHistoryListView listView){
-        dfViewModel.addNewHistory(listView);
+    public void setDiagnosisData(DiagnosisHistory diagnosisHistory){
+        dfViewModel.addNewHistory(diagnosisHistory);
     }
 
     @Override
@@ -147,7 +143,6 @@ DetectionFragment extends Fragment {
     }
 
     private void loadHistory(){
-        //llenado del historial 1. adaptador, 2. layoutManager, 3. datos del observador
         adapter = new DiagnosisHistoryAdapter(
                 new ArrayList<>(),
                 navController, this::onDeleteListener
@@ -163,7 +158,11 @@ DetectionFragment extends Fragment {
 
         dfViewModel.getHistory().observe(getViewLifecycleOwner(), histories -> {
             if(histories != null && !histories.isEmpty()){
-                adapter.updateData(histories);
+                List<DiagnosisHistoryListView> historyListViews = new ArrayList<>();
+                for (DiagnosisHistory history : histories) {
+                    historyListViews.add(DiagnosisToHistoryLV(history));
+                }
+                adapter.updateData(historyListViews);
             }
         });
     }
@@ -175,29 +174,28 @@ DetectionFragment extends Fragment {
     }
 
 
-    //llena la card del ultimo diagnostico
     private void setDiagnosisCard(){
-        //llenar la card del ultimo diagnostico en caso de que haya uno
         dfViewModel.getLastDiagnosis().observe(getViewLifecycleOwner(), diagnosis -> {
             if(diagnosis != null){
 
-                lastDiagnosis = diagnosis;
+                lastDiagnosis = DiagnosisToHistoryLV(diagnosis);
 
-                binding.cropImageView.setImageResource(diagnosis.getCropIcon());
-                binding.deficiencyImageView.setImageResource(diagnosis.getDeficiencyIcon());
+                binding.cropImageView.setImageResource(lastDiagnosis.getCropIcon());
+                binding.deficiencyImageView.setImageResource(lastDiagnosis.getDeficiencyIcon());
 
-                binding.textDateDiagnosis.setText(diagnosis.getTxtDate());
-                binding.textDiagnosis.setText(diagnosis.getDeficiency());
+                binding.textDateDiagnosis.setText(lastDiagnosis.getTxtDate());
+                binding.textDiagnosis.setText(lastDiagnosis.getDeficiency());
 
                 binding.lastDiagnosisCard.setOnClickListener( v -> {
                     try{
                         NavDirections action = DetectionFragmentDirections.
                                 actionDetectionFragmentToDiagnosisInfoFragment(
-                                        ImageCacheManager.saveImageToCache(getContext(), diagnosis.getImage()),
-                                        diagnosis.getDeficiency().split(" ")[0],
-                                        diagnosis.getTxtDate(),
-                                        diagnosis.getDeficiency(),
-                                        diagnosis.getRecommendation()
+                                        diagnosis.get_id(),
+                                        ImageCacheManager.saveImageToCache(getContext(), lastDiagnosis.getImage()),
+                                        lastDiagnosis.getDeficiency().split(" ")[0],
+                                        lastDiagnosis.getTxtDate(),
+                                        lastDiagnosis.getDeficiency(),
+                                        lastDiagnosis.getRecommendation()
                                 );
 
                         navController.navigate(action);
@@ -224,7 +222,6 @@ DetectionFragment extends Fragment {
                 }).show();
     }
 
-    //listener del boton flotante de la camara
     public void fabCameraListener(){
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -242,7 +239,6 @@ DetectionFragment extends Fragment {
         navController.navigate(action);
     }
 
-    //sin uso por el momento
     private File crearArchivoImagen() throws IOException {
         String nombreArchivo = "IMG_" + System.currentTimeMillis();
         File directorio = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -272,10 +268,65 @@ DetectionFragment extends Fragment {
 
         profileViewModel.getUserData().observe(getViewLifecycleOwner(), user -> {
             if (user == null) {
-                //if ((NavHostFragment.findNavController(this).getCurrentDestination() != null)) {
-                    NavHostFragment.findNavController(this).navigate(R.id.profileFragment);
-                //}
+                NavHostFragment.findNavController(this).navigate(R.id.profileFragment);
             }
         });
+    }
+
+    private int[] setHistoryIcons(String nameCrop, String nameDeficiency){
+        int[] resources = new int[2];
+        switch (nameCrop){
+            case "Maíz":
+                resources[0] = R.drawable.maiz;
+                break;
+            case "Frijol":
+                resources[0] = R.drawable.frijoles_rojos;
+                break;
+            default:
+                resources[0] = R.drawable.wheat;
+                break;
+        }
+
+        int lastSpace = nameDeficiency.lastIndexOf(" ");
+        String deficiency = (lastSpace == -1) ? nameDeficiency : nameDeficiency.substring(lastSpace + 1);
+
+        switch (deficiency){
+            case "nitrogeno":
+                resources[1] = R.drawable.nitrogeno;
+                break;
+            case "fosforo":
+                resources[1] = R.drawable.fosforo;
+                break;
+            case "magnesio":
+                resources[1] = R.drawable.magnesio;
+                break;
+            case "potasio":
+                resources[1] = R.drawable.potasio;
+                break;
+            default:
+                resources[1] = R.drawable.cultivo_sano;
+                break;
+        }
+
+        return resources;
+    }
+
+    private DiagnosisHistoryListView DiagnosisToHistoryLV(DiagnosisHistory dh){
+        int [] resources = setHistoryIcons(dh.getCrop().getCropName(), dh.getDeficiency());
+        Date date = dh.getDiagnosisDate();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        String dateFormated = format.format(date);
+
+        DiagnosisHistoryListView history = new DiagnosisHistoryListView();
+
+        history.setCropIcon(resources[0]);
+        history.setDeficiencyIcon(resources[1]);
+        history.setId(dh.get_id());
+        history.setTxtDate(dateFormated);
+        history.setDeficiency(dh.getDeficiency());
+        history.setImage(dh.getImage());
+        history.setRecommendation(dh.getRecommendation());
+
+        return history;
     }
 }

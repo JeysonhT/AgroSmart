@@ -7,6 +7,11 @@ import com.example.agrosmart.data.network.dto.RespuestaResponse;
 import com.example.agrosmart.domain.models.Respuesta;
 import com.example.agrosmart.domain.repository.RecomendationRepository;
 
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,6 +24,8 @@ public class RecommendationServiceImpl implements RecomendationRepository {
     // de generar recomendaciones al backend
     RecommendationService api;
 
+    private final ExecutorService networkExecutor = Executors.newCachedThreadPool();
+
     public RecommendationServiceImpl() {
         this.api = RetrofitClient.recomendationService();
     }
@@ -26,27 +33,23 @@ public class RecommendationServiceImpl implements RecomendationRepository {
     // la respuesta de la api de gemini se otendra a travez de los callbacks debido a la naturaleza
     // de las peticiones en la red, en otras palabras, espera a que se obtenga una respuesta para mostrar
     // un resultado
+
     @Override
-    public void obtenerRecomendacion(String pregunta, Callback<Respuesta> callback) {
-        // aqui se realiza la peticion y obtendremos un callback para procesar lo que pasa
+    public CompletableFuture<Respuesta> obtenerRecomendacion(String pregunta) {
+
         Call<RespuestaResponse> call = api.enviarPregunta(new PreguntaRequest(pregunta));
 
-        call.enqueue(new Callback<RespuestaResponse>() {
-            @Override
-            public void onResponse(Call<RespuestaResponse> call, Response<RespuestaResponse> response) {
-                if(response.isSuccessful() && response.body()!=null){
-                    callback.onResponse(null, Response.success(new Respuesta(response
-                                    .body().
-                            getResponse())));
+         return CompletableFuture.supplyAsync(() -> {
+            try{
+                Response<RespuestaResponse> response = call.execute();
+                if(response.isSuccessful() && response.body() != null){
+                    return new Respuesta(response.body().getResponse());
                 } else {
-                    callback.onFailure(null, new Throwable("error en la respuesta de la api"));
+                    throw  new RuntimeException("Error en la respuesta de la api: " + response.code());
                 }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-
-            @Override
-            public void onFailure(Call<RespuestaResponse> call, Throwable t) {
-                callback.onFailure(null, t);
-            }
-        });
+        }, networkExecutor);
     }
 }

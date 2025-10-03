@@ -108,6 +108,7 @@ public class DiagnosisHistoryAdapter extends RecyclerView.Adapter<DiagnosisHisto
                     try {
                         NavDirections action = DetectionFragmentDirections
                                 .actionDetectionFragmentToDiagnosisInfoFragment(
+                                        currentListView.getId(),
                                         ImageCacheManager.saveImageToCache(
                                                 binding.listCardView.getContext(),
                                                 currentListView.getImage()),

@@ -82,6 +82,13 @@
             android:textSize="16sp"
             android:layout_margin="@dimen/text_margin" />
 
+        <Button
+            android:id="@+id/btnGenerateRecommendation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textButtomGenerar"
+            android:layout_marginStart="16dp"/>
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

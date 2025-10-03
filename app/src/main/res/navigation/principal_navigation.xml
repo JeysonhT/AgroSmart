@@ -45,6 +45,9 @@
             android:id="@+id/action_detectionFragment_to_diagnosisInfoFragment"
             app:destination="@id/diagnosisInfoFragment">
             <argument
+                android:name="idDiagnosis"
+                app:argType="string"/>
+            <argument
                 android:name="cropImage"
                 app:argType="string"/>
             <argument

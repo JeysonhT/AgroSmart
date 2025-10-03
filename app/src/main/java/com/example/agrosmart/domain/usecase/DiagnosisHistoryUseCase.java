@@ -6,6 +6,9 @@ import com.example.agrosmart.data.local.HistoryLocalService;
 import com.example.agrosmart.data.repository.impl.DiagnosisHistoryLocalRepositoryImpl;
 import com.example.agrosmart.domain.models.DiagnosisHistory;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 public class DiagnosisHistoryUseCase {
     private HistoryLocalService historyLocalService;
 
@@ -13,8 +16,8 @@ public class DiagnosisHistoryUseCase {
         historyLocalService = new HistoryLocalService(new DiagnosisHistoryLocalRepositoryImpl());
     }
 
-    public void getHistories(DiagnosisCallback callback){
-        callback.onDiagnosisLoaded(historyLocalService.getHistories());
+    public CompletableFuture<List<DiagnosisHistory>> getHistories(){
+        return historyLocalService.getHistories();
     }
 
     public void saveDiagnosis(DiagnosisHistory history, DiagnosisHistoryCallback callback){
@@ -23,10 +26,6 @@ public class DiagnosisHistoryUseCase {
 
     public void deleteDiagnosis(String _id){
         historyLocalService.deleteDiagnosis(_id);
-    }
-
-    public DiagnosisHistory getLastDiagnosis(){
-        return historyLocalService.getLastDiagnosis();
     }
 
     public void updateDiagnosis(String _id, String value){

@@ -5,6 +5,7 @@ import com.example.agrosmart.domain.models.DiagnosisHistory;
 import com.example.agrosmart.domain.repository.DiagnosisHistoryRepository;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class HistoryLocalService {
     private final DiagnosisHistoryRepository repository;
@@ -13,7 +14,7 @@ public class HistoryLocalService {
         this.repository = repository;
     }
 
-    public List<DiagnosisHistory> getHistories(){
+    public CompletableFuture<List<DiagnosisHistory>> getHistories(){
         return repository.getDiagnosisHistories();
     }
 
@@ -23,10 +24,6 @@ public class HistoryLocalService {
 
     public void deleteDiagnosis(String _id){
         repository.deleteDiagnosis(_id);
-    }
-
-    public DiagnosisHistory getLastDiagnosis(){
-        return repository.getLastDiagnosis();
     }
 
     public void updateDiagnosis(String _id, String value){

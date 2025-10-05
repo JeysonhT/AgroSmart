@@ -45,6 +45,10 @@ public class DiagnosisInfoFragment extends Fragment {
         Bundle bundle = getArguments();
         viewModel = new ViewModelProvider(this).get(DetectionFragmentViewModel.class);
 
+        renderUi(bundle);
+    }
+
+    private void renderUi(Bundle bundle){
         if(bundle!=null){
             Bitmap image = ImageCacheManager.
                     loadImageFromCache(getContext(), bundle.getString("cropImage"));
@@ -68,22 +72,25 @@ public class DiagnosisInfoFragment extends Fragment {
             } catch (NullPointerException e){
                 Log.println(Log.ERROR, TAG, "Error: " + e.getMessage());
             }
-
-            //testear todo este flujo
-            viewModel.getRecommendationResponse().observe(getViewLifecycleOwner(), respuesta -> {
-                if(respuesta!=null){
-                    binding.recommendationText.setText(respuesta.getRespuesta());
-
-                    viewModel.updateDiagnosis(_id, respuesta.getRespuesta());
-                }
-            });
-
-            binding.btnGenerateRecommendation.setOnClickListener(v -> {
-                if(binding.recommendationText.getText().toString().isBlank()){
-                    viewModel.obtenerRecomendacion(recommendation);
-                }
-            });
+            generateRecommendation(_id, diagnosisName);
         }
+    }
+
+    private void generateRecommendation(String _id, String diagnosis){
+        //testear todo este flujo
+        viewModel.getRecommendationResponse().observe(getViewLifecycleOwner(), respuesta -> {
+            if(respuesta!=null){
+                binding.recommendationText.setText(respuesta.getRespuesta());
+
+                viewModel.updateDiagnosis(_id, respuesta.getRespuesta());
+            }
+        });
+
+        binding.btnGenerateRecommendation.setOnClickListener(v -> {
+            if(binding.recommendationText.getText().length() < 30){
+                viewModel.obtenerRecomendacion(diagnosis);
+            }
+        });
     }
 
     @Override

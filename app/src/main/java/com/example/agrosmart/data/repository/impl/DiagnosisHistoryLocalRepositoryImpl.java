@@ -38,9 +38,9 @@ public class DiagnosisHistoryLocalRepositoryImpl implements DiagnosisHistoryRepo
                 realm.close();
 
                 return historyList;
-            } catch (RealmFileException e) {
+            } catch (RealmFileException | IndexOutOfBoundsException e) {
                 Log.v(TAG, "Error al obtener el historial: " + e.getMessage());
-                throw new RuntimeException(e);
+                throw new RuntimeException("Error al obtener los datos: " + e.getMessage());
             }
         }, executor);
     }

@@ -29,6 +29,10 @@ import com.bumptech.glide.Glide;
 import com.example.agrosmart.R;
 import com.example.agrosmart.data.network.auth.AuthResultListener;
 import com.example.agrosmart.data.repository.impl.AuthRepositoryImpl;
+import com.example.agrosmart.databinding.FragmentProfileBinding;
+import com.example.agrosmart.databinding.ItemAccountLayoutBinding;
+import com.example.agrosmart.databinding.ItemImageProfileBinding;
+import com.example.agrosmart.databinding.ItemLoginLayoutBinding;
 import com.example.agrosmart.domain.models.User;
 import com.example.agrosmart.domain.models.UserDetails;
 import com.example.agrosmart.domain.repository.AuthRepository;
@@ -41,15 +45,22 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Profile_fragment extends Fragment implements AuthResultListener {
-    private View imageProfileView;
-    private View loginOrAccountView;
+
+    private FragmentProfileBinding binding;
+
+    //bindeo de los objetos
+    private ItemImageProfileBinding imageProfileBinding;
+    private ItemAccountLayoutBinding accountLayoutBinding;
+    private ItemLoginLayoutBinding loginLayoutBinding;
+
+    //navegacion
+    private NavController navController;
 
     private String nameUser;
     private String emailuser;
     private Uri imageUser;
 
-    private UserDetails userDetails;
-
+    //declaración del viewModel
     private ProfileViewModel profileViewModel;
 
     //metodo para lanzar el intent(accion) de inicio de seson y recibir su resultado
@@ -71,22 +82,52 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mainView = inflater.inflate(R.layout.fragment_profile, container, false);
+        binding = FragmentProfileBinding.inflate(inflater, container, false);
 
-        FrameLayout topLayoutContainer = mainView.findViewById(R.id.topLayoutContainer);
-        FrameLayout bottomLayoutContainer = mainView.findViewById(R.id.bottomLayoutContainer);
+        return binding.getRoot();
+    }
 
-        imageProfileView = inflater.inflate(R.layout.item_image_profile, topLayoutContainer, false);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        ImageView imageView = imageProfileView.findViewById(R.id.imageProfile);
-        TextView textNameView = imageProfileView.findViewById(R.id.textNameProfile);
-        TextView textEmailView = imageProfileView.findViewById(R.id.textEmailProfile);
-
-        topLayoutContainer.addView(imageProfileView);
-
-        // se crea la instancia del view model de este fragmento
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
+        navController = NavHostFragment.findNavController(this);
+
+        imageProfileBinding = ItemImageProfileBinding.inflate(LayoutInflater.from(getContext()),
+                binding.topLayoutContainer, true);
+
+        // el view model manejara los datos de inicio de sesión para mantener los datos aunque el fragmento se destruya
+        profileViewModel.getUserData().observe(getViewLifecycleOwner(), user -> {
+            // si hay un usuario iniciado sesión inflaremos la vista con el diseño correspondiente
+            if(user!=null){
+                renderRegisterUser(user);
+            } else {
+                // proceso correspondiente a cuando el usuario no esta logueado y solo es invitado
+                renderUnregisterUser();
+            }
+        });
+    }
+
+    private void renderUnregisterUser(){
+        loginLayoutBinding = ItemLoginLayoutBinding.inflate(LayoutInflater.from(getContext()),
+                binding.bottomLayoutContainer, true);
+
+        imageProfileBinding.imageProfile.setImageResource(R.drawable.invitado_holi);
+        imageProfileBinding.textNameProfile.setText("Invitado");
+        imageProfileBinding.textEmailProfile.setText("@invitado");
+
+        //asignación de listeners
+        loginLayoutBinding.btnAuthGoogle.setOnClickListener(v -> {
+            AuthRepository authRepository = new AuthRepositoryImpl();
+            LoginWithGoogleUseCase loginWithGoogleUseCase = new LoginWithGoogleUseCase(authRepository);
+            Intent signInIntent = loginWithGoogleUseCase.execute(Profile_fragment.this);
+            googleSignInLauncher.launch(signInIntent);
+        });
+    }
+
+    private void renderRegisterUser(User user){
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
             profileViewModel.getUserDetails(Objects.
                             requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail())
@@ -98,98 +139,52 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
                     });
         }
 
+        accountLayoutBinding = ItemAccountLayoutBinding.inflate(LayoutInflater.from(getContext()),
+                binding.bottomLayoutContainer, true);
 
-        // el view model manejara los datos de inicio de sesión para mantener los datos aunque el fragmento se destruya
-        profileViewModel.getUserData().observe(getViewLifecycleOwner(), user -> {
-            //se limpia la zona debajo de la imagen para evitar sobre posiciones inesperadas
-            topLayoutContainer.removeViews(1, topLayoutContainer.getChildCount() - 1);
+        //obtencion de los datos del usuario
+        nameUser = user.getUsername();
+        emailuser = user.getEmail();
+        imageUser = user.getImageUser();
 
-            // si hay un usuario iniciado sesión inflaremos la vista con el diseño correspondiente
-            if(user!=null){
-                nameUser = user.getUsername();
-                emailuser = user.getEmail();
-                imageUser = user.getImageUser();
+        if(imageUser!=null){
+            Glide.with(this)
+                    .load(imageUser)
+                    .circleCrop()
+                    .into(imageProfileBinding.imageProfile);
+        }
 
-                if(imageUser!=null){
-                    Glide.with(this)
-                            .load(imageUser)
-                            .circleCrop()
-                            .into(imageView);
-                }
+        imageProfileBinding.textNameProfile.setText(nameUser);
+        imageProfileBinding.textEmailProfile.setText(emailuser);
 
-                textNameView.setText(nameUser);
-                textEmailView.setText(emailuser);
-
-                // inflamos la vista con el elemento de botones que corresponden a un usuario logueado
-                loginOrAccountView = inflater.inflate(R.layout.item_account_layout, bottomLayoutContainer, false);
-                // se añade a la vista
-                bottomLayoutContainer.addView(loginOrAccountView);
-
-                // asignamos el listener al boton de editar perfil para que navegue al fragmento correspondiente
-                loginOrAccountView.findViewById(R.id.btnEditarPerfil).setOnClickListener(v -> {
-                    navigateToEdit(user);
-                });
-
-                // se crea y asigna el listener al boton de cerrar sesión
-                View btnSignOut = loginOrAccountView.findViewById(R.id.btnCerrarSesion);
-                if (btnSignOut != null) {
-                    btnSignOut.setOnClickListener(v -> {
-                        FirebaseAuth.getInstance().signOut();
-                        profileViewModel.refreshData();
-                    });
-                }
-
-                View btnConfig = loginOrAccountView.findViewById(R.id.btnConfiguracion);
-                if(btnConfig != null){
-                    btnConfig.setOnClickListener( v -> {
-                        navigateToConfig();
-                    });
-                }
-
-            } else {
-                // proceso correspondiente a cuando el usuario no esta logueado y solo es invitado
-                loginOrAccountView = inflater.inflate(R.layout.item_login_layout, bottomLayoutContainer, false);
-                bottomLayoutContainer.addView(loginOrAccountView);
-
-                imageView.setImageResource(R.drawable.invitado_holi);
-                textNameView.setText("Invitado");
-                textEmailView.setText("@invitado");
-
-                // se asigna el listener al boton de iniciar sesión
-                loginOrAccountView.findViewById(R.id.btn_auth_google).setOnClickListener(v -> {
-                            AuthRepository authRepository = new AuthRepositoryImpl();
-                            LoginWithGoogleUseCase loginWithGoogleUseCase = new LoginWithGoogleUseCase(authRepository);
-                            Intent signInIntent = loginWithGoogleUseCase.execute(Profile_fragment.this);
-                            googleSignInLauncher.launch(signInIntent);
-                        }
-                );
-            }
+        //asignación de listeners
+        accountLayoutBinding.btnEditarPerfil.setOnClickListener(v -> {
+            navigateToEdit(user);
         });
 
-        return mainView;
-    }
+        accountLayoutBinding.btnConfiguracion.setOnClickListener(v -> {
+            navigateToConfig();
+        });
 
-    private void reloadFragment() {
-        NavController navController = NavHostFragment.findNavController(this);
-        navController.navigate(R.id.home_Fragment);
+        accountLayoutBinding.btnCerrarSesion.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            profileViewModel.refreshData();
+            binding.bottomLayoutContainer.removeView(accountLayoutBinding.getRoot());
+        });
 
     }
 
     private void navigateToEdit(User firebaseUser){
-
         NavDirections action = Profile_fragmentDirections
                 .actionProfileFragmentToEditProfileFragment().
                 setUsername(firebaseUser.getEmail());
 
-        NavController navController = NavHostFragment.findNavController(this);
         navController.navigate(action);
     }
 
     private void navigateToConfig(){
         NavDirections action = Profile_fragmentDirections
                 .actionProfileFragmentToConfigFragment();
-
-        NavController navController = NavHostFragment.findNavController(this);
 
         navController.navigate(action);
     }
@@ -200,6 +195,8 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             profileViewModel.refreshData(); // Pide al ViewModel que actualice el LiveData
         }, 100);
+
+        navController.popBackStack(R.id.profileFragment, true);
     }
 
     @Override

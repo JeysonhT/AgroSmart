@@ -268,7 +268,8 @@ DetectionFragment extends Fragment {
 
         profileViewModel.getUserData().observe(getViewLifecycleOwner(), user -> {
             if (user == null) {
-                NavHostFragment.findNavController(this).navigate(R.id.profileFragment);
+                NavHostFragment.findNavController(this)
+                .navigate(R.id.profileFragment);
             }
         });
     }

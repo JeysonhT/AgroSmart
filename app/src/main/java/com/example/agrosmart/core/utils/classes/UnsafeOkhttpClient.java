@@ -58,9 +58,9 @@ public class UnsafeOkhttpClient {
                 }
             });
 
-            builder.connectTimeout(30, TimeUnit.SECONDS);
-            builder.readTimeout(30, TimeUnit.SECONDS);
-            builder.readTimeout(30, TimeUnit.SECONDS);
+            builder.connectTimeout(60, TimeUnit.SECONDS);
+            builder.readTimeout(60, TimeUnit.SECONDS);
+            builder.readTimeout(60, TimeUnit.SECONDS);
 
             return builder.build();
         } catch (Exception e){

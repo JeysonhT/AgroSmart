@@ -48,7 +48,7 @@ public class DetectionFragmentViewModel extends ViewModel {
 
     private final GetRecommendationUseCase usecase;
 
-    private final DiagnosisHistoryUseCase diagnosisUseCase;
+    private DiagnosisHistoryUseCase diagnosisUseCase;
 
     public DetectionFragmentViewModel() {
         this.usecase = new GetRecommendationUseCase(new RecommendationServiceImpl());
@@ -56,7 +56,7 @@ public class DetectionFragmentViewModel extends ViewModel {
         this.cropsCase = new CropsUseCase();
     }
 
-    private final CropsUseCase cropsCase;
+    private CropsUseCase cropsCase;
 
     public DetectionFragmentViewModel(GetRecommendationUseCase _usecase,
                                       DiagnosisHistoryUseCase _diagnosisUseCase,
@@ -64,6 +64,10 @@ public class DetectionFragmentViewModel extends ViewModel {
         this.usecase = _usecase;
         this.diagnosisUseCase = _diagnosisUseCase;
         this.cropsCase = _cropsCase;
+    }
+
+    public DetectionFragmentViewModel(GetRecommendationUseCase _usecase){
+        this.usecase = _usecase;
     }
 
     public LiveData<Respuesta> getRecommendationResponse(){

@@ -30,7 +30,7 @@ public class RecommendationServiceImpl implements RecomendationRepository {
         this.api = RetrofitClient.recomendationService();
     }
 
-    // la respuesta de la api de gemini se otendra a travez de los callbacks debido a la naturaleza
+    // la respuesta de la api de gemini se obtendra a traves de los callbacks debido a la naturaleza
     // de las peticiones en la red, en otras palabras, espera a que se obtenga una respuesta para mostrar
     // un resultado
 
@@ -45,7 +45,8 @@ public class RecommendationServiceImpl implements RecomendationRepository {
                 if(response.isSuccessful() && response.body() != null){
                     return new Respuesta(response.body().getResponse());
                 } else {
-                    throw  new RuntimeException("Error en la respuesta de la api: " + response.code());
+                    throw  new RuntimeException("Error en la respuesta de la api, intente mas tarde:\n" +
+                            " " + response.code());
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);

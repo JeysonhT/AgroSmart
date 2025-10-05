@@ -26,9 +26,9 @@ public class RetrofitClient {
                 okHttpClient = UnsafeOkhttpClient.getUnsafeOkHttpClient();
             } else {
                 okHttpClient = new OkHttpClient.Builder()
-                        .connectTimeout(30, TimeUnit.SECONDS)
-                        .readTimeout(30, TimeUnit.SECONDS)
-                        .writeTimeout(30, TimeUnit.SECONDS)
+                        .connectTimeout(45, TimeUnit.SECONDS)
+                        .readTimeout(45, TimeUnit.SECONDS)
+                        .writeTimeout(45, TimeUnit.SECONDS)
                         .build();
             }
 

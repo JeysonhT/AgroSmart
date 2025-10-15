@@ -3,9 +3,44 @@
     <style name="LabelStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/bice_blue</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:padding">12dp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ButtonSuccess" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/grass_green</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+
+    <style name="GeneralButton" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">@color/ecru</item>
+        <item name="cornerRadius">25dp</item>
+    </style>
+
+    <!-- Estilos para Textos -->
+    <style name="TextAppearance.Title" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.SubTitle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.Body" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/arial_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.buttons" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/arial_regular</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
 </resources>

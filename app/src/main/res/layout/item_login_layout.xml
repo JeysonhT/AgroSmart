@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/bice_blue"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="15sp"
         android:textAlignment="center"
@@ -33,12 +33,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:text="@string/googleButtonText"
+        style="@style/GeneralButton"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textAlignment="center"
         android:drawableLeft="@drawable/google"
-        android:background="@drawable/boton_grande_redondeado">
-    </Button>
+        />
+
 
     <Space
         android:layout_width="match_parent"
@@ -49,12 +50,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:text="@string/facebookButtonText"
+        style="@style/GeneralButton"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textAlignment="center"
         android:drawableLeft="@drawable/facebook"
-        android:background="@drawable/boton_grande_redondeado">
-    </Button>
+        />
 
     <Space
         android:layout_width="match_parent"

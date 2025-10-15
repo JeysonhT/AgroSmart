@@ -25,8 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Editar datos del perfil"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                style="@style/TextAppearance.Title"
                 android:gravity="center"
                 android:background="#D3D3D3"
                 android:padding="12dp"
@@ -42,6 +41,7 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:gravity="center"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -82,7 +82,6 @@
                 android:hint="@string/etMunicipioString"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/ecru"
                 android:background="@drawable/edittext_bg"
                 android:textColor="#000"
                 android:textSize="15sp"
@@ -90,6 +89,7 @@
 
             <TextView android:text="Editar tipos de suelo"
                 style="@style/LabelStyle"/>
+
             <EditText
                 android:id="@+id/etSuelo"
                 android:inputType="text"
@@ -106,8 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Guardar Cambios"
-                android:background="@drawable/boton_grande_redondeado"
-                android:textColor="#FFF"
+                style="@style/ButtonSuccess"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="30dp"/>
         </LinearLayout>

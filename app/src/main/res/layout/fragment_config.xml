@@ -14,9 +14,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Configuraciones"
-            android:textSize="20dp"
-            android:textColor="@color/black"/>
+            style="@style/TextAppearance.Title"
+            android:text="Configuraciones" />
 
         <LinearLayout
             android:layout_margin="5dp"
@@ -30,8 +29,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:lines="2"
-                android:text="Guardar recomendaciones automáticamente"
-                android:textSize="14sp" />
+                android:text="@string/str_config_generar_recomendaciones_txt"/>
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switch_save_recommendations"

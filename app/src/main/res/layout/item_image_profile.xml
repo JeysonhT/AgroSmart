@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/emailprofileExample"
                 android:textSize="20sp"
-                android:textColor="@color/bice_blue"
+                android:textColor="@color/black"
                 />
         </androidx.cardview.widget.CardView>
 

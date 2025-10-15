@@ -56,13 +56,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/boton_grande_redondeado"
+                style="@style/GeneralButton"
                 android:drawableLeft="@drawable/cactus_24"
                 android:drawableTint="@color/Anti_flash_White"
                 android:text="@string/buttonCactus"
                 android:textAlignment="textStart"
-                android:textColor="@color/Anti_flash_White"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:maxLines="1"/>
 
             <Space
@@ -74,13 +73,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/boton_grande_redondeado"
+                style="@style/GeneralButton"
                 android:drawableLeft="@drawable/hoja_24"
                 android:drawableTint="@color/Anti_flash_White"
                 android:text="@string/buttonLeaf"
                 android:textAlignment="textStart"
-                android:textColor="@color/Anti_flash_White"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:maxLines="1"/>
 
         </LinearLayout>
@@ -102,10 +100,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Noticias"
+                style="@style/TextAppearance.SubTitle"
                 android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />

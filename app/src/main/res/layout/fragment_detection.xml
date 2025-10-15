@@ -33,9 +33,9 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TextAppearance.Title"
                 android:text="@string/detection_fragment_title"
                 android:textAlignment="textStart"
-                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <androidx.cardview.widget.CardView
@@ -46,7 +46,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:orientation="vertical"
                 app:cardBackgroundColor="@color/apple_green"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="20dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -79,6 +79,7 @@
                             android:id="@+id/textDiagnosisCard"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            style="@style/TextAppearance.Body"
                             android:text="@string/DiagnosisCard"
                             android:textAlignment="textEnd"
                             android:textSize="15sp" />
@@ -110,7 +111,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:text="example"
+                            android:text="@string/card_deficiency_text_example"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -134,9 +135,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
                 android:text="@string/historialString"
+                style="@style/TextAppearance.SubTitle"
                 android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="20sp"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

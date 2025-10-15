@@ -110,4 +110,6 @@
     </string>
     <string name="newimageContentDescription">newImage</string>
     <string name="textButtomGenerar">Generar recomendación</string>
+    <string name="card_deficiency_text_example">no hay registros</string>
+    <string name="str_config_generar_recomendaciones_txt">Guardar recomendaciones automáticamente</string>
 </resources>

@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="Descripción de la imagen"
-        android:textColor="@color/bice_blue"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:maxLines="2"
         android:ellipsize="end"

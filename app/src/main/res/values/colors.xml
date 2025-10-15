@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="apple_green">#45FF64</color>
-    <color name="mid_orange">#F8AB4C</color>
-    <color name="ecru">#FFF2B3</color>
-    <color name="bice_blue">#406F9D</color>
-    <color name="brown">#6E563E</color>
-    <color name="mid_brown">#C6923E</color>
+    <color name="apple_green">#4AD32D</color>
+    <color name="mid_orange">#F39200</color>
+    <color name="ecru">#E2FF36</color>
+    <color name="mid_yellow">#F9FF00</color>
     <color name="Anti_flash_White">#F4F4F4</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="grass_green">#CCC355</color>
+    <color name="grass_green">#18A300</color>
 </resources>

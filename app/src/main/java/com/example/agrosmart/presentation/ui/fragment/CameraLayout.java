@@ -47,8 +47,14 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.classes.ImageCacheManager;
+import com.example.agrosmart.core.utils.classes.NetworkChecker;
+import com.example.agrosmart.data.local.dto.MMLResultDTO;
 import com.example.agrosmart.data.local.ml.DetectionService;
+import com.example.agrosmart.data.network.MMLStatsService;
+import com.example.agrosmart.data.repository.impl.MMLStatsRepositoryImpl;
 import com.example.agrosmart.databinding.FragmentCameraLayoutBinding;
+import com.example.agrosmart.domain.models.MMLStats;
+import com.example.agrosmart.domain.usecase.MMLStatsUseCase;
 import com.example.agrosmart.presentation.viewmodels.DetectionFragmentViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -80,6 +86,8 @@ public class CameraLayout extends Fragment {
     private DetectionService detectionService;
 
     private DetectionFragmentViewModel dfViewModel;
+
+    private MMLStatsUseCase useCase = new MMLStatsUseCase(new MMLStatsService(new MMLStatsRepositoryImpl()));
 
     NavController navController;
 
@@ -206,7 +214,19 @@ public class CameraLayout extends Fragment {
                 TensorImage tensorImage = detectionService.bitmatToTensor(bitmap);
 
                 // se obtiene el resultado de el proceso de detección
-                final String resultado = detectionService.processDetection(tensorImage, getContext());
+                MMLResultDTO resultDTO = detectionService.processDetection(tensorImage, getContext());
+
+                if(NetworkChecker.isInternetAvailable(requireContext())){
+                    MMLStats stats = new MMLStats();
+
+                    stats.setMemoryUse(resultDTO.getMemoryUse());
+                    stats.setInferenceTime(resultDTO.getInferenceTime());
+                    stats.SetInferenceDataFromArray(resultDTO.getInferenceData());
+
+                    useCase.saveStats(stats);
+                }
+
+                final String resultado = resultDTO.getResult();
 
                 image.close();
 
@@ -242,7 +262,20 @@ public class CameraLayout extends Fragment {
                 TensorImage tensor = detectionService.bitmatToTensor(image);
 
                 // se captura el resultado y se envia a el mostrar dialogo
-                final String resultado = detectionService.processDetection(tensor, getContext());
+                MMLResultDTO resultDTO = detectionService.processDetection(tensor, getContext());
+
+                if(NetworkChecker.isInternetAvailable(requireContext())){
+                    MMLStats stats = new MMLStats();
+
+                    stats.setMemoryUse(resultDTO.getMemoryUse());
+                    stats.setInferenceTime(resultDTO.getInferenceTime());
+                    stats.SetInferenceDataFromArray(resultDTO.getInferenceData());
+
+                    useCase.saveStats(stats);
+                }
+
+                final String resultado = resultDTO.getResult();
+
                 byte[] imgBytes = compressBitmap(image);
 
                 System.out.println("numero de buyes desde la conversion de un archivo: " + imgBytes.length);

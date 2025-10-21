@@ -2,16 +2,21 @@ package com.example.agrosmart.data.repository.impl;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.agrosmart.core.utils.interfaces.CropsCallback;
 import com.example.agrosmart.data.local.dto.CropDTO;
 import com.example.agrosmart.domain.models.Crop;
 import com.example.agrosmart.domain.models.mappers.CropMapper;
 import com.example.agrosmart.domain.repository.CropRepository;
+import com.facebook.bolts.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
 import java.util.ArrayList;
@@ -28,21 +33,23 @@ public class CropRepositoryImpl implements CropRepository {
     public void getCrops(CropsCallback callback) {
         List<Crop> crops = new ArrayList<>();
 
-        db.collection("Crops").
-                get().addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot document : task.getResult()){
-                            //debug sout
-                            //System.out.println(document.get("cropName", String.class).toString());
-                            crops.add(new Crop(
-                                    document.get("cropName", String.class),
-                                    document.get("description", String.class),
-                                    document.get("content", String.class)));
+        CollectionReference doc_ref = db.collection("Crops");
+        doc_ref.get()
+                .addOnCompleteListener((task) ->  {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                crops.add(new Crop(
+                                   document.get("name", String.class),
+                                        document.get("description", String.class),
+                                        document.get("harvestTime", String.class),
+                                        document.get("type", String.class)
+                                ));
+                            }
+
+                            callback.onCropsLoaded(crops);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-                        callback.onCropsLoaded(crops);
-                    } else {
-                        callback.onError(task.getException());
-                    }
                 });
     }
 
@@ -52,18 +59,19 @@ public class CropRepositoryImpl implements CropRepository {
 
         CollectionReference cropsRF = db.collection("Crops");
         Source source = Source.CACHE;
-        Query query = cropsRF.whereEqualTo("cropName", name);
+        Query query = cropsRF.whereEqualTo("name", name);
 
         //obtiene el cultivo de la cache que guarda firebase
         // una vez obtenido los cultivos desde el home fragment
         query.get(source).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
-                DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                DocumentSnapshot document = task.getResult().getDocuments().get(0);
 
                 crop[0] = new CropDTO(
-                        documentSnapshot.get("cropName", String.class),
-                        documentSnapshot.get("description", String.class),
-                        documentSnapshot.get("content", String.class)
+                        document.get("name", String.class),
+                        document.get("description", String.class),
+                        document.get("harvestTime", String.class),
+                        document.get("type", String.class)
                         );
                 Log.println(Log.DEBUG, TAG, "Crop name: " + crop[0].getCropName());
                 callback.onCropsLoaded(Collections.singletonList(CropMapper.toEntity(crop[0])));

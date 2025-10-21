@@ -11,8 +11,8 @@ public class CropMapper {
         return new CropDTO(
                 crop.getCropName(),
                 crop.getDescription(),
-                crop.getContent(),
-                crop.getLastUpdate()
+                crop.getHarvestTime(),
+                crop.getType()
         );
     }
 
@@ -22,8 +22,8 @@ public class CropMapper {
         Crop crop = new Crop();
         crop.setCropName(dto.getCropName());
         crop.setDescription(dto.getDescription());
-        crop.setContent(dto.getContent());
-        crop.setLastUpdate(dto.getLastUpdate());
+        crop.setHarvestTime(dto.getContent());
+        crop.setType(dto.getType());
         return crop;
     }
 }

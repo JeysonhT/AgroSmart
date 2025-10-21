@@ -65,8 +65,8 @@ dependencies {
     implementation libs.glide
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
-    implementation 'com.google.android.gms:play-services-base:18.3.0'
-    implementation 'com.google.android.gms:play-services-tasks:18.0.2'
+    implementation libs.play.services.base
+    implementation libs.play.services.tasks
 
 
     implementation libs.litert.support
@@ -81,7 +81,7 @@ dependencies {
     testImplementation libs.androidx.arch.core.testing
     testImplementation libs.mockito.core
     testImplementation libs.robolectric
-    testImplementation 'androidx.test:core:1.5.0'
+    testImplementation libs.androidx.core
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 

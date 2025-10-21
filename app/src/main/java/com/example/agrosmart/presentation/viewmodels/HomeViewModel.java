@@ -77,12 +77,17 @@ public class HomeViewModel extends ViewModel {
     //metodos auxiliares
 
     public CropCarouselData createCropInfo(Crop c){
-        return new CropCarouselData(getCropImage(c.getCropName()), c.getCropName(), c.getDescription());
+        try{
+            return new CropCarouselData(getCropImage(c.getCropName()), c.getType(), c.getDescription());
+        } catch(NullPointerException e){
+            throw new RuntimeException("Fallo al obtener el nombre del cultivo");
+        }
+
     }
 
     private int getCropImage(String cropName) {
-        switch (cropName.toLowerCase(Locale.ROOT)) {
-            case "maíz": return R.drawable.imagen_1;
+        switch (cropName.toLowerCase()) {
+            case "maiz": return R.drawable.imagen_1;
             case "frijol": return R.drawable.sorgo;
             default: return R.drawable.frijol;
         }

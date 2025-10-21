@@ -8,16 +8,16 @@ public class CropDTO {
     private String description;
     private String content;
     @Exclude
-    private Long lastUpdate;
+    private String type;
 
     // 🔑 Firestore necesita un constructor vacío
     public CropDTO() {}
 
-    public CropDTO(String cropName, String description, String content, Long lastUpdate) {
+    public CropDTO(String cropName, String description, String content, String type) {
         this.cropName = cropName;
         this.description = description;
         this.content = content;
-        this.lastUpdate = lastUpdate;
+        this.type = type;
     }
 
     public CropDTO(String cropName, String description, String content) {
@@ -40,6 +40,11 @@ public class CropDTO {
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
 
-    public Long getLastUpdate() { return lastUpdate; }
-    public void setLastUpdate(Long lastUpdate) { this.lastUpdate = lastUpdate; }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

@@ -3,6 +3,7 @@ package com.example.agrosmart.data.repository.impl;
 import android.util.Base64;
 import android.util.Log;
 
+import com.example.agrosmart.core.utils.classes.ImageEncoder;
 import com.example.agrosmart.core.utils.interfaces.NewsCallBack;
 import com.example.agrosmart.domain.models.News;
 import com.example.agrosmart.domain.repository.NewsRepository;
@@ -48,7 +49,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                     String dateFormated = format.format(date);
 
                     newsList.add(new News(
-                            base64ToImage(doc.getString("imageBytes")),
+                            ImageEncoder.decoderBase64(doc.getString("imageBytes")),
                             doc.get("author", String.class),
                             doc.get("title", String.class),
                             doc.get("description", String.class),
@@ -60,20 +61,5 @@ public class NewsRepositoryImpl implements NewsRepository {
                 callBack.onLoaded(newsList);
             }
         }).addOnFailureListener(callBack::onError);
-    }
-
-    private byte[] base64ToImage(String base64String){
-
-        try {
-            if(base64String.contains(",")){
-                base64String = base64String.split(",")[1];
-            }
-
-            return Base64.decode(base64String, Base64.DEFAULT);
-
-        } catch (Exception e){
-            Log.println(Log.ERROR, TAG, "Error to convert image");
-            return null;
-        }
     }
 }

@@ -84,7 +84,7 @@ public class DetectionFragmentViewModel extends ViewModel {
                 "genera recomendaciones para el siguiente problema\n" +
                 problema + "\n" +
                 "puedes recomendar fertilizantes organicos y no organicos, " +
-                "no excedas las 300 palabras";
+                "no excedas las 300 palabras, los titulos no los encierres en * usa negritas en su lugar";
 
         usecase.ejecutar(pregunta).thenAccept(recommendationResponse::postValue).exceptionally(error -> {
             Log.e(TAG, "Error al obtener recomendación", error);

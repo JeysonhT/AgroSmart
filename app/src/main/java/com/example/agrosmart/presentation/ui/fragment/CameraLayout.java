@@ -47,13 +47,16 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.classes.ImageCacheManager;
+import com.example.agrosmart.core.utils.classes.ImageEncoder;
 import com.example.agrosmart.core.utils.classes.NetworkChecker;
 import com.example.agrosmart.data.local.dto.MMLResultDTO;
 import com.example.agrosmart.data.local.ml.DetectionService;
 import com.example.agrosmart.data.network.MMLStatsService;
 import com.example.agrosmart.data.repository.impl.MMLStatsRepositoryImpl;
 import com.example.agrosmart.databinding.FragmentCameraLayoutBinding;
+import com.example.agrosmart.domain.models.DetectionResult;
 import com.example.agrosmart.domain.models.MMLStats;
+import com.example.agrosmart.domain.usecase.DetectionResultUseCase;
 import com.example.agrosmart.domain.usecase.MMLStatsUseCase;
 import com.example.agrosmart.presentation.viewmodels.DetectionFragmentViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -87,7 +90,9 @@ public class CameraLayout extends Fragment {
 
     private DetectionFragmentViewModel dfViewModel;
 
-    private MMLStatsUseCase useCase = new MMLStatsUseCase(new MMLStatsService(new MMLStatsRepositoryImpl()));
+    private DetectionResultUseCase drUseCase;
+
+    private MMLStatsUseCase useCase;
 
     NavController navController;
 
@@ -128,6 +133,9 @@ public class CameraLayout extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCameraLayoutBinding.inflate(inflater, container, false);
+
+        useCase = new MMLStatsUseCase(new MMLStatsService(new MMLStatsRepositoryImpl()));
+        drUseCase = new DetectionResultUseCase();
 
         dfViewModel = new ViewModelProvider(this).
                 get(DetectionFragmentViewModel.class);
@@ -224,6 +232,11 @@ public class CameraLayout extends Fragment {
                     stats.SetInferenceDataFromArray(resultDTO.getInferenceData());
 
                     useCase.saveStats(stats);
+
+                    drUseCase.saveResult(new DetectionResult(
+                            ImageEncoder.encoderBase64(improveBitmapByteArray),
+                            resultDTO.getResult()
+                    ));
                 }
 
                 final String resultado = resultDTO.getResult();
@@ -264,6 +277,8 @@ public class CameraLayout extends Fragment {
                 // se captura el resultado y se envia a el mostrar dialogo
                 MMLResultDTO resultDTO = detectionService.processDetection(tensor, getContext());
 
+                byte[] imgBytes = compressBitmap(image);
+
                 if(NetworkChecker.isInternetAvailable(requireContext())){
                     MMLStats stats = new MMLStats();
 
@@ -272,11 +287,16 @@ public class CameraLayout extends Fragment {
                     stats.SetInferenceDataFromArray(resultDTO.getInferenceData());
 
                     useCase.saveStats(stats);
+
+                    drUseCase.saveResult(new DetectionResult(
+                            ImageEncoder.encoderBase64(imgBytes),
+                            resultDTO.getResult()
+                    ));
                 }
 
                 final String resultado = resultDTO.getResult();
 
-                byte[] imgBytes = compressBitmap(image);
+
 
                 System.out.println("numero de buyes desde la conversion de un archivo: " + imgBytes.length);
 

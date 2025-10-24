@@ -215,7 +215,6 @@ public class CameraLayout extends Fragment {
 
                 Bitmap bitmap = imageToBitmap(image);
                 byte[] improveBitmapByteArray = compressBitmap(bitmap);
-                System.out.println("Bytes de la primera conversion desde el improveBitmap = " + improveBitmapByteArray.length);
                 detectionService = new DetectionService();
 
                 // se crea un tensor image a partir de un bitmap sin dimencionar

@@ -78,7 +78,7 @@ public class HomeViewModel extends ViewModel {
 
     public CropCarouselData createCropInfo(Crop c){
         try{
-            return new CropCarouselData(getCropImage(c.getCropName()), c.getType(), c.getDescription());
+            return new CropCarouselData(getCropImage(c.getCropName()), c.getType(), c.getDescription(), c.getHarvestTime(), c.getType());
         } catch(NullPointerException e){
             throw new RuntimeException("Fallo al obtener el nombre del cultivo");
         }

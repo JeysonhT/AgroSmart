@@ -20,13 +20,13 @@
 
     <!-- Estilos para Textos -->
     <style name="TextAppearance.Title" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:fontFamily">@font/lexend_regular</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="TextAppearance.SubTitle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:fontFamily">@font/lexend_bold</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
@@ -38,7 +38,7 @@
     </style>
 
     <style name="TextAppearance.buttons" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/arial_regular</item>
+        <item name="android:fontFamily">@font/lexend_semibold</item>
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/black</item>
     </style>

@@ -53,7 +53,7 @@ public class Home_Fragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        cropAdapter = new CropInfoAdapter(getContext(), new ArrayList<>());
+        cropAdapter = new CropInfoAdapter(getContext(), new ArrayList<>(), navController);
         recyclerView.setAdapter(cropAdapter);
 
         // Observa los cultivos

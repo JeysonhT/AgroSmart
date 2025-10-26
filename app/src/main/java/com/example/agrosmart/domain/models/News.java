@@ -29,6 +29,12 @@ public class News extends RealmObject {
         this.information = _information;
     }
 
+    public News(byte[] _image, String _description){
+
+        this.image = _image;
+        this.description = _description;
+    }
+
     public News(){
         this._id = UUID.randomUUID().toString();
     }

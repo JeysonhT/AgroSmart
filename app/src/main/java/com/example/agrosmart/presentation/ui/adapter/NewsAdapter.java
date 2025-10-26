@@ -60,21 +60,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
                 decodeByteArray(news.getImage(), 0, news.getImage().length));
         holder.textView.setText(news.getDescription());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try{
-                    NavDirections action = Home_FragmentDirections.actionHomeFragmentToNewsInfoFragment(
-                            ImageCacheManager.saveImageToCache(v.getContext(), news.getImage()),
-                            news.getNewsName(),
-                            news.getPublicationDate(),
-                            news.getAuthor(),
-                            news.getInformation()
-                    );
-                    navController.navigate(action);
-                } catch (IllegalStateException | IOException e){
-                    Log.println(Log.ERROR, "NEWS_ADAPTER", Objects.requireNonNull(e.getMessage()));
-                }
+        holder.itemView.setOnClickListener(v -> {
+            try{
+                NavDirections action = Home_FragmentDirections.actionHomeFragmentToNewsInfoFragment(
+                        ImageCacheManager.saveImageToCache(v.getContext(), news.getImage()),
+                        news.getNewsName(),
+                        news.getPublicationDate(),
+                        news.getAuthor(),
+                        news.getInformation()
+                );
+                navController.navigate(action);
+            } catch (IllegalStateException | IOException e){
+                Log.println(Log.ERROR, "NEWS_ADAPTER", Objects.requireNonNull(e.getMessage()));
             }
         });
     }

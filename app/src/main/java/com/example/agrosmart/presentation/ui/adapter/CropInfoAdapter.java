@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -14,11 +12,10 @@ import androidx.navigation.NavDirections;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrosmart.R;
-import com.example.agrosmart.databinding.ItemImageBinding;
+import com.example.agrosmart.databinding.ItemCropImageBinding;
 import com.example.agrosmart.domain.designModels.CropCarouselData;
 import com.example.agrosmart.presentation.ui.fragment.Home_FragmentDirections;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,7 +41,7 @@ public class CropInfoAdapter extends RecyclerView.Adapter<CropInfoAdapter.ImageV
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_image, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_crop_image, parent, false);
         return new ImageViewHolder(view);
     }
 
@@ -62,14 +59,14 @@ public class CropInfoAdapter extends RecyclerView.Adapter<CropInfoAdapter.ImageV
 
     static class ImageViewHolder extends RecyclerView.ViewHolder {
 
-        ItemImageBinding binding;
+        ItemCropImageBinding binding;
         private NavController navController;
         private CropCarouselData currentData;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            binding = ItemImageBinding.bind(itemView);
+            binding = ItemCropImageBinding.bind(itemView);
 
             binding.imageView.setOnClickListener(v -> {
                 if(currentData != null && navController != null){

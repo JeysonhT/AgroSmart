@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.example.agrosmart.R;
 
-class DeficienciesFragment extends Fragment {
+public class DeficienciesFragment extends Fragment {
 
     @Nullable
     @Override

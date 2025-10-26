@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -16,11 +17,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.agrosmart.R;
+import com.example.agrosmart.core.utils.classes.ImageCacheManager;
+import com.example.agrosmart.domain.models.News;
 import com.example.agrosmart.presentation.ui.adapter.CropInfoAdapter;
 import com.example.agrosmart.presentation.ui.adapter.NewsAdapter;
 import com.example.agrosmart.presentation.viewmodels.HomeViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Home_Fragment extends Fragment {
@@ -79,6 +83,16 @@ public class Home_Fragment extends Fragment {
             noticeView.setAdapter(adapter);
             if(!news.isEmpty()){
                 adapter.updateData(news);
+            } else {
+                adapter.updateData(
+                        List.of(
+                                new News(
+                                        ImageCacheManager.drawableToByteArray(ContextCompat.
+                                                getDrawable(requireContext(), R.drawable.no_internet_placeholder)),
+                                        "No tienes Conexión, intenta conectarte a internet"
+                                )
+                        )
+                );
             }
         });
     }

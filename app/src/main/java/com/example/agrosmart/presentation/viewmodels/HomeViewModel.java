@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.agrosmart.R;
+import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.core.utils.interfaces.CropsCallback;
 import com.example.agrosmart.core.utils.interfaces.NewsCallBack;
 import com.example.agrosmart.domain.designModels.CropCarouselData;
@@ -32,6 +33,8 @@ public class HomeViewModel extends ViewModel {
     public void loadCrops() {
         CropsUseCase useCase = new CropsUseCase();
 
+        List<CropCarouselData> placeholderList= new ArrayList<>();
+
         useCase.getCrops(new CropsCallback() {
             @Override
             public void onCropsLoaded(List<Crop> crops) {
@@ -43,7 +46,13 @@ public class HomeViewModel extends ViewModel {
                     cropsData.setValue(data);
                     Log.println(Log.ASSERT, TAG, "Datos cargados exitosamente");
                 } else {
-                    cropsData.setValue(Collections.emptyList());
+                    placeholderList.add(
+                       new CropCarouselData(R.drawable.no_internet_placeholder,
+                               "No hay conexión a internet",
+                               "",
+                               "",
+                               ""));
+                    cropsData.setValue(placeholderList);
                 }
             }
 
@@ -69,6 +78,7 @@ public class HomeViewModel extends ViewModel {
 
             @Override
             public void onError(Exception e) {
+                newsData.setValue(new ArrayList<>());
                 Log.println(Log.ERROR, TAG, e.getMessage());
             }
         });
@@ -78,7 +88,7 @@ public class HomeViewModel extends ViewModel {
 
     public CropCarouselData createCropInfo(Crop c){
         try{
-            return new CropCarouselData(getCropImage(c.getCropName()), c.getType(), c.getDescription(), c.getHarvestTime(), c.getType());
+            return new CropCarouselData(getCropImage(c.getCropName()), c.getCropName(), c.getDescription(), c.getHarvestTime(), c.getType());
         } catch(NullPointerException e){
             throw new RuntimeException("Fallo al obtener el nombre del cultivo");
         }

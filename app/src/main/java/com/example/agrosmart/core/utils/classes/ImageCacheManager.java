@@ -3,8 +3,12 @@ package com.example.agrosmart.core.utils.classes;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -106,6 +110,37 @@ public class ImageCacheManager {
             e.printStackTrace();
             return  null;
         }
+    }
+
+    public static byte[] drawableToByteArray(Drawable drawable) {
+        if (drawable == null) {
+            return null;
+        }
+
+        // 1. Obtener el Bitmap a partir del Drawable
+        Bitmap bitmap;
+
+        if (drawable instanceof BitmapDrawable) {
+            // Si ya es un BitmapDrawable (ej. PNG/JPEG), obtenemos el bitmap directamente
+            bitmap = ((BitmapDrawable) drawable).getBitmap();
+        } else {
+            // Para otros tipos de Drawable (ej. VectorDrawable), lo dibujamos en un Bitmap
+            int width = drawable.getIntrinsicWidth() > 0 ? drawable.getIntrinsicWidth() : 1;
+            int height = drawable.getIntrinsicHeight() > 0 ? drawable.getIntrinsicHeight() : 1;
+
+            bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+        }
+
+        // 2. Comprimir el Bitmap en un array de bytes
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        // Utilizamos Bitmap.CompressFormat.PNG para preservar la calidad.
+        // Si necesitas un archivo más pequeño, puedes usar JPEG con un valor de calidad (ej. 80).
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+        return stream.toByteArray();
     }
 
     // Limpiar archivos temporales del cache

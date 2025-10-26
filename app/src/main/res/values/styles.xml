@@ -20,7 +20,7 @@
 
     <!-- Estilos para Textos -->
     <style name="TextAppearance.Title" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/lexend_regular</item>
+        <item name="android:fontFamily">@font/lexend_bold</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/black</item>
     </style>

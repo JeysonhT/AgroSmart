@@ -29,6 +29,31 @@
                 android:name="content"
                 app:argType="string"/>
         </action>
+        <action
+            android:id="@+id/action_home_Fragment_to_cropInfoFragment"
+            app:destination="@id/cropInfoFragment" >
+
+            <argument
+                android:name="image"
+                app:argType="integer"/>
+
+            <argument
+                android:name="title"
+                app:argType="string"/>
+
+            <argument
+                android:name="description"
+                app:argType="string"/>
+
+            <argument
+                android:name="harvestTime"
+                app:argType="string"/>
+
+            <argument
+                android:name="type"
+                app:argType="string"/>
+
+        </action>
     </fragment>
 
 
@@ -120,4 +145,9 @@
         android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.profile.ConfigFragment"
         android:label="fragment_config"
         tools:layout="@layout/fragment_config" />
+    <fragment
+        android:id="@+id/cropInfoFragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.CropInfoFragment"
+        android:label="fragment_crop_info"
+        tools:layout="@layout/fragment_crop_info" />
 </navigation>

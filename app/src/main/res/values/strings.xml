@@ -112,4 +112,11 @@
     <string name="textButtomGenerar">Generar recomendación</string>
     <string name="card_deficiency_text_example">no hay registros</string>
     <string name="str_config_generar_recomendaciones_txt">Guardar recomendaciones automáticamente</string>
+    <string name="placeholder">placeholder</string>
+    <string name="cropDescriptionPlaceholder">descripción</string>
+    <string name="tiempo_de_cosecha_placeholder">Tiempo de cosecha</string>
+    <string name="tipo_de_cultivo_placeholder">Tipo de cultivo</string>
+    <string name="Back_Button">Back Button</string>
+    <string name="fertilizerimage_content_description">fertilizerImage</string>
+    <string name="fertilizantes_fragment_text">Fertilizantes</string>
 </resources>

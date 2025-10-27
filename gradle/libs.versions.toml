@@ -75,6 +75,8 @@ play-services-tasks = { module = "com.google.android.gms:play-services-tasks", v
 realm-android-library = { module = "io.realm:realm-android-library", version.ref = "realmAndroidLibrary" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+tensorflow-lite-support = { group = "org.tensorflow", name = "tensorflow-lite-support" }
+tensorflow-lite-metadata = { group = "org.tensorflow", name = "tensorflow-lite-metadata" }
 
 
 [plugins]

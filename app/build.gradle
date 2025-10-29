@@ -76,8 +76,6 @@ dependencies {
 
     implementation libs.retrofit
     implementation libs.converter.gson
-    implementation libs.tensorflow.lite.support
-    implementation libs.tensorflow.lite.metadata
 
     testImplementation libs.junit
     testImplementation libs.androidx.arch.core.testing

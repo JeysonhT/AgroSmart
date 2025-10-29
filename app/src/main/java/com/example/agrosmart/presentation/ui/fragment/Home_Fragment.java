@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 
 import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.classes.ImageCacheManager;
+import com.example.agrosmart.databinding.FragmentHomeBinding;
 import com.example.agrosmart.domain.models.News;
 import com.example.agrosmart.presentation.ui.adapter.CropInfoAdapter;
 import com.example.agrosmart.presentation.ui.adapter.NewsAdapter;
@@ -28,20 +30,19 @@ import java.util.List;
 
 
 public class Home_Fragment extends Fragment {
-    private RecyclerView recyclerView;
-    private RecyclerView noticeView;
-
+    private FragmentHomeBinding binding;
     private HomeViewModel viewModel;
-    private CropInfoAdapter cropAdapter;
-
     private NavController navController;
+
+    private NewsAdapter noticeAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -54,11 +55,13 @@ public class Home_Fragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         // RecyclerView crops
-        recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        cropAdapter = new CropInfoAdapter(getContext(), new ArrayList<>(), navController);
-        recyclerView.setAdapter(cropAdapter);
+        CropInfoAdapter cropAdapter = new CropInfoAdapter(getContext(), new ArrayList<>(), navController);
+        binding.recyclerView.setLayoutManager(
+                new LinearLayoutManager(getContext(),
+                        LinearLayoutManager.HORIZONTAL,
+                        false));
+
+        binding.recyclerView.setAdapter(cropAdapter);
 
         // Observa los cultivos
         viewModel.getCrops().observe(getViewLifecycleOwner(), cropData -> {
@@ -71,20 +74,25 @@ public class Home_Fragment extends Fragment {
         viewModel.loadNews();
 
         // RecyclerView noticias
-        noticeView = view.findViewById(R.id.noticeRecyclerView);
-        noticeView.setLayoutManager(
-                new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        binding.noticeRecyclerView.setLayoutManager(
+                new LinearLayoutManager(getContext(),
+                        LinearLayoutManager.VERTICAL,
+                        false));
+
+        noticeAdapter = new NewsAdapter(getContext(), new ArrayList<>(), navController);
+        binding.noticeRecyclerView.setAdapter(noticeAdapter);
+
         renderNews();
+        createNavigation();
     }
 
     private void renderNews() {
         viewModel.getNews().observe(getViewLifecycleOwner(), news -> {
-            NewsAdapter adapter = new NewsAdapter(getContext(), new ArrayList<>(), navController);
-            noticeView.setAdapter(adapter);
+
             if(!news.isEmpty()){
-                adapter.updateData(news);
+                noticeAdapter.updateData(news);
             } else {
-                adapter.updateData(
+                noticeAdapter.updateData(
                         List.of(
                                 new News(
                                         ImageCacheManager.drawableToByteArray(ContextCompat.
@@ -93,6 +101,26 @@ public class Home_Fragment extends Fragment {
                                 )
                         )
                 );
+            }
+        });
+    }
+
+    private void createNavigation(){
+        binding.buttonDeficiencies.setOnClickListener(v-> {
+            try {
+                NavDirections action = Home_FragmentDirections.actionHomeFragmentToDeficienciesFragment();
+                navController.navigate(action);
+            } catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        });
+
+        binding.buttonFertilizers.setOnClickListener(v->{
+            try {
+                NavDirections action = Home_FragmentDirections.actionHomeFragmentToFertilizersFragment();
+                navController.navigate(action);
+            } catch (Exception e){
+                throw new RuntimeException(e);
             }
         });
     }

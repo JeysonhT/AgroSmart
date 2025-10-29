@@ -117,6 +117,17 @@
     <string name="tiempo_de_cosecha_placeholder">Tiempo de cosecha</string>
     <string name="tipo_de_cultivo_placeholder">Tipo de cultivo</string>
     <string name="Back_Button">Back Button</string>
-    <string name="fertilizerimage_content_description">fertilizerImage</string>
+    <string name="fertilizer_image_content_description">fertilizerImage</string>
     <string name="fertilizantes_fragment_text">Fertilizantes</string>
+    <string name="deficiencyImageDescription">DeficiencyImage</string>
+    <string name="deficiencySymptomsText">Síntomas</string>
+    <string name="deficiencyDescriptionText">Descripción</string>
+    <string name="deficiencySolutionsText">Soluciones</string>
+    <string name="descripci_nTxt">Descripción</string>
+    <string name="fertilizerInfoTypeText">Tipo</string>
+    <string name="fertilizerInfoProviderText">Proveedor</string>
+    <string name="fertilizerInfoAMethodText">Metodo de aplicación</string>
+    <string name="fertilizerInfoRDoseText">Dosis recomendada</string>
+    <string name="fertilizerimage_content_description">Fertilizer Image</string>
+    <string name="deficiencies_fragment_text">Deficiencias</string>
 </resources>

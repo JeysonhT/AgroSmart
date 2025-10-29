@@ -54,6 +54,12 @@
                 app:argType="string"/>
 
         </action>
+        <action
+            android:id="@+id/action_home_Fragment_to_fertilizersFragment"
+            app:destination="@id/fertilizersFragment" />
+        <action
+            android:id="@+id/action_home_Fragment_to_deficienciesFragment"
+            app:destination="@id/deficienciesFragment" />
     </fragment>
 
 
@@ -150,4 +156,80 @@
         android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.CropInfoFragment"
         android:label="fragment_crop_info"
         tools:layout="@layout/fragment_crop_info" />
+    <fragment
+        android:id="@+id/fertilizersFragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.home.FertilizersFragment"
+        android:label="fragment_fertilizers"
+        tools:layout="@layout/fragment_fertilizers" >
+        <action
+            android:id="@+id/action_fertilizersFragment_to_fertilizerInfoFragment"
+            app:destination="@id/fertilizerInfoFragment">
+
+            <argument
+                app:argType="string"
+                android:name="name"/>
+
+            <argument
+                app:argType="string"
+                android:name="description"/>
+
+            <argument
+                app:argType="string"
+                android:name="type"/>
+
+            <argument
+                app:argType="string"
+                android:name="provider"/>
+
+            <argument
+                app:argType="string"
+                android:name="applicationMethod"/>
+
+            <argument
+                app:argType="string"
+                android:name="recommendedDose"/>
+
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/deficienciesFragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.home.DeficienciesFragment"
+        android:label="fragment_deficiencies"
+        tools:layout="@layout/fragment_deficiencies" >
+        <action
+            android:id="@+id/action_deficienciesFragment_to_defiencyInfoFragment"
+            app:destination="@id/deficiencyInfoFragment">
+
+            <argument
+                app:argType="string"
+                android:name="deficiencyName"/>
+
+            <argument
+                app:argType="string"
+                android:name="description"/>
+
+            <argument
+                app:argType="string"
+                android:name="symptoms"/>
+
+            <argument
+                app:argType="string"
+                android:name="solutions"/>
+
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/deficiencyInfoFragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.home.DeficiencyInfoFragment"
+        android:label="fragment_defiency_info"
+        tools:layout="@layout/fragment_deficiency_info" />
+
+    <fragment
+        android:id="@+id/fertilizerInfoFragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.home.FertilizerInfoFragment"
+        android:label="fragment_fertilizer_info"
+        tools:layout="@layout/fragment_fertilizer_info" />
+
 </navigation>

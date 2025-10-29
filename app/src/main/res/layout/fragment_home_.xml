@@ -52,7 +52,7 @@
             >
 
             <Button
-                android:id="@+id/buttonSintomas"
+                android:id="@+id/buttonDeficiencies"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -69,7 +69,7 @@
                 android:layout_height="match_parent"/>
 
             <Button
-                android:id="@+id/buttonNutricional"
+                android:id="@+id/buttonFertilizers"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

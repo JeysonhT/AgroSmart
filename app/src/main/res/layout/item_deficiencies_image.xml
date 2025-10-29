@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/fertilizerCardButton"
+        android:id="@+id/deficiencyCardButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         app:cardCornerRadius="20dp"
         app:cardElevation="20dp"
         android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/ecru"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical" >
-
-            <TextView
-                android:id="@+id/fertilizerCardName"
-                style="@style/TextAppearance.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/placeholder" />
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
-                android:id="@+id/fertilizerCardImage"
-                android:layout_width="wrap_content"
+                android:id="@+id/deficiencyCardImage"
+                android:layout_width="match_parent"
                 android:layout_height="240dp"
                 android:scaleType="centerCrop"
-                android:contentDescription="@string/fertilizerimage_content_description" />
+                android:contentDescription="@string/deficiencyImageDescription"
+                android:elevation="10dp" />
+
+            <TextView
+                android:id="@+id/defiencyCardTitle"
+                style="@style/TextAppearance.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder"
+                android:textAlignment="center"
+                android:shadowColor="@color/apple_green"/>
 
         </LinearLayout>
 

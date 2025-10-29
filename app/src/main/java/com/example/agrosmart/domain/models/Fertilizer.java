@@ -24,4 +24,8 @@ public class Fertilizer extends RealmObject {
         this._id = UUID.randomUUID().toString();
     }
 
+    public Fertilizer(String _name){
+        this.name = _name;
+    }
+
 }

@@ -26,7 +26,7 @@ public class DiagnosisHistoryLocalRepositoryImpl implements DiagnosisHistoryRepo
     @Override
     public CompletableFuture<List<DiagnosisHistory>> getDiagnosisHistories() {
 
-        return CompletableFuture.supplyAsync(() ->{
+        return CompletableFuture.supplyAsync(() -> {
             Realm realm;
             List<DiagnosisHistory> historyList = new ArrayList<>();
             //deleteEmptyDiagnosis();

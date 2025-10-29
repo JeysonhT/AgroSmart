@@ -16,13 +16,17 @@ public class Deficiency extends RealmObject {
     private byte[] imageResource;
     private String name;
     private String description;
-    private String content;
-    private Long lastUpdate;
+    private String symptoms;
+    private String solutions;
 
     public Deficiency(byte[] _image, String _name, String _description){
         this.imageResource = _image;
         this.name = _name;
         this.description = _description;
+    }
+
+    public Deficiency(String _name){
+        this.name = _name;
     }
 
     public Deficiency(){

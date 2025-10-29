@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.ui.fragment.subfragment.home.DeficiencyInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="20dp"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:id="@+id/deficiencyImageInfo"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:contentDescription="@string/deficiencyImageDescription"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/deficiencyNameInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.Title"
+            android:text="@string/placeholder"
+            android:layout_marginStart="@dimen/text_margin"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.Title"
+            android:text="@string/deficiencyDescriptionText"
+            android:layout_marginStart="@dimen/text_margin"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:id="@+id/deficiencyDescriptionTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.Body"
+            android:text="@string/placeholder"
+            android:layout_marginStart="@dimen/text_margin"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.Title"
+            android:text="@string/deficiencySymptomsText"
+            android:layout_marginStart="@dimen/text_margin"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:id="@+id/deficiencySymptomsTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.Body"
+            android:text="@string/placeholder"
+            android:layout_marginStart="@dimen/text_margin"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.Title"
+            android:text="@string/deficiencySolutionsText"
+            android:layout_marginStart="@dimen/text_margin"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:id="@+id/deficiencySolutionsTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.Body"
+            android:text="@string/placeholder"
+            android:layout_marginStart="@dimen/text_margin"
+            />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

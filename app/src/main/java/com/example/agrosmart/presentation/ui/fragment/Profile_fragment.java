@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,8 @@ import java.util.Objects;
 
 public class Profile_fragment extends Fragment implements AuthResultListener {
 
+    private final String TAG = "PROFILE_FRAGMENT";
+
     private FragmentProfileBinding binding;
 
     //bindeo de los objetos
@@ -74,7 +77,7 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
                     loginWithGoogleUseCase.processResult(this, data, this);
                 } else {
                     // Handle cancellation or other non-OK results
-                    onAuthFailure(new Exception("Google Sign-In cancelled or failed."));
+                    onAuthFailure(new Exception(String.format("Google Sign-In cancelled or failed: %s", result)));
                 }
             }
     );
@@ -201,6 +204,6 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
 
     @Override
     public void onAuthFailure(Exception e) {
-        System.out.println("Error de inicio de sesión: " + Arrays.toString(e.getStackTrace()));
+        Log.e(TAG, String.format("Error de inicio de sesión %s", e.getMessage()));
     }
 }

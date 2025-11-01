@@ -5,10 +5,11 @@ import java.util.UUID;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter @Setter @AllArgsConstructor
 public class News extends RealmObject {
     @PrimaryKey
     private String _id;
@@ -18,7 +19,7 @@ public class News extends RealmObject {
     private String description;
     private String publicationDate;
     private String information;
-    private Long lastUpdate;
+    private boolean isLocal;
 
     public News(byte[] _image, String _author, String _newsName, String _description, String _date, String _information){
         this.image = _image;
@@ -27,6 +28,7 @@ public class News extends RealmObject {
         this.description = _description;
         this.publicationDate = _date;
         this.information = _information;
+        this.isLocal = false;
     }
 
     public News(byte[] _image, String _description){
@@ -37,5 +39,8 @@ public class News extends RealmObject {
 
     public News(){
         this._id = UUID.randomUUID().toString();
+        this.setLocal(false);
     }
+
+
 }

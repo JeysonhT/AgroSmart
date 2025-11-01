@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 public class NewsRepositoryImpl implements NewsRepository {
 
@@ -28,13 +29,15 @@ public class NewsRepositoryImpl implements NewsRepository {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
-    public void getNews(NewsCallBack callBack) {
+    public CompletableFuture<List<News>> getNews() {
         List<News> newsList = new ArrayList<>();
 
         CollectionReference docRef  = db.collection("News");
 
         Query query = docRef.orderBy("date", Query.Direction.DESCENDING)
                 .limit(10L);
+
+        CompletableFuture<List<News>> future = new CompletableFuture<>();
 
         query.get().addOnCompleteListener( querySnapshotTask -> {
             if(querySnapshotTask.isSuccessful()){
@@ -58,8 +61,10 @@ public class NewsRepositoryImpl implements NewsRepository {
                             ));
                 }
 
-                callBack.onLoaded(newsList);
+                future.complete(newsList);
             }
-        }).addOnFailureListener(callBack::onError);
+        }).addOnFailureListener(future::completeExceptionally);
+
+        return future;
     }
 }

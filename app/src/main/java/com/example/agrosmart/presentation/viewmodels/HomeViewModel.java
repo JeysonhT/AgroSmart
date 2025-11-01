@@ -1,5 +1,6 @@
 package com.example.agrosmart.presentation.viewmodels;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -25,11 +26,17 @@ public class HomeViewModel extends ViewModel {
     private final String TAG = "HOME_VIEWMODEL";
     private final MutableLiveData<List<CropCarouselData>> cropsData = new MutableLiveData<>();
     private final MutableLiveData<List<News>> newsData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isSavedNew = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isDeletedNew = new MutableLiveData<>();
+    private final NewsUseCase useCase = new NewsUseCase();
 
     public LiveData<List<CropCarouselData>> getCrops(){
         return cropsData;
     }
 
+    public LiveData<Boolean> getSaveNewResult(){return isSavedNew;}
+
+    public LiveData<Boolean> getDeletedNewResult(){return isDeletedNew;}
     public void loadCrops() {
         CropsUseCase useCase = new CropsUseCase();
 
@@ -67,21 +74,31 @@ public class HomeViewModel extends ViewModel {
         return newsData;
     }
 
-    public void loadNews(){
-        NewsUseCase useCase = new NewsUseCase();
+    public void loadNews(Context context){
+        useCase.getNewsUseCase(context).
+                thenAccept(newsData::postValue)
+                .exceptionally( e-> {
+                    Log.e(TAG, String.format("Error al cargar las noticias: %s", e.getMessage()));
+                    return null;
+                });
+    }
 
-        useCase.getNewsUseCase(new NewsCallBack() {
-            @Override
-            public void onLoaded(List<News> news) {
-                newsData.setValue(news);
-            }
+    public void saveNewOnLocal(News news){
+        useCase.saveNewOnLocal(news)
+                .thenAccept(isSavedNew::postValue).
+                exceptionally(e -> {
+                    Log.e(TAG, String.format("Error al guardar la noticia: %s", e.getMessage()));
+                    return null;
+                });
+    }
 
-            @Override
-            public void onError(Exception e) {
-                newsData.setValue(new ArrayList<>());
-                Log.println(Log.ERROR, TAG, e.getMessage());
-            }
-        });
+    public void deleteFromLocal(String _id){
+        useCase.deleteFromLocal(_id)
+                .thenAccept(isDeletedNew::postValue)
+                .exceptionally(e->{
+                    Log.e(TAG, String.format("Error al borrar la noticia: %s", e.getMessage()));
+                    return null;
+                });
     }
 
     //metodos auxiliares

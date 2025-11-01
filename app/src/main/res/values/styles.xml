@@ -13,8 +13,8 @@
         <item name="cornerRadius">16dp</item>
     </style>
 
-    <style name="GeneralButton" parent="Widget.AppCompat.Button">
-        <item name="android:backgroundTint">@color/ecru</item>
+    <style name="GeneralButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/mid_orange</item>
         <item name="cornerRadius">25dp</item>
     </style>
 

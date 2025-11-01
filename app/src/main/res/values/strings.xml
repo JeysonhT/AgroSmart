@@ -130,4 +130,6 @@
     <string name="fertilizerInfoRDoseText">Dosis recomendada</string>
     <string name="fertilizerimage_content_description">Fertilizer Image</string>
     <string name="deficiencies_fragment_text">Deficiencias</string>
+    <string name="save_new_text">Guardar Noticia</string>
+    <string name="delete_new_text">Eliminar Noticia</string>
 </resources>

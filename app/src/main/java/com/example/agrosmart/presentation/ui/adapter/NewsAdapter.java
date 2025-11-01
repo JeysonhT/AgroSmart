@@ -63,11 +63,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder>{
         holder.itemView.setOnClickListener(v -> {
             try{
                 NavDirections action = Home_FragmentDirections.actionHomeFragmentToNewsInfoFragment(
+                        (news.get_id()!=null) ? news.get_id() : "",
                         ImageCacheManager.saveImageToCache(v.getContext(), news.getImage()),
                         news.getNewsName(),
+                        news.getDescription(),
                         news.getPublicationDate(),
                         news.getAuthor(),
-                        news.getInformation()
+                        news.getInformation(),
+                        news.isLocal()
                 );
                 navController.navigate(action);
             } catch (IllegalStateException | IOException e){

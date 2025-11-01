@@ -71,7 +71,7 @@ public class Home_Fragment extends Fragment {
         });
 
         viewModel.loadCrops();
-        viewModel.loadNews();
+        viewModel.loadNews(requireContext());
 
         // RecyclerView noticias
         binding.noticeRecyclerView.setLayoutManager(

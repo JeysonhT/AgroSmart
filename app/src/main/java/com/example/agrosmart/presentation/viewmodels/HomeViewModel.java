@@ -83,6 +83,15 @@ public class HomeViewModel extends ViewModel {
                 });
     }
 
+    public void loadLocalNews(){
+        useCase.getLocalNews()
+                .thenAccept(newsData::postValue)
+                .exceptionally(e -> {
+                    Log.e(TAG, String.format("Error al cargar las noticias: %s", e.getMessage()));
+                    return null;
+                });
+    }
+
     public void saveNewOnLocal(News news){
         useCase.saveNewOnLocal(news)
                 .thenAccept(isSavedNew::postValue).

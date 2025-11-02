@@ -36,6 +36,8 @@ public class Home_Fragment extends Fragment {
 
     private NewsAdapter noticeAdapter;
 
+    private int state = 0;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -106,7 +108,7 @@ public class Home_Fragment extends Fragment {
     }
 
     private void createNavigation(){
-        binding.buttonDeficiencies.setOnClickListener(v-> {
+        binding.buttonDeficiencies.setOnClickListener(v -> {
             try {
                 NavDirections action = Home_FragmentDirections.actionHomeFragmentToDeficienciesFragment();
                 navController.navigate(action);
@@ -115,11 +117,29 @@ public class Home_Fragment extends Fragment {
             }
         });
 
-        binding.buttonFertilizers.setOnClickListener(v->{
+        binding.buttonFertilizers.setOnClickListener(v -> {
             try {
                 NavDirections action = Home_FragmentDirections.actionHomeFragmentToFertilizersFragment();
                 navController.navigate(action);
             } catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        });
+
+        binding.localNews.setOnClickListener(v -> {
+            try{
+                if (state == 0) {
+                    state = 1;
+                    viewModel.loadLocalNews();
+                    binding.localNews.setText("ver noticias");
+                    binding.localNews.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.apple_green));
+                } else {
+                    state = 0;
+                    viewModel.loadNews(requireContext());
+                    binding.localNews.setText(R.string.localNoticeButtonText);
+                    binding.localNews.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.mid_orange));
+                }
+            } catch (RuntimeException e) {
                 throw new RuntimeException(e);
             }
         });

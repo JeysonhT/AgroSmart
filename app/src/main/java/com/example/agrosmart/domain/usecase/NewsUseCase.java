@@ -39,4 +39,8 @@ public class NewsUseCase {
     public CompletableFuture<Boolean> deleteFromLocal(String _id){
         return newsLocalService.deleteFromLocal(_id);
     }
+
+    public CompletableFuture<List<News>> getLocalNews(){
+        return newsLocalService.getLocalNews();
+    }
 }

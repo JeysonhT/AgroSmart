@@ -10,6 +10,7 @@ import com.example.agrosmart.domain.repository.NewsRepository;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -34,7 +35,8 @@ public class NewsRepositoryImpl implements NewsRepository {
 
         CollectionReference docRef  = db.collection("News");
 
-        Query query = docRef.orderBy("date", Query.Direction.DESCENDING)
+        Query query = docRef.whereEqualTo("status", "published")
+                .orderBy("date", Query.Direction.DESCENDING)
                 .limit(10L);
 
         CompletableFuture<List<News>> future = new CompletableFuture<>();

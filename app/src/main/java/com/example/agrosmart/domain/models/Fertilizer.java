@@ -13,6 +13,7 @@ public class Fertilizer extends RealmObject {
     @PrimaryKey
     private String _id;
     private String name;
+    private byte[] imageResource;
     private String applicationMethod;
     private String recommendedDose;
     private String description;

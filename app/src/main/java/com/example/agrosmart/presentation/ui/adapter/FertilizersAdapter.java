@@ -1,6 +1,7 @@
 package com.example.agrosmart.presentation.ui.adapter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,7 +96,18 @@ public class FertilizersAdapter extends RecyclerView.Adapter<FertilizersAdapter.
             this.currentData = _data;
 
             binding.fertilizerCardName.setText(_data.getName());
-            binding.fertilizerCardImage.setImageResource(R.drawable.gemini_fertilizer_placeholder);
+            if(_data.getImageResource().length == 0){
+                binding.fertilizerCardImage.setImageResource(R.drawable.gemini_fertilizer_placeholder);
+            } else {
+                binding.fertilizerCardImage.setImageBitmap(
+                        BitmapFactory.decodeByteArray(
+                                _data.getImageResource(),
+                                0,
+                                _data.getImageResource().length
+                        )
+                );
+            }
+
         }
     }
 

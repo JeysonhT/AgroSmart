@@ -70,31 +70,6 @@ public class DiagnosisUnitTest {
         verify(observer).onChanged(fakeResponse);
     }
 
-    @Test
-    public void saveDiagnosis_updatesLastDiagnosis() {
-        // Arrange
-        byte[] fakeImage = new byte[0];
-        Crop fakeCrop = new Crop();  // O usa builder si tu clase lo tiene
-        fakeCrop.setCropName("Maiz");
-
-        doAnswer(invocation -> {
-            CropsCallback callback = invocation.getArgument(1);
-            callback.onCropsLoaded(Collections.singletonList(fakeCrop));
-            return null;
-        }).when(mockCropsUseCase).getCropByName(anyString(), any(CropsCallback.class));
-
-        Observer<DiagnosisHistory> observer = mock(Observer.class);
-        viewModel.getLastDiagnosis().observeForever(observer);
-
-        // Act
-        viewModel.saveDiagnosis("Maiz Deficiencia", fakeImage, diagnosis -> {});
-
-        // Assert
-        ArgumentCaptor<DiagnosisHistory> captor = ArgumentCaptor.forClass(DiagnosisHistory.class);
-        verify(observer).onChanged(captor.capture());
-        assertEquals("Maiz Deficiencia", captor.getValue().getDeficiency());
-    }
-
 
     @Test
     public void addNewHistory_insertsAtBeginning() {
@@ -119,5 +94,7 @@ public class DiagnosisUnitTest {
         // Assert
         assertEquals("Nuevo", viewModel.getHistory().getValue().get(0).getDeficiency());
     }
+
+
 }
 

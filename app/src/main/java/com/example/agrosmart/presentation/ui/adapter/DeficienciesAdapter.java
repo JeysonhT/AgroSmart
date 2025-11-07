@@ -1,5 +1,6 @@
 package com.example.agrosmart.presentation.ui.adapter;
 
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.navigation.NavDirections;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrosmart.R;
+import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.databinding.ItemDeficienciesImageBinding;
 import com.example.agrosmart.domain.models.Deficiency;
 import com.example.agrosmart.presentation.ui.fragment.subfragment.home.DeficienciesFragmentDirections;
@@ -91,7 +93,14 @@ public class DeficienciesAdapter extends RecyclerView.Adapter<DeficienciesAdapte
             this.controller = _controller;
             this.currentData = _data;
 
-            binding.deficiencyCardImage.setImageResource(R.drawable.gemini_deficiendy_image);
+            if(_data.getImageResource().length == 0){
+                binding.deficiencyCardImage.setImageResource(R.drawable.gemini_deficiendy_image);
+            } else {
+                binding.deficiencyCardImage.setImageBitmap(BitmapFactory.decodeByteArray(
+                        _data.getImageResource(),
+                        0,
+                        _data.getImageResource().length));
+            }
             binding.defiencyCardTitle.setText(_data.getName());
         }
     }

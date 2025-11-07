@@ -140,7 +140,6 @@ public class CameraLayout extends Fragment {
         dfViewModel = new ViewModelProvider(this).
                 get(DetectionFragmentViewModel.class);
 
-        navController = NavHostFragment.findNavController(this);
 
         setUpCamera();
 

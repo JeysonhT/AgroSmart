@@ -2,6 +2,8 @@ package com.example.agrosmart.data.local.dto;
 
 public class DeficiencyDTO {
     private String _id;
+
+    private String imageDeficiencies;
     private String title;
     private String description;
     private String symptoms;
@@ -50,7 +52,15 @@ public class DeficiencyDTO {
         this.solutions = solutions;
     }
 
-//    public String getImageResource() {
+    public String getImageDeficiencies() {
+        return imageDeficiencies;
+    }
+
+    public void setImageDeficiencies(String imageDeficiencies) {
+        this.imageDeficiencies = imageDeficiencies;
+    }
+
+    //    public String getImageResource() {
 //        return imageResource;
 //    }
 //

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="buttonCactus">Deficiencias</string>
-    <string name="buttonLeaf">Nutrición</string>
+    <string name="buttonLeaf">Fertilizantes</string>
 
     <string name="takephotoString">tomar foto</string>
     <string name="BuscarPhotoString">buscar foto</string>

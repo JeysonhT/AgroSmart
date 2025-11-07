@@ -3,6 +3,8 @@ package com.example.agrosmart.data.local.dto;
 public class FertilizerDTO {
 //    private String _id;
     private String name;
+
+    private String imageFertilizers;
     private String applicationMethod;
     private String recommendedDose;
     private String description;
@@ -68,7 +70,15 @@ public class FertilizerDTO {
         this.type = type;
     }
 
-//    public Long getLastUpdate() {
+    public String getImageFertilizers() {
+        return imageFertilizers;
+    }
+
+    public void setImageFertilizers(String imageFertilizers) {
+        this.imageFertilizers = imageFertilizers;
+    }
+
+    //    public Long getLastUpdate() {
 //        return lastUpdate;
 //    }
 //

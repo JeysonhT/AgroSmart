@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.ui.fragment.subfragment.profile.PersonalDataFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/personalDataGuide50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/personalDataGuideVertical50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.50"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/personalDataGuide60"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/personalDataGuide80"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/dataCropCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            android:orientation="vertical"
+            app:cardBackgroundColor="@color/ecru"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/personalDataGuideVertical50"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/personalDataGuide50">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Cultivos mas analizados"
+                    style="@style/TextAppearance.Title"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:id="@+id/listOfCropsData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder"
+                    android:layout_marginStart="@dimen/text_margin"
+                    style="@style/TextAppearance.Body"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/dataDeficiencyCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            android:orientation="vertical"
+            app:cardBackgroundColor="@color/ecru"
+            app:layout_constraintStart_toEndOf="@id/personalDataGuideVertical50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/personalDataGuide50">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Deficiencicias mas encontradas"
+                    style="@style/TextAppearance.Title"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:id="@+id/listOfDeficienciesData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder"
+                    android:layout_marginStart="@dimen/text_margin"
+                    style="@style/TextAppearance.Body"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/dataRecommendationCard"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="@color/mid_orange"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="20dp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/personalDataGuide50"
+            app:layout_constraintBottom_toTopOf="@+id/personalDataGuide60">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Numero de recomendaciones generadas"
+                    android:textAlignment="center"
+                    style="@style/TextAppearance.Body"
+                    android:lines="2"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/numberOfRecommendationsGenerated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Numero de recomendaciones guardadas"
+                    android:textAlignment="center"
+                    style="@style/TextAppearance.Body"/>
+                <TextView
+                    android:id="@+id/numberOfRecommendationsSaved"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Guarde sus datos con los siguientes botones"
+            style="@style/TextAppearance.Body"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/personalDataGuide60"
+            app:layout_constraintBottom_toTopOf="@id/personalDataGuide80"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/savePDFButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ButtonSuccess"
+            android:text="Guardar recomendaciones en PDF"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/personalDataGuide80"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/csvImportButton"
+            style="@style/GeneralButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Importar CSV"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@id/personalDataGuideVertical50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/savePDFButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/csvExportButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GeneralButton"
+            android:text="Exportar CSV"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@id/personalDataGuideVertical50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/savePDFButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

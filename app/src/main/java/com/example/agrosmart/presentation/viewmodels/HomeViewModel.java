@@ -28,7 +28,13 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<List<News>> newsData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isSavedNew = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isDeletedNew = new MutableLiveData<>();
-    private final NewsUseCase useCase = new NewsUseCase();
+    private final NewsUseCase newsUseCase;
+    private final CropsUseCase cropsUseCase;
+
+    public HomeViewModel(NewsUseCase newsUseCase, CropsUseCase cropsUseCase) {
+        this.newsUseCase = newsUseCase;
+        this.cropsUseCase = cropsUseCase;
+    }
 
     public LiveData<List<CropCarouselData>> getCrops(){
         return cropsData;
@@ -38,36 +44,32 @@ public class HomeViewModel extends ViewModel {
 
     public LiveData<Boolean> getDeletedNewResult(){return isDeletedNew;}
     public void loadCrops() {
-        CropsUseCase useCase = new CropsUseCase();
-
         List<CropCarouselData> placeholderList= new ArrayList<>();
 
-        useCase.getCrops(new CropsCallback() {
-            @Override
-            public void onCropsLoaded(List<Crop> crops) {
-                List<CropCarouselData> data = new ArrayList<>();
-                if(!crops.isEmpty()){
-                    for(Crop c: crops){
-                        data.add(createCropInfo(c));
-                    }
-                    cropsData.setValue(data);
-                    Log.println(Log.ASSERT, TAG, "Datos cargados exitosamente");
-                } else {
-                    placeholderList.add(
-                       new CropCarouselData(R.drawable.no_internet_placeholder,
-                               "No hay conexión a internet",
-                               "",
-                               "",
-                               ""));
-                    cropsData.setValue(placeholderList);
-                }
-            }
+        cropsUseCase.getCrops()
+                        .thenAccept(crops -> {
+                            List<CropCarouselData> data = new ArrayList<>();
+                            if(!crops.isEmpty()){
+                                for(Crop c: crops){
+                                    data.add(createCropInfo(c));
+                                }
 
-            @Override
-            public void onError(Exception e) {
-                System.out.println(e.getMessage());
-            }
-        });
+                                cropsData.postValue(data);
+                                Log.println(Log.ASSERT, TAG, "Datos cargados exitosamente");
+                            } else {
+                                placeholderList.add(
+                                        new CropCarouselData(R.drawable.no_internet_placeholder,
+                                                "No hay conexión a internet",
+                                                "",
+                                                "",
+                                                ""));
+                                cropsData.postValue(placeholderList);
+                            }
+                        })
+                .exceptionally(e -> {
+                    Log.e(TAG, String.format("Error al cargar los cultivos: %s", e.getMessage()));
+                    return null;
+                });
     }
 
     public LiveData<List<News>> getNews(){
@@ -75,7 +77,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void loadNews(Context context){
-        useCase.getNewsUseCase(context).
+        newsUseCase.getNewsUseCase(context).
                 thenAccept(newsData::postValue)
                 .exceptionally( e-> {
                     Log.e(TAG, String.format("Error al cargar las noticias: %s", e.getMessage()));
@@ -84,7 +86,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void loadLocalNews(){
-        useCase.getLocalNews()
+        newsUseCase.getLocalNews()
                 .thenAccept(newsData::postValue)
                 .exceptionally(e -> {
                     Log.e(TAG, String.format("Error al cargar las noticias: %s", e.getMessage()));
@@ -93,7 +95,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void saveNewOnLocal(News news){
-        useCase.saveNewOnLocal(news)
+        newsUseCase.saveNewOnLocal(news)
                 .thenAccept(isSavedNew::postValue).
                 exceptionally(e -> {
                     Log.e(TAG, String.format("Error al guardar la noticia: %s", e.getMessage()));
@@ -102,7 +104,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void deleteFromLocal(String _id){
-        useCase.deleteFromLocal(_id)
+        newsUseCase.deleteFromLocal(_id)
                 .thenAccept(isDeletedNew::postValue)
                 .exceptionally(e->{
                     Log.e(TAG, String.format("Error al borrar la noticia: %s", e.getMessage()));

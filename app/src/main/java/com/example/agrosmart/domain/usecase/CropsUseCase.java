@@ -9,6 +9,7 @@ import com.example.agrosmart.domain.repository.CropRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class CropsUseCase {
     private CropService service;
@@ -18,8 +19,8 @@ public class CropsUseCase {
     }
 
     //el servicio retornara los datos por el callback
-    public void getCrops(CropsCallback callback){
-        service.getCropsFromFirebase(callback);
+    public CompletableFuture<List<Crop>> getCrops(){
+        return service.getCropsFromFirebase();
     }
 
     public void getCropByName(String name, CropsCallback callback){

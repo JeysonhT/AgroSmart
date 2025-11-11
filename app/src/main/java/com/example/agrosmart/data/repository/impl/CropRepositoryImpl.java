@@ -22,6 +22,9 @@ import com.google.firebase.firestore.Source;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CropRepositoryImpl implements CropRepository {
 
@@ -30,27 +33,31 @@ public class CropRepositoryImpl implements CropRepository {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
-    public void getCrops(CropsCallback callback) {
+    public CompletableFuture<List<Crop>> getCrops() {
+
+        CompletableFuture<List<Crop>> furute = new CompletableFuture<>();
+
         List<Crop> crops = new ArrayList<>();
 
         CollectionReference doc_ref = db.collection("Crops");
         doc_ref.get()
                 .addOnCompleteListener((task) ->  {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                crops.add(new Crop(
-                                   document.get("name", String.class),
-                                        document.get("description", String.class),
-                                        document.get("harvestTime", String.class),
-                                        document.get("type", String.class)
-                                ));
-                            }
-
-                            callback.onCropsLoaded(crops);
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            crops.add(new Crop(
+                                    document.get("name", String.class),
+                                    document.get("description", String.class),
+                                    document.get("harvestTime", String.class),
+                                    document.get("type", String.class)
+                            ));
                         }
-                });
+                        furute.complete(crops);
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                }).addOnFailureListener(furute::completeExceptionally);
+
+        return furute;
     }
 
     @Override

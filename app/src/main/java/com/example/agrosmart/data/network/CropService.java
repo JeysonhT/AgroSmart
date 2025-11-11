@@ -6,6 +6,7 @@ import com.example.agrosmart.domain.models.Crop;
 import com.example.agrosmart.domain.repository.CropRepository;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class CropService {
     private CropRepository repository;
@@ -14,8 +15,8 @@ public class CropService {
         this.repository = repository;
     }
 
-    public void getCropsFromFirebase(CropsCallback callback){
-        repository.getCrops(callback);
+    public CompletableFuture<List<Crop>> getCropsFromFirebase(){
+        return repository.getCrops();
     }
 
     public void getCropByName(String name, CropsCallback callback){

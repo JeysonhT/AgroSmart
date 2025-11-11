@@ -11,7 +11,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +20,12 @@ import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.databinding.FragmentHomeBinding;
 import com.example.agrosmart.domain.models.News;
+import com.example.agrosmart.domain.usecase.CropsUseCase;
+import com.example.agrosmart.domain.usecase.NewsUseCase;
 import com.example.agrosmart.presentation.ui.adapter.CropInfoAdapter;
 import com.example.agrosmart.presentation.ui.adapter.NewsAdapter;
 import com.example.agrosmart.presentation.viewmodels.HomeViewModel;
+import com.example.agrosmart.presentation.viewmodels.factory.HomeViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +56,10 @@ public class Home_Fragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         // ViewModel
-        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        CropsUseCase cropsUseCase = new CropsUseCase();
+        NewsUseCase newsUseCase = new NewsUseCase();
+        HomeViewModelFactory factory = new HomeViewModelFactory(newsUseCase, cropsUseCase);
+        viewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
 
         // RecyclerView crops
         CropInfoAdapter cropAdapter = new CropInfoAdapter(getContext(), new ArrayList<>(), navController);

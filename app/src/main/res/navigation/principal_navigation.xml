@@ -114,6 +114,9 @@
         <action
             android:id="@+id/action_profileFragment_to_configFragment"
             app:destination="@id/configFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_personalDataFragment"
+            app:destination="@id/personalDataFragment" />
     </fragment>
 
     <fragment
@@ -238,5 +241,10 @@
         android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.home.FertilizerInfoFragment"
         android:label="fragment_fertilizer_info"
         tools:layout="@layout/fragment_fertilizer_info" />
+    <fragment
+        android:id="@+id/personalDataFragment"
+        android:name="com.example.agrosmart.presentation.ui.fragment.subfragment.profile.PersonalDataFragment"
+        android:label="fragment_personal_data"
+        tools:layout="@layout/fragment_personal_data" />
 
 </navigation>

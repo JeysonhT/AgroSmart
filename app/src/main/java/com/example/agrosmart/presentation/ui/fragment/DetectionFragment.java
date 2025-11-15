@@ -117,7 +117,7 @@ DetectionFragment extends Fragment {
                     Log.println(Log.DEBUG, TAG, "Valor obtenido: " + lastDiagnosis.getTxtDate());
 
                     try{
-                        dfViewModel.updateDiagnosis(_id, respuesta.getRespuesta());
+                        dfViewModel.saveRecommendationInDiagnosis(_id, respuesta.getRespuesta());
                     } catch (Exception e){
                         Log.w(TAG, "Error al actualizar: " + e.getMessage());
                     }

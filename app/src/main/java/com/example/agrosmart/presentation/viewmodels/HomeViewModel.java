@@ -8,9 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.agrosmart.R;
-import com.example.agrosmart.core.utils.classes.ImageCacheManager;
-import com.example.agrosmart.core.utils.interfaces.CropsCallback;
-import com.example.agrosmart.core.utils.interfaces.NewsCallBack;
+import com.example.agrosmart.core.utils.interfaces.IHomeViewModel;
 import com.example.agrosmart.domain.designModels.CropCarouselData;
 import com.example.agrosmart.domain.models.Crop;
 import com.example.agrosmart.domain.models.News;
@@ -18,11 +16,9 @@ import com.example.agrosmart.domain.usecase.CropsUseCase;
 import com.example.agrosmart.domain.usecase.NewsUseCase;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
-public class HomeViewModel extends ViewModel {
+public class HomeViewModel extends ViewModel implements IHomeViewModel {
     private final String TAG = "HOME_VIEWMODEL";
     private final MutableLiveData<List<CropCarouselData>> cropsData = new MutableLiveData<>();
     private final MutableLiveData<List<News>> newsData = new MutableLiveData<>();
@@ -36,6 +32,7 @@ public class HomeViewModel extends ViewModel {
         this.cropsUseCase = cropsUseCase;
     }
 
+    @Override
     public LiveData<List<CropCarouselData>> getCrops(){
         return cropsData;
     }
@@ -43,6 +40,7 @@ public class HomeViewModel extends ViewModel {
     public LiveData<Boolean> getSaveNewResult(){return isSavedNew;}
 
     public LiveData<Boolean> getDeletedNewResult(){return isDeletedNew;}
+    @Override
     public void loadCrops() {
         List<CropCarouselData> placeholderList= new ArrayList<>();
 
@@ -72,10 +70,12 @@ public class HomeViewModel extends ViewModel {
                 });
     }
 
+    @Override
     public LiveData<List<News>> getNews(){
         return newsData;
     }
 
+    @Override
     public void loadNews(Context context){
         newsUseCase.getNewsUseCase(context).
                 thenAccept(newsData::postValue)
@@ -85,6 +85,7 @@ public class HomeViewModel extends ViewModel {
                 });
     }
 
+    @Override
     public void loadLocalNews(){
         newsUseCase.getLocalNews()
                 .thenAccept(newsData::postValue)

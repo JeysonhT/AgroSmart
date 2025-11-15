@@ -18,11 +18,7 @@ public class MMLStatsUseCase {
     public void saveStats(MMLStats mmlStats){
         try{
             service.saveStats(mmlStats).thenRun(() -> System.out.println("Ejecutanto envio de MMLStats"))
-                            .exceptionally( ex -> {
-                                System.err.println("Error al ejecutar: "+ ex.getMessage());
-
-                                return null;
-                            }).get();
+                            .get();
 
             Log.d(TAG, "Exito en la operación");
         } catch (NullPointerException e) {

@@ -1,6 +1,5 @@
 package com.example.agrosmart.domain.usecase;
 
-import com.example.agrosmart.core.utils.interfaces.DiagnosisCallback;
 import com.example.agrosmart.core.utils.interfaces.DiagnosisHistoryCallback;
 import com.example.agrosmart.data.local.HistoryLocalService;
 import com.example.agrosmart.data.repository.impl.DiagnosisHistoryLocalRepositoryImpl;

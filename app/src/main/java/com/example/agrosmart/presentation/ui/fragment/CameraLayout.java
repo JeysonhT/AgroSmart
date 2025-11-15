@@ -1,31 +1,17 @@
 package com.example.agrosmart.presentation.ui.fragment;
 
-import static android.view.Surface.ROTATION_90;
-
-import static androidx.core.content.ContextCompat.getDisplayOrDefault;
-import static androidx.core.content.ContextCompat.getSystemService;
-
-import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.ImageFormat;
 import android.graphics.Matrix;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.util.Size;
-import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -37,7 +23,6 @@ import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -45,10 +30,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.core.utils.classes.ImageEncoder;
 import com.example.agrosmart.core.utils.classes.NetworkChecker;
+import com.example.agrosmart.core.utils.interfaces.IDetectionViewModel;
 import com.example.agrosmart.data.local.dto.MMLResultDTO;
 import com.example.agrosmart.data.local.ml.DetectionService;
 import com.example.agrosmart.data.network.MMLStatsService;
@@ -62,6 +47,7 @@ import com.example.agrosmart.presentation.viewmodels.DetectionFragmentViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.util.concurrent.ListenableFuture;
 
+import org.jetbrains.annotations.TestOnly;
 import org.tensorflow.lite.support.image.TensorImage;
 
 import java.io.ByteArrayOutputStream;
@@ -72,29 +58,34 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+import lombok.Setter;
+
 
 public class CameraLayout extends Fragment {
     private static final String TAG = "CameraLayout";
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
 
-    private FragmentCameraLayoutBinding binding;
+    public FragmentCameraLayoutBinding binding;
 
-    private ImageCapture imageCapture;
+    @Setter
+    private IDetectionViewModel viewModel;
+
+    public ImageCapture imageCapture;
 
     private Bitmap imageBitmap;
 
     private ActivityResultLauncher<String> imgGetContent;
 
-    private DetectionService detectionService;
+    @Setter
+    private NavController navController;
 
-    private DetectionFragmentViewModel dfViewModel;
-
-    private DetectionResultUseCase drUseCase;
-
-    private MMLStatsUseCase useCase;
-
-    NavController navController;
+    @TestOnly
+    private boolean isTest = false;
+    @TestOnly
+    public void setIsTest(boolean test){
+        this.isTest = test;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,12 +125,12 @@ public class CameraLayout extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentCameraLayoutBinding.inflate(inflater, container, false);
 
-        useCase = new MMLStatsUseCase(new MMLStatsService(new MMLStatsRepositoryImpl()));
-        drUseCase = new DetectionResultUseCase();
+        return binding.getRoot();
+    }
 
-        dfViewModel = new ViewModelProvider(this).
-                get(DetectionFragmentViewModel.class);
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         setUpCamera();
 
@@ -147,11 +138,20 @@ public class CameraLayout extends Fragment {
             takeImage();
         });
 
-        binding.searchImageButton.setOnClickListener(v -> {
-            imgGetContent.launch("image/*");
-        });
+        binding.searchImageButton.setOnClickListener(v -> imgGetContent.launch("image/*"));
 
-        return binding.getRoot();
+        set_up();
+    }
+
+    private void set_up(){
+        if(viewModel == null){
+            viewModel = new ViewModelProvider(this).get(DetectionFragmentViewModel.class);
+        }
+
+        if(navController == null){
+            navController = NavHostFragment.findNavController(this);
+        }
+
     }
 
     @Override
@@ -160,6 +160,7 @@ public class CameraLayout extends Fragment {
     }
 
     private void setUpCamera() {
+        if(isTest) return;
         if (cameraProviderFuture == null || getContext() == null) {
             Log.e(TAG, "Camera provider or context is null");
             return;
@@ -182,7 +183,7 @@ public class CameraLayout extends Fragment {
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
 
                 getViewLifecycleOwner();
-                if (binding == null || binding.photoPreview == null) {
+                if (binding == null) {
                     Log.e(TAG, "LifecycleOwner or previewView is null");
                     return;
                 }
@@ -197,7 +198,7 @@ public class CameraLayout extends Fragment {
                 CameraInfo cameraInfo = camera.getCameraInfo();
                 preview.setSurfaceProvider(binding.photoPreview.getSurfaceProvider());
 
-                Log.d(TAG, "Cámara configurada correctamente: " + cameraInfo.toString());
+                Log.d(TAG, "Cámara configurada correctamente: " + cameraInfo);
             } catch (ExecutionException | InterruptedException e) {
                 Log.e(TAG, "Error al obtener cameraProvider", e);
             }
@@ -214,13 +215,12 @@ public class CameraLayout extends Fragment {
 
                 Bitmap bitmap = imageToBitmap(image);
                 byte[] improveBitmapByteArray = compressBitmap(bitmap);
-                detectionService = new DetectionService();
 
                 // se crea un tensor image a partir de un bitmap sin dimencionar
-                TensorImage tensorImage = detectionService.bitmatToTensor(bitmap);
+                TensorImage tensorImage = viewModel.bitmapToTensor(bitmap);
 
                 // se obtiene el resultado de el proceso de detección
-                MMLResultDTO resultDTO = detectionService.processDetection(tensorImage, getContext());
+                MMLResultDTO resultDTO = viewModel.processDetection(tensorImage, getContext());
 
                 if(NetworkChecker.isInternetAvailable(requireContext())){
                     MMLStats stats = new MMLStats();
@@ -229,9 +229,9 @@ public class CameraLayout extends Fragment {
                     stats.setInferenceTime(resultDTO.getInferenceTime());
                     stats.SetInferenceDataFromArray(resultDTO.getInferenceData());
 
-                    useCase.saveStats(stats);
+                    viewModel.sendStatsToFirebase(stats);
 
-                    drUseCase.saveResult(new DetectionResult(
+                    viewModel.sendResulToFirebase(new DetectionResult(
                             ImageEncoder.encoderBase64(improveBitmapByteArray),
                             resultDTO.getResult()
                     ));
@@ -242,14 +242,12 @@ public class CameraLayout extends Fragment {
                 image.close();
 
                 if(Objects.equals(resultado, "")){
-                    handler.post(() -> {
-                        mostrarDialogo("No se encontro resultado");
-                    });
+                    handler.post(() -> mostrarDialogo("No se encontro resultado"));
                 } else {
                     handler.post(() -> {
                             try{
                                 NavDirections action =
-                                        CameraLayoutDirections.actionCameraLayout2ToDetectionFragment(resultado,
+                                        (NavDirections) CameraLayoutDirections.actionCameraLayout2ToDetectionFragment(resultado,
                                                 ImageCacheManager.saveImageToCache(requireContext(), improveBitmapByteArray));
 
                                 navController.navigate(action);
@@ -265,56 +263,50 @@ public class CameraLayout extends Fragment {
     //toma la foto desde los archivos
     public void sendImageToDetection(Bitmap image){
         Handler handler = new Handler(Looper.getMainLooper());
-        detectionService = new DetectionService();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // se crea el tensor con el metodo en detection service
-                TensorImage tensor = detectionService.bitmatToTensor(image);
+        Thread thread = new Thread(() -> {
+            // se crea el tensor con el metodo en detection service
+            TensorImage tensor = viewModel.bitmapToTensor(image);
 
-                // se captura el resultado y se envia a el mostrar dialogo
-                MMLResultDTO resultDTO = detectionService.processDetection(tensor, getContext());
+            // se captura el resultado y se envia a el mostrar dialogo
+            MMLResultDTO resultDTO = viewModel.processDetection(tensor, getContext());
 
-                byte[] imgBytes = compressBitmap(image);
+            byte[] imgBytes = compressBitmap(image);
 
-                if(NetworkChecker.isInternetAvailable(requireContext())){
-                    MMLStats stats = new MMLStats();
+            if(NetworkChecker.isInternetAvailable(requireContext())){
+                MMLStats stats = new MMLStats();
 
-                    stats.setMemoryUse(resultDTO.getMemoryUse());
-                    stats.setInferenceTime(resultDTO.getInferenceTime());
-                    stats.SetInferenceDataFromArray(resultDTO.getInferenceData());
+                stats.setMemoryUse(resultDTO.getMemoryUse());
+                stats.setInferenceTime(resultDTO.getInferenceTime());
+                stats.SetInferenceDataFromArray(resultDTO.getInferenceData());
 
-                    useCase.saveStats(stats);
+                viewModel.sendStatsToFirebase(stats);
 
-                    drUseCase.saveResult(new DetectionResult(
-                            ImageEncoder.encoderBase64(imgBytes),
-                            resultDTO.getResult()
-                    ));
-                }
+                viewModel.sendResulToFirebase(new DetectionResult(
+                        ImageEncoder.encoderBase64(imgBytes),
+                        resultDTO.getResult()
+                ));
+            }
 
-                final String resultado = resultDTO.getResult();
+            final String resultado = resultDTO.getResult();
 
 
 
-                System.out.println("numero de buyes desde la conversion de un archivo: " + imgBytes.length);
+            System.out.println("numero de bytes desde la conversion de un archivo: " + imgBytes.length);
 
-                if(Objects.equals(resultado, "")){
-                    handler.post(() -> {
-                        mostrarDialogo("No se encontro resultado");
-                    });
-                } else {
-                    handler.post(() -> {
-                        try{
-                            NavDirections action =
-                                    CameraLayoutDirections.actionCameraLayout2ToDetectionFragment(resultado,
-                                            ImageCacheManager.saveImageToCache(requireContext(), imgBytes));
+            if(Objects.equals(resultado, "")){
+                handler.post(() -> mostrarDialogo("No se encontro resultado"));
+            } else {
+                handler.post(() -> {
+                    try{
+                        NavDirections action =
+                                CameraLayoutDirections.actionCameraLayout2ToDetectionFragment(resultado,
+                                        ImageCacheManager.saveImageToCache(requireContext(), imgBytes));
 
-                            navController.navigate(action);
-                        } catch (IOException e){
-                            mostrarDialogo(e.getMessage());
-                        }
-                    });
-                }
+                        navController.navigate(action);
+                    } catch (IOException e){
+                        mostrarDialogo(e.getMessage());
+                    }
+                });
             }
         });
 
@@ -353,15 +345,10 @@ public class CameraLayout extends Fragment {
     }
 
     private void mostrarDialogo(String mensaje) {
-        new MaterialAlertDialogBuilder(getContext())
+        new MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Resultado de diagnostico")
                 .setMessage(mensaje)
-                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+                .setPositiveButton("Aceptar", (dialog, which) -> dialog.dismiss()).show();
     }
 
 }

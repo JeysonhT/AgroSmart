@@ -175,6 +175,10 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
             binding.bottomLayoutContainer.removeView(accountLayoutBinding.getRoot());
         });
 
+        accountLayoutBinding.btnVerDatos.setOnClickListener(v -> {
+            navigateToProfileData();
+        });
+
     }
 
     private void navigateToEdit(User firebaseUser){
@@ -188,6 +192,13 @@ public class Profile_fragment extends Fragment implements AuthResultListener {
     private void navigateToConfig(){
         NavDirections action = Profile_fragmentDirections
                 .actionProfileFragmentToConfigFragment();
+
+        navController.navigate(action);
+    }
+
+    private void navigateToProfileData(){
+        NavDirections action = Profile_fragmentDirections
+                .actionProfileFragmentToPersonalDataFragment();
 
         navController.navigate(action);
     }

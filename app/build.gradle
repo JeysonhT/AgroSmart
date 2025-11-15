@@ -11,6 +11,13 @@ android {
     namespace 'com.example.agrosmart'
     compileSdk 36
 
+    packagingOptions {
+        // Le dice a Gradle: "Si encuentras este archivo duplicado,
+        // solo elige el primero (pickFirst) e ignora los demás".
+        pickFirst 'mockito-extensions/org.mockito.plugins.MockMaker'
+        pickFirst 'mockito-extensions/org.mockito.plugins.MemberAccessor'
+    }
+
     defaultConfig {
         applicationId "com.example.agrosmart"
         minSdk 24
@@ -36,7 +43,17 @@ android {
         mlModelBinding true
         buildConfig true
     }
+
+    testOptions {
+        animationsDisabled = true
+        unitTests {
+            returnDefaultValues = true
+            includeAndroidResources = true
+        }
+    }
 }
+
+def mockitoVersion = "5.2.0"
 
 dependencies {
     implementation libs.camera.core
@@ -67,7 +84,7 @@ dependencies {
     implementation libs.navigation.ui
     implementation libs.play.services.base
     implementation libs.play.services.tasks
-
+    implementation libs.opencsv
 
     implementation libs.litert.support
     implementation libs.litert.metadata
@@ -78,24 +95,35 @@ dependencies {
     implementation libs.converter.gson
     implementation libs.androidx.fragment.testing
 
+    // TESTS LOCALES (test)
     testImplementation libs.junit
     testImplementation libs.androidx.arch.core.testing
     testImplementation libs.mockito.core
-    androidTestImplementation 'org.mockito:mockito-android:4.11.0'
     testImplementation libs.robolectric
     testImplementation libs.androidx.core
+
+    // REMUEVE mockito-inline si causa problemas
+    // testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+
+    // TESTS INSTRUMENTADOS (androidTest)
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.androidx.espresso.intents
-    androidTestImplementation libs.mockito.core
+    androidTestImplementation libs.androidx.espresso.contrib
+    androidTestImplementation libs.androidx.runner
     androidTestImplementation libs.androidx.navigation.testing
 
+    // PARA ANDROIDTEST USA SOLO mockito.android
+    androidTestImplementation libs.mockito.android
+
+    // Excluir Protobuf conflictivo en tests
+    androidTestImplementation('com.google.firebase:firebase-firestore') {
+        exclude group: 'com.google.protobuf', module: 'protobuf-java'
+        exclude group: 'com.google.protobuf', module: 'protobuf-javalite'
+    }
 
     //database
-    //en caso de error cambiar a implementation
     implementation libs.realm.android.library
-
-    //testImplementation 'io.realm:realm-android-library-monolithic:10.19.0'
 
     compileOnly libs.lombok
     annotationProcessor libs.lombok

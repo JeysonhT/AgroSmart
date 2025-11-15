@@ -15,8 +15,6 @@ import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.databinding.FragmentDiagnosisInfoBinding;
 import com.example.agrosmart.presentation.viewmodels.DetectionFragmentViewModel;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 public class DiagnosisInfoFragment extends Fragment {
 
     private FragmentDiagnosisInfoBinding binding;
@@ -82,7 +80,7 @@ public class DiagnosisInfoFragment extends Fragment {
             if(respuesta!=null){
                 binding.recommendationText.setText(respuesta.getRespuesta());
 
-                viewModel.updateDiagnosis(_id, respuesta.getRespuesta());
+                viewModel.saveRecommendationInDiagnosis(_id, respuesta.getRespuesta());
             }
         });
 

@@ -1,6 +1,5 @@
 package com.example.agrosmart.data.network;
 
-import com.example.agrosmart.core.utils.interfaces.NewsCallBack;
 import com.example.agrosmart.domain.models.News;
 import com.example.agrosmart.domain.repository.NewsRepository;
 

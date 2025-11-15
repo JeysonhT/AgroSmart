@@ -26,7 +26,7 @@ public class DetectionService {
 
     private final String TAG = "DETECTION_SERVICE";
 
-    public TensorImage bitmatToTensor(Bitmap bitmap){
+    public TensorImage bitmapToTensor(Bitmap bitmap){
         //se carga el bitmap a un tensor image
         TensorImage tensorImage = new TensorImage(DataType.UINT8);
         // el tipo de dato unit8 corresponde a 0-255 referente a los bits de una imagen e formato rgb

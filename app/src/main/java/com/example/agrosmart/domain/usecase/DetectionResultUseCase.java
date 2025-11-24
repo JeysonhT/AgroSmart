@@ -13,6 +13,10 @@ public class DetectionResultUseCase {
         this.service = new DetectionResultService(new DetectionResultRepositoryImpl());
     }
 
+    public DetectionResultUseCase(DetectionResultService service) {
+        this.service = service;
+    }
+
     public CompletableFuture<Boolean> saveResult(DetectionResult result){
         return service.saveDetectionResult(result);
     }

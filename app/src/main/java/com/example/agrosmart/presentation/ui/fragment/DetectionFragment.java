@@ -117,7 +117,7 @@ DetectionFragment extends Fragment {
                     Log.println(Log.DEBUG, TAG, "Valor obtenido: " + lastDiagnosis.getTxtDate());
 
                     try{
-                        dfViewModel.updateDiagnosis(_id, respuesta.getRespuesta());
+                        dfViewModel.saveRecommendationInDiagnosis(_id, respuesta.getRespuesta());
                     } catch (Exception e){
                         Log.w(TAG, "Error al actualizar: " + e.getMessage());
                     }
@@ -277,7 +277,7 @@ DetectionFragment extends Fragment {
     private int[] setHistoryIcons(String nameCrop, String nameDeficiency){
         int[] resources = new int[2];
         switch (nameCrop){
-            case "Maíz":
+            case "Maiz":
                 resources[0] = R.drawable.maiz;
                 break;
             case "Frijol":

@@ -1,19 +1,16 @@
 [versions]
-agp = "8.12.3"
+agp = "8.13.1"
 cameraCore = "1.5.1"
 converterGson = "2.9.0"
-core = "1.7.0"
 credentials = "1.5.0"
-espressoIntents = "3.7.0"
 facebookAndroidSdk = "18.0.3"
 firebaseBom = "33.15.0"
 firebaseFirestore = "25.1.4"
 glide = "5.0.5"
 googleid = "1.1.1"
 guava = "33.4.8-android"
-junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.7.0"
+
+
 appcompat = "1.7.0"
 lifecycleCommon = "2.9.4"
 litertGpu = "1.4.0"
@@ -23,10 +20,12 @@ lombok = "1.18.38"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
+mockitoAndroid = "5.2.0"
 mockitoCore = "5.20.0"
 navigationFragment = "2.9.0"
 navigationTesting = "2.9.6"
 navigationUi = "2.9.0"
+opencsv = "5.7.1"
 playServicesAuth = "21.3.0"
 playServicesBase = "18.9.0"
 playServicesTasks = "18.4.0"
@@ -34,13 +33,27 @@ realmAndroidLibrary = "10.19.0"
 retrofit = "2.9.0"
 androidxArchCoreTesting = "2.2.0"
 robolectric = "4.16"
-fragmentTesting = "1.8.9"
+
+
+## test core
+core = "1.5.0"
+espressoCore = "3.5.1"
+espressoContrib = "3.5.1"
+espressoIntents = "3.5.1"
+fragmentTesting = "1.5.7"
+runner = "1.5.2"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+tensorflowLiteSupport = "0.5.0"
+tensorflowLiteMetadata = "0.2.0"
 
 [libraries]
 androidx-arch-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "androidxArchCoreTesting" }
 androidx-core = { module = "androidx.test:core", version.ref = "core" }
+androidx-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espressoContrib" }
 androidx-espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espressoIntents" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "navigationTesting" }
+androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
 camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
 camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "cameraCore" }
@@ -69,9 +82,12 @@ lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoAndroid" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+opencsv = { module = "com.opencsv:opencsv", version.ref = "opencsv" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 
 
@@ -80,9 +96,9 @@ play-services-tasks = { module = "com.google.android.gms:play-services-tasks", v
 realm-android-library = { module = "io.realm:realm-android-library", version.ref = "realmAndroidLibrary" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
-tensorflow-lite-support = { group = "org.tensorflow", name = "tensorflow-lite-support" }
-tensorflow-lite-metadata = { group = "org.tensorflow", name = "tensorflow-lite-metadata" }
 androidx-fragment-testing = { group = "androidx.fragment", name = "fragment-testing", version.ref = "fragmentTesting" }
+tensorflow-lite-support = { group = "org.tensorflow", name = "tensorflow-lite-support", version.ref = "tensorflowLiteSupport" }
+tensorflow-lite-metadata = { group = "org.tensorflow", name = "tensorflow-lite-metadata", version.ref = "tensorflowLiteMetadata" }
 
 
 [plugins]

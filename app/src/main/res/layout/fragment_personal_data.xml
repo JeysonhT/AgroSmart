@@ -98,7 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Deficiencicias mas encontradas"
+                    android:text="Deficiencias más comunes"
                     style="@style/TextAppearance.Title"
                     android:textAlignment="center"/>
 
@@ -130,31 +130,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_gravity="center"
-                >
+                android:orientation="vertical">
+
                 <TextView
+                    style="@style/TextAppearance.SubTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Numero de recomendaciones generadas"
-                    android:textAlignment="center"
-                    style="@style/TextAppearance.Body"
+                    android:gravity="center"
                     android:lines="2"
-                    android:gravity="center"/>
+                    android:text="Numero de diagnosticos realizados"
+                    android:textAlignment="center" />
+
                 <TextView
-                    android:id="@+id/numberOfRecommendationsGenerated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:id="@+id/numberOfDiagnosisGenerated"
+                    style="@style/TextAppearance.SubTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"/>
+
                 <TextView
+                    style="@style/TextAppearance.SubTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Numero de recomendaciones guardadas"
-                    android:textAlignment="center"
-                    style="@style/TextAppearance.Body"/>
+                    android:textAlignment="center" />
+
                 <TextView
                     android:id="@+id/numberOfRecommendationsSaved"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    style="@style/TextAppearance.SubTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"/>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

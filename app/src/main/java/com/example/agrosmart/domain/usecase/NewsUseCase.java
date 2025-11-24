@@ -3,7 +3,6 @@ package com.example.agrosmart.domain.usecase;
 import android.content.Context;
 
 import com.example.agrosmart.core.utils.classes.NetworkChecker;
-import com.example.agrosmart.core.utils.interfaces.NewsCallBack;
 import com.example.agrosmart.data.local.NewsLocalService;
 import com.example.agrosmart.data.network.NewService;
 import com.example.agrosmart.data.repository.impl.NewsLocalRepositoryImpl;
@@ -20,6 +19,11 @@ public class NewsUseCase {
     public NewsUseCase(){
         this.newService = new NewService(new NewsRepositoryImpl());
         this.newsLocalService = new NewsLocalService(new NewsLocalRepositoryImpl());
+    }
+
+    public NewsUseCase(NewService newService, NewsLocalService newsLocalService) {
+        this.newService = newService;
+        this.newsLocalService = newsLocalService;
     }
 
     public CompletableFuture<List<News>> getNewsUseCase(Context context){

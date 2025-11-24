@@ -63,6 +63,7 @@ public class CropRepositoryImpl implements CropRepository {
     @Override
     public void getCropByName(String name, CropsCallback callback) {
         final CropDTO[] crop = new CropDTO[1];
+        Log.d(TAG, String.format("Parametro obtenido: %s", name));
 
         CollectionReference cropsRF = db.collection("Crops");
         Source source = Source.CACHE;
@@ -72,16 +73,20 @@ public class CropRepositoryImpl implements CropRepository {
         // una vez obtenido los cultivos desde el home fragment
         query.get(source).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
-                DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                try{
+                    DocumentSnapshot document = task.getResult().getDocuments().get(0);
 
-                crop[0] = new CropDTO(
-                        document.get("name", String.class),
-                        document.get("description", String.class),
-                        document.get("harvestTime", String.class),
-                        document.get("type", String.class)
-                        );
-                Log.println(Log.DEBUG, TAG, "Crop name: " + crop[0].getCropName());
-                callback.onCropsLoaded(Collections.singletonList(CropMapper.toEntity(crop[0])));
+                    crop[0] = new CropDTO(
+                            document.get("name", String.class),
+                            document.get("description", String.class),
+                            document.get("harvestTime", String.class),
+                            document.get("type", String.class)
+                    );
+                    Log.println(Log.DEBUG, TAG, "Crop name: " + crop[0].getCropName());
+                    callback.onCropsLoaded(Collections.singletonList(CropMapper.toEntity(crop[0])));
+                } catch (Exception e) {
+                    Log.e(TAG, String.format("Error al obtener los cultivos de la cache: %s", e.getMessage()));
+                }
             } else {
                 callback.onError(task.getException());
             }

@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.example.agrosmart.core.utils.classes.MemoryMonitor;
 import com.example.agrosmart.data.local.dto.MMLResultDTO;
-import com.example.agrosmart.ml.AgroSmartMML;
+import com.example.agrosmart.ml.ModelAgrosmart;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.common.ops.NormalizeOp;
@@ -26,7 +26,7 @@ public class DetectionService {
 
     private final String TAG = "DETECTION_SERVICE";
 
-    public TensorImage bitmatToTensor(Bitmap bitmap){
+    public TensorImage bitmapToTensor(Bitmap bitmap){
         //se carga el bitmap a un tensor image
         TensorImage tensorImage = new TensorImage(DataType.UINT8);
         // el tipo de dato unit8 corresponde a 0-255 referente a los bits de una imagen e formato rgb
@@ -54,10 +54,10 @@ public class DetectionService {
             Log.i(TAG, "Memoria antes (Total PSS): " + beforeInference.getTotalPss() + " KB");
 
             // se instancia el modelo de tensorflow entrenado
-            AgroSmartMML model = AgroSmartMML.newInstance(context);
+            ModelAgrosmart model = ModelAgrosmart.newInstance(context);
 
             // creamos la salida, la cual tendra como valor el resultado que entregue el modelo
-            AgroSmartMML.Outputs outputs = model.process(tensorImage.getTensorBuffer());
+            ModelAgrosmart.Outputs outputs = model.process(tensorImage.getTensorBuffer());
 
                         //obtenemos todas las clases del archivo de clases
                         List<String> clases = readClassFile(context);
@@ -107,7 +107,7 @@ public class DetectionService {
         AssetManager assetManager = context.getAssets();
 
         try(BufferedReader reader = new BufferedReader(
-                new InputStreamReader(assetManager.open("clases.txt")))) {
+                new InputStreamReader(assetManager.open("labels.txt")))) {
             String line;
 
             while((line = reader.readLine()) != null) {

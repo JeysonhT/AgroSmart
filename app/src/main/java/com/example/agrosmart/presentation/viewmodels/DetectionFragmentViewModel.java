@@ -1,42 +1,43 @@
 package com.example.agrosmart.presentation.viewmodels;
 
-import android.os.Looper;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.interfaces.CropsCallback;
 import com.example.agrosmart.core.utils.interfaces.DiagnosisHistoryCallback;
+import com.example.agrosmart.core.utils.interfaces.IDetectionViewModel;
+import com.example.agrosmart.data.local.dto.MMLResultDTO;
+import com.example.agrosmart.data.network.MMLStatsService;
+import com.example.agrosmart.data.repository.impl.MMLStatsRepositoryImpl;
 import com.example.agrosmart.data.repository.impl.RecommendationServiceImpl;
-import com.example.agrosmart.domain.designModels.DiagnosisHistoryListView;
 import com.example.agrosmart.domain.models.Crop;
+import com.example.agrosmart.domain.models.DetectionResult;
 import com.example.agrosmart.domain.models.DiagnosisHistory;
+import com.example.agrosmart.domain.models.MMLStats;
 import com.example.agrosmart.domain.models.Respuesta;
 import com.example.agrosmart.domain.usecase.CropsUseCase;
+import com.example.agrosmart.domain.usecase.DetectionResultUseCase;
+import com.example.agrosmart.domain.usecase.DetectionUseCase;
 import com.example.agrosmart.domain.usecase.DiagnosisHistoryUseCase;
 import com.example.agrosmart.domain.usecase.GetRecommendationUseCase;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.agrosmart.domain.usecase.MMLStatsUseCase;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-import android.os.Handler;
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import org.tensorflow.lite.support.image.TensorImage;
 
-public class DetectionFragmentViewModel extends ViewModel {
+public class DetectionFragmentViewModel extends ViewModel implements IDetectionViewModel {
 
     private final String TAG = "DETECTION_FRAGMENT_VIEWMODDEL";
 
@@ -50,10 +51,18 @@ public class DetectionFragmentViewModel extends ViewModel {
 
     private DiagnosisHistoryUseCase diagnosisUseCase;
 
+    private MMLStatsUseCase mmlUseCase;
+    private DetectionResultUseCase drUseCase;
+    private DetectionUseCase detectionUseCase;
+
     public DetectionFragmentViewModel() {
         this.usecase = new GetRecommendationUseCase(new RecommendationServiceImpl());
         this.diagnosisUseCase = new DiagnosisHistoryUseCase();
         this.cropsCase = new CropsUseCase();
+
+        this.mmlUseCase = new MMLStatsUseCase(new MMLStatsService(new MMLStatsRepositoryImpl()));
+        this.drUseCase = new DetectionResultUseCase();
+        this.detectionUseCase = new DetectionUseCase();
     }
 
     private CropsUseCase cropsCase;
@@ -84,7 +93,8 @@ public class DetectionFragmentViewModel extends ViewModel {
                 "genera recomendaciones para el siguiente problema\n" +
                 problema + "\n" +
                 "puedes recomendar fertilizantes organicos y no organicos, " +
-                "no excedas las 300 palabras, los titulos no los encierres en * usa negritas en su lugar";
+                "no excedas las 300 palabras, las listas crealas usando guiones y evita el uso de ateriscos para titulos y para los nombres de la soluciones, " +
+                "dejalos separados de los parrafos para obtener un texto mas limpio";
 
         usecase.ejecutar(pregunta).thenAccept(recommendationResponse::postValue).exceptionally(error -> {
             Log.e(TAG, "Error al obtener recomendación", error);
@@ -143,9 +153,14 @@ public class DetectionFragmentViewModel extends ViewModel {
     public void gethistoriesFromUseCase(){
         diagnosisUseCase.getHistories().thenAccept(values -> {
             histories.postValue(values);
-            lastDiagnosis.postValue(values.get(0));
+            if (values != null && !values.isEmpty()) {
+                lastDiagnosis.postValue(values.get(0));
+            } else {
+                lastDiagnosis.postValue(null); // Explicitly set to null if list is empty
+            }
         }).exceptionally( error -> {
-            Log.e(TAG, Objects.requireNonNull(error.getMessage()));
+            histories.postValue(Collections.emptyList()); // Explicitly set to null on error
+            lastDiagnosis.postValue(null); // Explicitly set to null on error
             return null;
         });
     }
@@ -166,11 +181,9 @@ public class DetectionFragmentViewModel extends ViewModel {
         diagnosisUseCase.deleteDiagnosis(_id);
     }
 
-    public void updateDiagnosis(String _id, String value){
+    public void saveRecommendationInDiagnosis(String _id, String value){
         diagnosisUseCase.updateDiagnosis(_id, value);
     }
-
-    
 
     //refresca la información del usuario
     public void refreshData(){
@@ -179,5 +192,25 @@ public class DetectionFragmentViewModel extends ViewModel {
 
     public void cleanRecommendation(){
         recommendationResponse.postValue(null);
+    }
+
+    @Override
+    public void sendStatsToFirebase(MMLStats stats) {
+        mmlUseCase.saveStats(stats);
+    }
+
+    @Override
+    public void sendResulToFirebase(DetectionResult result) {
+        drUseCase.saveResult(result);
+    }
+
+    @Override
+    public TensorImage bitmapToTensor(Bitmap bitmap) {
+        return detectionUseCase.bitMapToTensor(bitmap);
+    }
+
+    @Override
+    public MMLResultDTO processDetection(TensorImage image, Context context) {
+        return detectionUseCase.processDetection(image, context);
     }
 }

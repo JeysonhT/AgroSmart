@@ -1,19 +1,13 @@
 package com.example.agrosmart.data.repository.impl;
 
-import android.util.Base64;
-import android.util.Log;
-
 import com.example.agrosmart.core.utils.classes.ImageEncoder;
-import com.example.agrosmart.core.utils.interfaces.NewsCallBack;
 import com.example.agrosmart.domain.models.News;
 import com.example.agrosmart.domain.repository.NewsRepository;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

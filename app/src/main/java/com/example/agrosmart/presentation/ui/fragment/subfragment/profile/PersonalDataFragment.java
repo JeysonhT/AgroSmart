@@ -57,8 +57,8 @@ public class PersonalDataFragment extends Fragment {
             binding.listOfDeficienciesData.setText(String.join("\n", deficiencies));
         });
 
-        viewModel.recommendationsGenerated.observe(getViewLifecycleOwner(), recommendationsGenerated -> {
-            binding.numberOfRecommendationsGenerated.setText(String.valueOf(recommendationsGenerated));
+        viewModel.diagnosisGenerated.observe(getViewLifecycleOwner(), recommendationsGenerated -> {
+            binding.numberOfDiagnosisGenerated.setText(String.valueOf(recommendationsGenerated));
         });
 
         viewModel.recommendationsSaved.observe(getViewLifecycleOwner(), recommendationsSaved -> {

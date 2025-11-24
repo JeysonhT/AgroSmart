@@ -16,10 +16,8 @@ import java.io.IOException; // New import
 import java.io.OutputStream; // New import
 import java.io.OutputStreamWriter; // New import
 import java.util.ArrayList; // New import
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,8 +32,8 @@ public class PersonalDataViewModel extends ViewModel {
     private final MutableLiveData<List<String>> _listOfDeficiencies = new MutableLiveData<>();
     public LiveData<List<String>> listOfDeficiencies = _listOfDeficiencies;
 
-    private final MutableLiveData<Integer> _recommendationsGenerated = new MutableLiveData<>();
-    public LiveData<Integer> recommendationsGenerated = _recommendationsGenerated;
+    private final MutableLiveData<Integer> _diagnosisGenerated = new MutableLiveData<>();
+    public LiveData<Integer> diagnosisGenerated = _diagnosisGenerated;
 
     private final MutableLiveData<Integer> _recommendationsSaved = new MutableLiveData<>();
     public LiveData<Integer> recommendationsSaved = _recommendationsSaved;
@@ -50,33 +48,22 @@ public class PersonalDataViewModel extends ViewModel {
         loadDiagnosisHistory(); // Cargar el historial al inicializar el ViewModel
     }
 
-    public void setListOfCrops(List<String> crops) {
-        _listOfCrops.setValue(crops);
-    }
-
-    public void setListOfDeficiencies(List<String> deficiencies) {
-        _listOfDeficiencies.setValue(deficiencies);
-    }
-
-    public void setRecommendationsGenerated(Integer recommendationsGenerated) {
-        _recommendationsGenerated.setValue(recommendationsGenerated);
-    }
-
-    public void setRecommendationsSaved(Integer recommendationsSaved) {
-        _recommendationsSaved.setValue(recommendationsSaved);
-    }
-
     public void loadDiagnosisHistory() {
         diagnosisHistoryUseCase.getHistories().thenAccept(histories -> {
             _diagnosisHistory.postValue(histories);
 
             int savedCount = 0;
+            int diagnosisCount = 0;
             Map<String, Integer> cropCounts = new HashMap<>();
             Map<String, Integer> deficiencyCounts = new HashMap<>();
 
             if (histories != null) {
                 for (DiagnosisHistory history : histories) {
                     try{
+                        if(history != null && !history.getDeficiency().isEmpty()){
+                            diagnosisCount++;
+                        }
+
                         // Contar recomendaciones guardadas
                         if (history.getRecommendation() != null && !history.getRecommendation().trim().isEmpty()) {
                             savedCount++;
@@ -98,6 +85,7 @@ public class PersonalDataViewModel extends ViewModel {
                 }
             }
             _recommendationsSaved.postValue(savedCount);
+            _diagnosisGenerated.postValue(diagnosisCount);
 
             // Ordenar y obtener los cultivos más frecuentes (top 3)
             List<String> topCrops = cropCounts.entrySet().stream()

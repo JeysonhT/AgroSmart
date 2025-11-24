@@ -98,7 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Deficiencicias mas encontradas"
+                    android:text="Deficiencias más comunes"
                     style="@style/TextAppearance.Title"
                     android:textAlignment="center"/>
 
@@ -134,22 +134,23 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/TextAppearance.Body"
+                    style="@style/TextAppearance.SubTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:lines="2"
-                    android:text="Numero de recomendaciones generadas"
+                    android:text="Numero de diagnosticos realizados"
                     android:textAlignment="center" />
 
                 <TextView
-                    android:id="@+id/numberOfRecommendationsGenerated"
+                    android:id="@+id/numberOfDiagnosisGenerated"
+                    style="@style/TextAppearance.SubTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"/>
 
                 <TextView
-                    style="@style/TextAppearance.Body"
+                    style="@style/TextAppearance.SubTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Numero de recomendaciones guardadas"
@@ -157,6 +158,7 @@
 
                 <TextView
                     android:id="@+id/numberOfRecommendationsSaved"
+                    style="@style/TextAppearance.SubTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"/>

@@ -1,0 +1,10 @@
+Maiz con deficiencia de potasio
+Maiz sano
+Sorgo con deficiencia de fosforo
+Sorgo sano
+Frijol con deficiencia de magnesio
+Frijol con deficiencia de nitrogeno
+Frijol sano
+Maiz con deficiencia de fosforo
+Maiz con deficiencia de magnesio
+Maiz con deficiencia de nitrogeno

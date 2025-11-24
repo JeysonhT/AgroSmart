@@ -46,7 +46,6 @@ public class Home_Fragment extends Fragment {
     private final String TAG = "HOME_FRAGMENT";
 
     public Home_Fragment() {}
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,

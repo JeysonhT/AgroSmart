@@ -20,7 +20,10 @@ import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.databinding.FragmentNewsInfoBinding;
 import com.example.agrosmart.domain.models.News;
+import com.example.agrosmart.domain.usecase.CropsUseCase;
+import com.example.agrosmart.domain.usecase.NewsUseCase;
 import com.example.agrosmart.presentation.viewmodels.HomeViewModel;
+import com.example.agrosmart.presentation.viewmodels.factory.HomeViewModelFactory;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class NewsInfoFragment extends Fragment {
@@ -61,7 +64,10 @@ public class NewsInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        CropsUseCase cropsUseCase = new CropsUseCase();
+        NewsUseCase newsUseCase = new NewsUseCase();
+        HomeViewModelFactory factory = new HomeViewModelFactory(newsUseCase, cropsUseCase);
+        viewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
         controller = Navigation.findNavController(view);
 
         viewModel.getSaveNewResult().observe(getViewLifecycleOwner(), isSave -> {

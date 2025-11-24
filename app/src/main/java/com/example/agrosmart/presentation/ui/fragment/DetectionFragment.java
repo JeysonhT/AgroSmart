@@ -277,7 +277,7 @@ DetectionFragment extends Fragment {
     private int[] setHistoryIcons(String nameCrop, String nameDeficiency){
         int[] resources = new int[2];
         switch (nameCrop){
-            case "Maíz":
+            case "Maiz":
                 resources[0] = R.drawable.maiz;
                 break;
             case "Frijol":

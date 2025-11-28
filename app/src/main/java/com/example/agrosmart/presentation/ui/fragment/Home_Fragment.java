@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.core.utils.interfaces.IHomeViewModel;
@@ -41,6 +42,9 @@ public class Home_Fragment extends Fragment {
     private NewsAdapter noticeAdapter;
     private int state = 0;
 
+    private LottieAnimationView cropsLoader;
+    private LottieAnimationView noticeLoader;
+
     private NavController testNavController;
 
     private final String TAG = "HOME_FRAGMENT";
@@ -58,6 +62,9 @@ public class Home_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        cropsLoader = binding.cropsImageLoader;
+        noticeLoader = binding.noticeLoader;
 
         setupNavigationController(view);
         setupViewModel();
@@ -97,6 +104,7 @@ public class Home_Fragment extends Fragment {
     }
 
     private void setupCropsRecyclerView() {
+        setupCropsLoader(true);
         CropInfoAdapter cropAdapter = new CropInfoAdapter(getContext(), new ArrayList<>(), navController);
         binding.recyclerView.setLayoutManager(
                 new LinearLayoutManager(getContext(),
@@ -108,11 +116,13 @@ public class Home_Fragment extends Fragment {
         viewModel.getCrops().observe(getViewLifecycleOwner(), cropData -> {
             if (cropData != null && !cropData.isEmpty()) {
                 cropAdapter.updateData(cropData);
+                setupCropsLoader(false);
             }
         });
     }
 
     private void setupNewsRecyclerView() {
+        setupNoticeLoader(true);
         binding.noticeRecyclerView.setLayoutManager(
                 new LinearLayoutManager(getContext(),
                         LinearLayoutManager.VERTICAL,
@@ -128,6 +138,7 @@ public class Home_Fragment extends Fragment {
         viewModel.getNews().observe(getViewLifecycleOwner(), news -> {
             if (news != null && !news.isEmpty()) {
                 noticeAdapter.updateData(news);
+                setupNoticeLoader(false);
             } else {
                 showNoConnectionPlaceholder();
             }
@@ -192,6 +203,26 @@ public class Home_Fragment extends Fragment {
             }
         } catch (RuntimeException e) {
             Log.e(TAG, e.getMessage());
+        }
+    }
+
+    private void setupNoticeLoader(boolean isLoading){
+        if(isLoading){
+            cropsLoader.setVisibility(View.VISIBLE);
+            cropsLoader.playAnimation();
+        } else {
+            cropsLoader.cancelAnimation();
+            cropsLoader.setVisibility(View.GONE);
+        }
+    }
+
+    private void setupCropsLoader(boolean isLoading){
+        if(isLoading){
+            noticeLoader.setVisibility(View.VISIBLE);
+            noticeLoader.playAnimation();
+        } else {
+            noticeLoader.cancelAnimation();
+            noticeLoader.setVisibility(View.GONE);
         }
     }
 

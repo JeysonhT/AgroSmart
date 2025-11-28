@@ -1,11 +1,13 @@
 package com.example.agrosmart.presentation.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -24,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -51,5 +56,16 @@ public class MainActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).hide(); // Para AppCompatActivity
 
+        setupSplashScreen(splashScreen);
+    }
+
+    private void setupSplashScreen(SplashScreen splashScreen){
+        final boolean[] isDataReady = {false};
+
+        new Handler(getMainLooper()).postDelayed(() -> {
+            isDataReady[0] = true;
+        }, 2000);
+
+        splashScreen.setKeepOnScreenCondition(() -> !isDataReady[0]);
     }
 }

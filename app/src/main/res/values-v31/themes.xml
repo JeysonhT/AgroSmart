@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AgroSmart.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/mid_yellow</item>
+
+        <item name="windowSplashScreenAnimatedIcon">@drawable/isotipo</item>
+
+        <item name="android:windowSplashScreenBrandingImage">@drawable/logotipo</item>
+
+        <item name="windowSplashScreenAnimationDuration">200</item>
+
+        <item name="postSplashScreenTheme">@style/Theme.AgroSmart</item>
+    </style>
+</resources>

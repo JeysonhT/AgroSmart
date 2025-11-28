@@ -85,6 +85,8 @@ dependencies {
     implementation libs.play.services.base
     implementation libs.play.services.tasks
     implementation libs.opencsv
+    implementation 'androidx.core:core-splashscreen:1.0.1'
+    implementation 'com.airbnb.android:lottie:6.1.0'
 
     implementation libs.litert.support
     implementation libs.litert.metadata

@@ -19,6 +19,7 @@
             app:layout_constraintGuide_percent="0.30" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
@@ -31,9 +32,9 @@
 
             <TextView
                 android:id="@+id/textView"
+                style="@style/TextAppearance.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.Title"
                 android:text="@string/detection_fragment_title"
                 android:textAlignment="textStart"
                 android:textSize="20sp" />
@@ -77,9 +78,9 @@
 
                         <TextView
                             android:id="@+id/textDiagnosisCard"
+                            style="@style/TextAppearance.Body"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/TextAppearance.Body"
                             android:text="@string/DiagnosisCard"
                             android:textAlignment="textEnd"
                             android:textSize="15sp" />

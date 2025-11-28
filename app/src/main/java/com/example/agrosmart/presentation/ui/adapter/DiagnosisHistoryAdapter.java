@@ -10,6 +10,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.L;
 import com.example.agrosmart.R;
 import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.databinding.ItemHistoryDetectionBinding;
@@ -55,6 +56,20 @@ public class DiagnosisHistoryAdapter extends RecyclerView.Adapter<DiagnosisHisto
                 break;
             }
         }
+    }
+
+    public void updateItemById(String id, String recommendation){
+        for (int i = 0; i < listaModelo.size(); i++) {
+            if (listaModelo.get(i).getId().equals(id)) {
+                listaModelo.get(i).setRecommendation(recommendation);
+                notifyItemChanged(i);
+                break;
+            }
+        }
+    }
+
+    public void navToLastDiagnosis(){
+
     }
 
     @NonNull
@@ -138,6 +153,10 @@ public class DiagnosisHistoryAdapter extends RecyclerView.Adapter<DiagnosisHisto
             binding.textDateDiagnosisHistory.setText(_listView.getTxtDate());
             binding.textDateDiagnosisHistory.setTextColor(Color.BLACK);
 
+        }
+
+        public void navCard(){
+            binding.listCardView.performClick();
         }
 
     }

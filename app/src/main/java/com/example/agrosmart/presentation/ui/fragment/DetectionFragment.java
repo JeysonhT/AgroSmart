@@ -23,8 +23,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.agrosmart.R;
+import com.example.agrosmart.core.utils.classes.ClickMode;
 import com.example.agrosmart.core.utils.classes.ImageCacheManager;
+import com.example.agrosmart.core.utils.classes.LoaderDialog;
 import com.example.agrosmart.core.utils.classes.NetworkChecker;
 import com.example.agrosmart.databinding.FragmentDetectionBinding;
 import com.example.agrosmart.domain.models.DiagnosisHistory;
@@ -61,6 +64,8 @@ DetectionFragment extends Fragment {
 
     private DiagnosisHistoryListView lastDiagnosis;
 
+    private LoaderDialog loaderDialog;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,6 +82,8 @@ DetectionFragment extends Fragment {
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
         navController = NavHostFragment.findNavController(this);
+
+        loaderDialog = new LoaderDialog(requireContext());
 
         dfViewModel.gethistoriesFromUseCase();
 
@@ -101,6 +108,7 @@ DetectionFragment extends Fragment {
 
             if(NetworkChecker.isInternetAvailable(requireContext())){
                 dfViewModel.obtenerRecomendacion(resultado);
+                showLoader();
             }
 
             bundle.clear();
@@ -111,22 +119,30 @@ DetectionFragment extends Fragment {
         dfViewModel.getRecommendationResponse().observe(getViewLifecycleOwner(), respuesta -> {
             if(respuesta!=null){
 
+                if(respuesta.getRespuesta().equals("error")){
+                    hideLoader();
+                    mostrarDialogo("Error",
+                            "Error de conexión intente más tarde\nGenere la recomendación dentro del diagnostico mas reciente",
+                            ClickMode.DISMISS);
+                    dfViewModel.cleanRecommendation();
+                    return;
+                }
+
                 if(lastDiagnosis != null){
                     String _id = lastDiagnosis.getId();
 
-                    Log.println(Log.DEBUG, TAG, "Valor obtenido: " + lastDiagnosis.getTxtDate());
-
                     try{
+                        adapter.updateItemById(_id, respuesta.getRespuesta());
                         dfViewModel.saveRecommendationInDiagnosis(_id, respuesta.getRespuesta());
                     } catch (Exception e){
                         Log.w(TAG, "Error al actualizar: " + e.getMessage());
                     }
                 }
 
-                mostrarDialogo("Recomendación", respuesta.getRespuesta());
-
-                Log.println(Log.DEBUG, TAG, "msg: " + respuesta.getRespuesta());
-
+                hideLoader();
+                mostrarDialogo("Exito",
+                        "Ingrese al ultimo diagnostico para ver su recomendación",
+                        ClickMode.NAVIGATE);
                 dfViewModel.cleanRecommendation();
             }
         });
@@ -140,6 +156,12 @@ DetectionFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        hideLoader();
+        super.onDestroy();
     }
 
     private void loadHistory(){
@@ -171,6 +193,10 @@ DetectionFragment extends Fragment {
         adapter.removeItemById(_id);
 
         dfViewModel.deleteHistory(_id);
+    }
+
+    public void navigateToLastDiagnosis(){
+
     }
 
 
@@ -210,14 +236,17 @@ DetectionFragment extends Fragment {
         });
     }
 
-    private void mostrarDialogo(String title, String message) {
+    private void mostrarDialogo(String title, String message, ClickMode mode) {
         new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        if(mode.equals(ClickMode.NAVIGATE)){
+                            dialog.dismiss();
+                        }
+
                     }
                 }).show();
     }
@@ -330,4 +359,18 @@ DetectionFragment extends Fragment {
 
         return history;
     }
+
+    // Métodos auxiliares limpios para manejar el estado
+    private void showLoader() {
+        if (loaderDialog != null && !loaderDialog.isShowing()) {
+            loaderDialog.show();
+        }
+    }
+
+    private void hideLoader() {
+        if (loaderDialog != null && loaderDialog.isShowing()) {
+            loaderDialog.dismiss();
+        }
+    }
+
 }

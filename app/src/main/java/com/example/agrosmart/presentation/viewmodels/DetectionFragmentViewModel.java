@@ -98,6 +98,7 @@ public class DetectionFragmentViewModel extends ViewModel implements IDetectionV
 
         usecase.ejecutar(pregunta).thenAccept(recommendationResponse::postValue).exceptionally(error -> {
             Log.e(TAG, "Error al obtener recomendación", error);
+            recommendationResponse.postValue(new Respuesta("error"));
             return null;
         });
     }

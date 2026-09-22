@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_municipality">
+        <item>Acoyapa</item>
+        <item>Comalapa</item>
+        <item>Cuapa</item>
+        <item>El coral</item>
+        <item>Juigalpa</item>
+        <item>La Libertad</item>
+        <item>San pedro de lóvago</item>
+        <item>Santo Domingo</item>
+        <item>Santo Tomás</item>
+        <item>Villa Sandino</item>
+    </string-array>
+</resources>

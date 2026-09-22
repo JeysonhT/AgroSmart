@@ -13,10 +13,12 @@ import androidx.navigation.NavDirections;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrosmart.R;
+import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.databinding.ItemFertilizerImageBinding;
 import com.example.agrosmart.domain.models.Fertilizer;
 import com.example.agrosmart.presentation.ui.fragment.subfragment.home.FertilizersFragmentDirections;
 
+import java.io.IOException;
 import java.util.List;
 
 public class FertilizersAdapter extends RecyclerView.Adapter<FertilizersAdapter.FertilizerViewHolder> {
@@ -74,6 +76,7 @@ public class FertilizersAdapter extends RecyclerView.Adapter<FertilizersAdapter.
 
                         NavDirections actions = FertilizersFragmentDirections.
                                 actionFertilizersFragmentToFertilizerInfoFragment(
+                                        ImageCacheManager.saveImageToCache(v.getContext(), currentData.getImageResource()),
                                         currentData.getName(),
                                         currentData.getDescription(),
                                         currentData.getType(),
@@ -86,6 +89,8 @@ public class FertilizersAdapter extends RecyclerView.Adapter<FertilizersAdapter.
 
                     } catch (NullPointerException e){
                         Log.e(TAG, String.format("Error al navegar: %s", e.getMessage()));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             });

@@ -51,7 +51,7 @@ public class ProfileViewModel extends ViewModel {
 
         try {
             RealmList<String> lista = new RealmList<>();
-            repository.getUserDetails(FirebaseFirestore.getInstance(), username, details -> {
+            repository.getUserDetails(username, details -> {
                 if(!details.isEmpty()){
                     lista.addAll((Collection<? extends String>) details.get("soilTypes"));
                     userDtl.setValue(new UserDetails(

@@ -66,14 +66,14 @@
 
                         <ImageView
                             android:id="@+id/cropImageView"
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
                             android:contentDescription="Crop Image" />
 
                         <ImageView
                             android:id="@+id/deficiencyImageView"
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
                             android:contentDescription="Deficiency Image" />
 
                         <TextView

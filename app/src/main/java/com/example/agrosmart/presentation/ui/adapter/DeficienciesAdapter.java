@@ -17,6 +17,7 @@ import com.example.agrosmart.databinding.ItemDeficienciesImageBinding;
 import com.example.agrosmart.domain.models.Deficiency;
 import com.example.agrosmart.presentation.ui.fragment.subfragment.home.DeficienciesFragmentDirections;
 
+import java.io.IOException;
 import java.util.List;
 
 public class DeficienciesAdapter extends RecyclerView.Adapter<DeficienciesAdapter.DeficiencyViewHolder> {
@@ -74,7 +75,8 @@ public class DeficienciesAdapter extends RecyclerView.Adapter<DeficienciesAdapte
 
                         NavDirections action = DeficienciesFragmentDirections.
                                 actionDeficienciesFragmentToDefiencyInfoFragment(
-                                    currentData.getName(),
+                                        ImageCacheManager.saveImageToCache(v.getContext(), currentData.getImageResource()),
+                                        currentData.getName(),
                                         currentData.getDescription(),
                                         currentData.getSymptoms(),
                                         currentData.getSolutions()
@@ -84,6 +86,8 @@ public class DeficienciesAdapter extends RecyclerView.Adapter<DeficienciesAdapte
                     } catch(NullPointerException e){
                         Log.e(TAG, String.
                                 format("Error al navegar al elemento seleccionado: %s", e.getMessage()));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             });

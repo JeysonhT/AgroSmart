@@ -76,30 +76,46 @@
                 android:textSize="15sp"/>
 
             <TextView android:text="Editar municipio" style="@style/LabelStyle"/>
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etMunicipio"
-                android:inputType="text"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:hint="@string/etMunicipioString"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_bg"
                 android:textColor="#000"
                 android:textSize="15sp"
-                />
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_municipio_auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView android:text="Editar tipos de suelo"
                 style="@style/LabelStyle"/>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etSuelo"
-                android:inputType="text"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:hint="@string/etSueloString"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/ecru"
                 android:background="@drawable/edittext_bg"
                 android:textColor="#000"
-                android:textSize="15sp"/>
+                android:textSize="15sp">
+                <AutoCompleteTextView
+                    android:id="@+id/tv_soil_types"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnGuardarDetails"

@@ -15,16 +15,20 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+import io.realm.RealmList;
 
 public class UserDtlimpl implements UserDtlRepository {
 
     private final String TAG = "USER_DETAILS_REPOSITORY";
+
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
-    public void postUserDetails(FirebaseFirestore db, UserDetails userDetails, String email) {
+    public void postUserDetails(UserDetails userDetails, String email) {
 
         System.out.println(userDetails.getRole());
 
@@ -52,7 +56,7 @@ public class UserDtlimpl implements UserDtlRepository {
     }
 
     @Override
-    public void getUserDetails(FirebaseFirestore db, String fBSusername, OnUserDetailsLoaded callback) {
+    public void getUserDetails(String fBSusername, OnUserDetailsLoaded callback) {
         // se declara la referencia de el documento de id fBSusername, que es el email de Google
         DocumentReference dodRef = db.collection("userDetails").document(fBSusername);
 
@@ -82,5 +86,42 @@ public class UserDtlimpl implements UserDtlRepository {
             // este callback esperara los datos antes de mandar el resultado
             callback.onLoaded(details);
         });
+    }
+
+    @Override
+    public CompletableFuture<UserDetails> getUserDetails(String fbUserName) {
+
+        CompletableFuture<UserDetails> future = new CompletableFuture<>();
+
+            // se declara la referencia de el documento de id fBSusername, que es el email de Google
+            DocumentReference dodRef = db.collection("userDetails").document(fbUserName);
+
+            // se procede a realizar la tarea de buscar el documento, si existe se edita, si no se crea
+            dodRef.get().addOnCompleteListener(task -> {
+                UserDetails userDetails = new UserDetails();
+                RealmList<String> lista = new RealmList<>();
+                if(task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        lista.addAll((Collection<? extends String>) document.get("soilTypes"));
+                        userDetails.setUsername(document.getString("username"));
+                        userDetails.setPhoneNumber(document.getString("phoneNumber"));
+                        userDetails.setMunicipality(document.getString("municipality"));
+                        userDetails.setStatus(document.getString("status"));
+                        userDetails.setRole(document.getString("role"));
+                        userDetails.setSoilTypes(lista);
+
+                        future.complete(userDetails);
+
+                    } else {
+                        Log.d(TAG, "Documento no encontrado");
+                    }
+                } else {
+                    Log.d("error de conexión", String.valueOf(task.getException()));
+                }
+
+            }).addOnFailureListener(future::completeExceptionally);
+
+            return future;
     }
 }

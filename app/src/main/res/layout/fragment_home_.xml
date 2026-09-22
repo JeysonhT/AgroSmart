@@ -86,7 +86,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/noticeRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -125,31 +124,18 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/noticeRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayout2" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/noticeLoader"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/noticeRecyclerView"
-            app:layout_constraintStart_toStartOf="@+id/noticeRecyclerView"
-            app:layout_constraintTop_toTopOf="@+id/noticeRecyclerView"
-            app:lottie_autoPlay="false"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/notice_loading"
-            app:lottie_renderMode="hardware" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/cropsImageLoader"
@@ -165,6 +151,19 @@
             app:lottie_rawRes="@raw/notice_loading"
             app:lottie_renderMode="hardware" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/noticeLoader"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/noticeRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/noticeRecyclerView"
+            app:layout_constraintTop_toTopOf="@+id/noticeRecyclerView"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/notice_loading"
+            app:lottie_renderMode="hardware" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

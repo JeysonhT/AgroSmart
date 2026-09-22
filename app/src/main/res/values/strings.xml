@@ -15,7 +15,7 @@
     <string name="etNombreString">Ingrese su nombre aqui</string>
     <string name="etTelefonoString">ingrese su numero de telefono</string>
     <string name="etMunicipioString">Ingrese el municipio donde vive</string>
-    <string name="etSueloString">ingrese los tipos de suelo, separe con \',\'</string>
+    <string name="etSueloString">ingrese los tipos de suelo</string>
     <string name="historialString">Historial</string>
     <string name="DiagnosisCard">Ultimo Diagnóstico</string>
     <string name="lastDeficiencyCardTextInNullCase">Aun no hay diagnosticos</string>

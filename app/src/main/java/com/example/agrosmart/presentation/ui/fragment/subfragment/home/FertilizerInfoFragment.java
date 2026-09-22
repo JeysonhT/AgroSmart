@@ -9,14 +9,19 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.agrosmart.R;
+import com.example.agrosmart.core.utils.classes.ImageCacheManager;
 import com.example.agrosmart.databinding.FragmentFertilizerInfoBinding;
 
 public class FertilizerInfoFragment extends Fragment {
 
     private final String TAG = "FERTILIZER_INFO_FRAGMENT";
     private FragmentFertilizerInfoBinding binding;
+
+    private NavController controller;
 
     @Nullable
     @Override
@@ -34,9 +39,15 @@ public class FertilizerInfoFragment extends Fragment {
 
         Bundle bundle = getArguments();
 
+        controller = NavHostFragment.findNavController(this);
+
         if(bundle!=null){
+
+            if (ImageCacheManager.loadImageFromCache(requireContext(), bundle.getString("imageuri")) == null) {
+                controller.navigateUp();
+            }
             try {
-                binding.fertilizeImageInfo.setImageResource(R.drawable.gemini_fertilizer_placeholder);
+                binding.fertilizeImageInfo.setImageBitmap(ImageCacheManager.loadImageFromCache(requireContext(), bundle.getString("imageuri")));
 
                 binding.fertilizerNameInfo.setText(bundle.getString("name"));
 
@@ -65,5 +76,11 @@ public class FertilizerInfoFragment extends Fragment {
             }
         }
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ImageCacheManager.cleanupCache(requireContext());
     }
 }

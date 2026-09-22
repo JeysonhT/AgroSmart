@@ -32,7 +32,7 @@ public class LoaderDialog extends Dialog {
         }
 
         // 4. Evitamos que el usuario lo cierre tocando fuera o con el botón atrás
-        setCancelable(false);
+        setCancelable(true);
         setCanceledOnTouchOutside(false);
     }
 }

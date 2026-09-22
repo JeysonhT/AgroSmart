@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_soil_types">
+        <item>Arcilloso</item>
+        <item>Franco</item>
+        <item>Limoso</item>
+        <item>Franco-Limoso</item>
+        <item>Franco-arcilloso</item>
+    </string-array>
+</resources>

@@ -175,6 +175,9 @@
             android:id="@+id/action_fertilizersFragment_to_fertilizerInfoFragment"
             app:destination="@id/fertilizerInfoFragment">
 
+            <argument app:argType="string"
+                android:name="imageuri"/>
+
             <argument
                 app:argType="string"
                 android:name="name"/>
@@ -210,6 +213,9 @@
         <action
             android:id="@+id/action_deficienciesFragment_to_defiencyInfoFragment"
             app:destination="@id/deficiencyInfoFragment">
+
+            <argument app:argType="string"
+                android:name="imageuri"/>
 
             <argument
                 app:argType="string"

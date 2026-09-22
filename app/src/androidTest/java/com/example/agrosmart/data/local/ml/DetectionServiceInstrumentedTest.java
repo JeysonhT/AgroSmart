@@ -43,7 +43,7 @@ public class DetectionServiceInstrumentedTest {
         Bitmap testBitmap = Bitmap.createBitmap(224, 224, Bitmap.Config.ARGB_8888);
 
         // Convertimos el Bitmap a TensorImage usando el método del propio servicio.
-        TensorImage tensorImage = detectionService.bitmatToTensor(testBitmap);
+        TensorImage tensorImage = detectionService.bitmapToTensor(testBitmap);
 
         // Leemos las clases reales desde los assets para la validación.
         List<String> actualClasses = readClassesFromAssets();

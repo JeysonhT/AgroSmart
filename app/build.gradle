@@ -10,13 +10,12 @@ apply plugin: 'realm-android'
 android {
     namespace 'com.example.agrosmart'
     compileSdk 36
-
     packagingOptions {
-        // Le dice a Gradle: "Si encuentras este archivo duplicado,
-        // solo elige el primero (pickFirst) e ignora los demás".
-        pickFirst 'mockito-extensions/org.mockito.plugins.MockMaker'
-        pickFirst 'mockito-extensions/org.mockito.plugins.MemberAccessor'
+        resources {
+            pickFirsts += ['mockito-extensions/org.mockito.plugins.MockMaker', 'mockito-extensions/org.mockito.plugins.MemberAccessor']
+        }
     }
+
 
     defaultConfig {
         applicationId "com.example.agrosmart"

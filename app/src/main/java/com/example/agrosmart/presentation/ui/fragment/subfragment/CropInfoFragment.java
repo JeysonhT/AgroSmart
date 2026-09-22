@@ -52,6 +52,10 @@ public class CropInfoFragment extends Fragment {
         if(bundle!=null){
             try{
 
+                if(bundle.getInt("image")==0){
+                    controller.navigateUp();
+                }
+
                 binding.cropInfoImage.setImageResource(bundle.getInt("image"));
                 binding.cropName.setText(bundle.getString("title"));
                 binding.cropDescription.setText(bundle.getString("description"));

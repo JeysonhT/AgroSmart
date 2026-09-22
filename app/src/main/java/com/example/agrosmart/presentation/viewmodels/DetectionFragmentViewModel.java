@@ -22,6 +22,9 @@ import com.example.agrosmart.domain.usecase.DetectionUseCase;
 import com.example.agrosmart.domain.usecase.DiagnosisHistoryUseCase;
 import com.example.agrosmart.domain.usecase.GetRecommendationUseCase;
 import com.example.agrosmart.domain.usecase.MMLStatsUseCase;
+import com.example.agrosmart.domain.usecase.UserDtlUseCase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +32,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 import android.content.Context;
@@ -54,6 +59,10 @@ public class DetectionFragmentViewModel extends ViewModel implements IDetectionV
     private MMLStatsUseCase mmlUseCase;
     private DetectionResultUseCase drUseCase;
     private DetectionUseCase detectionUseCase;
+
+    private UserDtlUseCase userDtlUseCase;
+
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     public DetectionFragmentViewModel() {
         this.usecase = new GetRecommendationUseCase(new RecommendationServiceImpl());
@@ -86,14 +95,23 @@ public class DetectionFragmentViewModel extends ViewModel implements IDetectionV
     public LiveData<DiagnosisHistory> getLastDiagnosis() {
         return lastDiagnosis; }
 
+
+
     //metodo que consume el caso de uso de generacion de detecciones
     public void obtenerRecomendacion(String problema){
 
+        String soil = "";
+        try {
+            soil = userDtlUseCase.getSoilTypeFromDetail(user.getEmail());
+        } catch (NullPointerException | InterruptedException | ExecutionException e){
+            Log.e(TAG, Objects.requireNonNull(e.getMessage()));
+        }
+
         final String pregunta = "Comportate como un agronomo profesional y " +
                 "genera recomendaciones para el siguiente problema\n" +
-                problema + "\n" +
-                "puedes recomendar fertilizantes organicos y no organicos, " +
-                "no excedas las 300 palabras, las listas crealas usando guiones y evita el uso de ateriscos para titulos y para los nombres de la soluciones, " +
+                problema + "\n" + "plantado en este tipo de suelo: " + soil + " de estar vacio el tipo de suelo omite el detalle\n" +
+                "recomienda fertilizantes organicos y no organicos, " +
+                "no excedas las 150 palabras, las listas crealas usando guiones y evita el uso de ateriscos para titulos y para los nombres de la soluciones, " +
                 "dejalos separados de los parrafos para obtener un texto mas limpio";
 
         usecase.ejecutar(pregunta).thenAccept(recommendationResponse::postValue).exceptionally(error -> {

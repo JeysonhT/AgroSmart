@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,6 +17,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.agrosmart.R
 import com.example.agrosmart.domain.models.UserDetails
 import com.example.agrosmart.presentation.viewmodels.ProfileDetailViewModel
+import com.example.agrosmart.presentation.viewmodels.state.ProfileDetailUiState
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
@@ -26,6 +28,8 @@ fun EditProfileRouteScreen(
     viewModel: ProfileDetailViewModel = viewModel()
 ) {
     val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsState()
+
     val municipalities = remember { context.resources.getStringArray(R.array.list_municipality).toList() }
     val soilTypes = remember { context.resources.getStringArray(R.array.list_soil_types).toList() }
 
@@ -41,13 +45,16 @@ fun EditProfileRouteScreen(
 
     LaunchedEffect(usernameArg) {
         val email = FirebaseAuth.getInstance().currentUser?.email ?: usernameArg
-        viewModel.getUserDetailsLiveData(email, context).observeForever { details ->
-            if (details != null) {
-                username = details.username.orEmpty()
-                phoneNumber = details.phoneNumber.orEmpty()
-                selectedMunicipality = details.municipality.orEmpty()
-                selectedSoilType = details.soilTypes?.firstOrNull().orEmpty()
-            }
+        viewModel.loadUserDetails(email, context)
+    }
+
+    LaunchedEffect(uiState) {
+        val details = (uiState as? ProfileDetailUiState.Success)?.userDetails
+        if (details != null) {
+            username = details.username.orEmpty()
+            phoneNumber = details.phoneNumber.orEmpty()
+            selectedMunicipality = details.municipality.orEmpty()
+            selectedSoilType = details.soilTypes?.firstOrNull().orEmpty()
         }
     }
 

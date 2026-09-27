@@ -11,10 +11,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import javax.inject.Inject;
 
 public class DeficiencyUseCase {
     private final DeficienciesService service;
 
+    @Inject
     public DeficiencyUseCase(){
         this.service = new DeficienciesService(new DeficiencyRepositoryImpl());
     }

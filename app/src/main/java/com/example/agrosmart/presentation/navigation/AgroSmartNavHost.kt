@@ -42,7 +42,10 @@ import com.example.agrosmart.presentation.viewmodels.DeficiencyViewModel
 import com.example.agrosmart.presentation.viewmodels.DetectionViewModel
 import com.example.agrosmart.presentation.viewmodels.FertilizerViewModel
 import com.example.agrosmart.presentation.viewmodels.HomeViewModel
-import com.example.agrosmart.presentation.viewmodels.factory.HomeViewModelFactory
+import com.example.agrosmart.presentation.viewmodels.state.DeficiencyUiState
+import com.example.agrosmart.presentation.viewmodels.state.FertilizerUiState
+import com.example.agrosmart.presentation.viewmodels.state.HomeUiState
+import androidx.compose.runtime.collectAsState
 import androidx.core.content.edit
 
 @Composable
@@ -53,23 +56,19 @@ fun AgroSmartNavHost(
     NavHost(
         navController = navController,
         startDestination = HomeRoute,
-        modifier = modifier
+        modifier = modifier 
     ) {
         // 1. Home
         composable<HomeRoute> {
-            val homeViewModel: HomeViewModel = viewModel(factory = HomeViewModelFactory(CropsUseCase()))
-            val crops by homeViewModel.crops.observeAsState(emptyList())
-            var isLoading by remember { mutableStateOf(true) }
+            val homeViewModel: HomeViewModel = hiltViewModel()
+            val uiState by homeViewModel.uiState.collectAsState()
 
             LaunchedEffect(Unit) {
                 homeViewModel.loadCrops()
             }
 
-            LaunchedEffect(crops) {
-                if (crops.isNotEmpty()) {
-                    isLoading = false
-                }
-            }
+            val crops = (uiState as? HomeUiState.Success)?.crops.orEmpty()
+            val isLoading = uiState is HomeUiState.Loading || uiState is HomeUiState.Idle
 
             HomeScreen(
                 crops = crops,
@@ -109,18 +108,14 @@ fun AgroSmartNavHost(
         composable<DeficienciesRoute> {
             val context = LocalContext.current
             val viewModel: DeficiencyViewModel = viewModel()
-            val deficiencies by viewModel.data.observeAsState(emptyList())
-            var isLoading by remember { mutableStateOf(true) }
+            val uiState by viewModel.uiState.collectAsState()
 
             LaunchedEffect(Unit) {
                 viewModel.loadData(context)
             }
 
-            LaunchedEffect(deficiencies) {
-                if (deficiencies.isNotEmpty()) {
-                    isLoading = false
-                }
-            }
+            val deficiencies = (uiState as? DeficiencyUiState.Success)?.deficiencies.orEmpty()
+            val isLoading = uiState is DeficiencyUiState.Loading || uiState is DeficiencyUiState.Idle
 
             DeficienciesScreen(
                 deficiencies = deficiencies,
@@ -183,18 +178,14 @@ fun AgroSmartNavHost(
         composable<FertilizersRoute> {
             val context = LocalContext.current
             val viewModel: FertilizerViewModel = viewModel()
-            val fertilizers by viewModel.data.observeAsState(emptyList())
-            var isLoading by remember { mutableStateOf(true) }
+            val uiState by viewModel.uiState.collectAsState()
 
             LaunchedEffect(Unit) {
                 viewModel.loadData(context)
             }
 
-            LaunchedEffect(fertilizers) {
-                if (fertilizers.isNotEmpty()) {
-                    isLoading = false
-                }
-            }
+            val fertilizers = (uiState as? FertilizerUiState.Success)?.fertilizers.orEmpty()
+            val isLoading = uiState is FertilizerUiState.Loading || uiState is FertilizerUiState.Idle
 
             FertilizersScreen(
                 fertilizers = fertilizers,
@@ -299,7 +290,7 @@ fun AgroSmartNavHost(
                 if (route.cropImage.isNotBlank()) {
                     try {
                         val bytes = ImageEncoder.decoderBase64(route.cropImage)
-                        BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                        if (bytes != null) BitmapFactory.decodeByteArray(bytes, 0, bytes.size) else null
                     } catch (_: Exception) {
                         null
                     }

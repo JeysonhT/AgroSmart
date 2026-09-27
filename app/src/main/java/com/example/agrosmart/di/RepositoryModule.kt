@@ -25,4 +25,10 @@ abstract class RepositoryModule {
     abstract fun bindRecommendationRepository(
         impl: RecommendationServiceImpl
     ): RecomendationRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUserDtlRepository(
+        impl: com.example.agrosmart.data.repository.impl.UserDtlimpl
+    ): com.example.agrosmart.domain.repository.UserDtlRepository
 }

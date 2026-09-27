@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.agrosmart.core.utils.interfaces.CropsCallback
-import com.example.agrosmart.core.utils.interfaces.DiagnosisHistoryCallback
 import com.example.agrosmart.core.utils.interfaces.IDetectionViewModel
 import com.example.agrosmart.data.local.dto.MMLResultDTO
 import com.example.agrosmart.domain.models.Crop
@@ -20,13 +19,13 @@ import com.example.agrosmart.domain.usecase.CropsUseCase
 import com.example.agrosmart.domain.usecase.DeleteDiagnosisUseCase
 import com.example.agrosmart.domain.usecase.DetectionResultUseCase
 import com.example.agrosmart.domain.usecase.DetectionUseCase
-import com.example.agrosmart.domain.usecase.DiagnosisHistoryUseCase
 import com.example.agrosmart.domain.usecase.GetDiagnosisHistoryUseCase
 import com.example.agrosmart.domain.usecase.GetRecommendationUseCase
 import com.example.agrosmart.domain.usecase.MMLStatsUseCase
 import com.example.agrosmart.domain.usecase.SaveDiagnosisUseCase
 import com.example.agrosmart.domain.usecase.UpdateDiagnosisRecommendationUseCase
 import com.example.agrosmart.domain.usecase.UserDtlUseCase
+import com.example.agrosmart.presentation.viewmodels.state.DetectionUiState
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,42 +40,37 @@ import java.util.function.Consumer
 import javax.inject.Inject
 
 @HiltViewModel
-open class DetectionViewModel @Inject constructor(
-    protected val getDiagnosisHistoryUseCase: GetDiagnosisHistoryUseCase,
-    protected val saveDiagnosisUseCase: SaveDiagnosisUseCase,
-    protected val deleteDiagnosisUseCase: DeleteDiagnosisUseCase,
-    protected val updateDiagnosisRecommendationUseCase: UpdateDiagnosisRecommendationUseCase,
-    protected val getRecommendationUseCase: GetRecommendationUseCase,
-    protected var cropsUseCase: CropsUseCase,
-    protected val detectionUseCase: DetectionUseCase,
-    protected val mmlUseCase: MMLStatsUseCase,
-    protected val drUseCase: DetectionResultUseCase,
-    protected val userDtlUseCase: UserDtlUseCase? = null,
-    protected val firebaseAuth: FirebaseAuth? = null
+class DetectionViewModel @Inject constructor(
+    private val getDiagnosisHistoryUseCase: GetDiagnosisHistoryUseCase,
+    private val saveDiagnosisUseCase: SaveDiagnosisUseCase,
+    private val deleteDiagnosisUseCase: DeleteDiagnosisUseCase,
+    private val updateDiagnosisRecommendationUseCase: UpdateDiagnosisRecommendationUseCase,
+    private val getRecommendationUseCase: GetRecommendationUseCase,
+    private val cropsUseCase: CropsUseCase,
+    private val detectionUseCase: DetectionUseCase,
+    private val mmlUseCase: MMLStatsUseCase,
+    private val drUseCase: DetectionResultUseCase,
+    private val userDtlUseCase: UserDtlUseCase? = null,
+    private val firebaseAuth: FirebaseAuth? = null
 ) : ViewModel(), IDetectionViewModel {
 
-    protected val TAG = "DETECTION_VIEW_MODEL"
+    private val TAG = "DETECTION_VIEW_MODEL"
 
     // Modern StateFlow UI State (UDF)
     private val _uiState = MutableStateFlow<DetectionUiState>(DetectionUiState.Idle)
     val uiState: StateFlow<DetectionUiState> = _uiState.asStateFlow()
 
-    // Backward-compatible LiveData for existing Java fragments & tests
+    // Backward-compatible LiveData for existing observers & tests
     private val _histories = MutableLiveData<List<DiagnosisHistory>>()
     private val _lastDiagnosis = MutableLiveData<DiagnosisHistory?>()
     private val _recommendationResponse = MutableLiveData<Respuesta?>()
-
-    // Legacy bridges for testing
-    var legacyDiagnosisHistoryUseCase: DiagnosisHistoryUseCase? = null
-    var legacyRecommendationUseCase: GetRecommendationUseCase? = null
 
     init {
         observeHistories()
     }
 
-    protected fun observeHistories() {
+    fun observeHistories() {
         viewModelScope.launch {
-            if (legacyDiagnosisHistoryUseCase != null) return@launch
             try {
                 getDiagnosisHistoryUseCase()
                     .catch { e ->
@@ -84,7 +78,6 @@ open class DetectionViewModel @Inject constructor(
                         _uiState.value = DetectionUiState.Error(e.localizedMessage ?: "Error al cargar historial")
                     }
                     .collect { list ->
-                        if (legacyDiagnosisHistoryUseCase != null) return@collect
                         _histories.value = list
                         val latest = list.firstOrNull()
                         _lastDiagnosis.value = latest
@@ -109,8 +102,6 @@ open class DetectionViewModel @Inject constructor(
     override fun obtenerRecomendacion(problema: String) {
         _uiState.value = DetectionUiState.Loading
 
-        val recUseCase = legacyRecommendationUseCase ?: getRecommendationUseCase
-
         var soil = ""
         try {
             val email = firebaseAuth?.currentUser?.email
@@ -129,7 +120,7 @@ open class DetectionViewModel @Inject constructor(
                 "dejalos separados de los parrafos para obtener un texto mas limpio"
 
         try {
-            recUseCase.ejecutar(pregunta).thenAccept { respuesta ->
+            getRecommendationUseCase.ejecutar(pregunta).thenAccept { respuesta ->
                 _recommendationResponse.postValue(respuesta)
                 val currentHistories = _histories.value.orEmpty()
                 _uiState.value = DetectionUiState.Success(
@@ -172,27 +163,12 @@ open class DetectionViewModel @Inject constructor(
 
                 onSave?.accept(diagnosisHistory)
 
-                if (legacyDiagnosisHistoryUseCase != null) {
-                    legacyDiagnosisHistoryUseCase?.saveDiagnosis(diagnosisHistory, object : DiagnosisHistoryCallback {
-                        override fun onLoaded(history: List<DiagnosisHistory>?) {
-                            if (!history.isNullOrEmpty()) {
-                                _lastDiagnosis.postValue(history[0])
-                            }
-                            Log.d(TAG, "Diagnosis saved successfully")
-                        }
-
-                        override fun onError(e: Exception?) {
-                            Log.e(TAG, "Error saving diagnosis", e)
-                        }
-                    })
-                } else {
-                    viewModelScope.launch {
-                        saveDiagnosisUseCase(diagnosisHistory).onSuccess {
-                            _lastDiagnosis.postValue(diagnosisHistory)
-                            Log.d(TAG, "Diagnosis saved successfully")
-                        }.onFailure { e ->
-                            Log.e(TAG, "Error saving diagnosis", e)
-                        }
+                viewModelScope.launch {
+                    saveDiagnosisUseCase(diagnosisHistory).onSuccess {
+                        _lastDiagnosis.postValue(diagnosisHistory)
+                        Log.d(TAG, "Diagnosis saved successfully")
+                    }.onFailure { e ->
+                        Log.e(TAG, "Error saving diagnosis", e)
                     }
                 }
             }
@@ -205,22 +181,7 @@ open class DetectionViewModel @Inject constructor(
     }
 
     override fun gethistoriesFromUseCase() {
-        if (legacyDiagnosisHistoryUseCase != null) {
-            legacyDiagnosisHistoryUseCase?.histories?.thenAccept { values ->
-                _histories.postValue(values ?: emptyList())
-                if (!values.isNullOrEmpty()) {
-                    _lastDiagnosis.postValue(values[0])
-                } else {
-                    _lastDiagnosis.postValue(null)
-                }
-            }?.exceptionally {
-                _histories.postValue(emptyList())
-                _lastDiagnosis.postValue(null)
-                null
-            }
-        } else {
-            observeHistories()
-        }
+        observeHistories()
     }
 
     override fun addNewHistory(newHistory: DiagnosisHistory) {
@@ -231,22 +192,14 @@ open class DetectionViewModel @Inject constructor(
     }
 
     override fun deleteHistory(id: String) {
-        if (legacyDiagnosisHistoryUseCase != null) {
-            legacyDiagnosisHistoryUseCase?.deleteDiagnosis(id)
-        } else {
-            viewModelScope.launch {
-                deleteDiagnosisUseCase(id)
-            }
+        viewModelScope.launch {
+            deleteDiagnosisUseCase(id)
         }
     }
 
     override fun saveRecommendationInDiagnosis(id: String, value: String) {
-        if (legacyDiagnosisHistoryUseCase != null) {
-            legacyDiagnosisHistoryUseCase?.updateDiagnosis(id, value)
-        } else {
-            viewModelScope.launch {
-                updateDiagnosisRecommendationUseCase(id, value)
-            }
+        viewModelScope.launch {
+            updateDiagnosisRecommendationUseCase(id, value)
         }
     }
 

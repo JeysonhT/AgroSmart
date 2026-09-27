@@ -1,12 +1,11 @@
 package com.example.agrosmart.domain.repository;
 
-import androidx.fragment.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import com.example.agrosmart.data.network.auth.AuthResultListener;
 
-import android.content.Intent;
-
-//interfaz para abstraer los inicios de sesion
+// Interfaz para abstraer los inicios de sesion
 public interface AuthRepository {
-    Intent loginWithGoogle(Fragment fragment);
-    void processGoogleSignInResult(Fragment fragment, Intent data, AuthResultListener listener);
+    Intent loginWithGoogle(Context context);
+    void processGoogleSignInResult(Context context, Intent data, AuthResultListener listener);
 }

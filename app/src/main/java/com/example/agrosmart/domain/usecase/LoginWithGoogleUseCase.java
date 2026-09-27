@@ -1,10 +1,10 @@
 package com.example.agrosmart.domain.usecase;
 
-import androidx.fragment.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+
 import com.example.agrosmart.data.network.auth.AuthResultListener;
 import com.example.agrosmart.domain.repository.AuthRepository;
-
-import android.content.Intent;
 
 public class LoginWithGoogleUseCase {
     private final AuthRepository authRepository;
@@ -13,11 +13,11 @@ public class LoginWithGoogleUseCase {
         this.authRepository = authRepository;
     }
 
-    public Intent execute(Fragment fragment) {
-        return authRepository.loginWithGoogle(fragment);
+    public Intent execute(Context context) {
+        return authRepository.loginWithGoogle(context);
     }
 
-    public void processResult(Fragment fragment, Intent data, AuthResultListener listener) {
-        authRepository.processGoogleSignInResult(fragment, data, listener);
+    public void processResult(Context context, Intent data, AuthResultListener listener) {
+        authRepository.processGoogleSignInResult(context, data, listener);
     }
 }

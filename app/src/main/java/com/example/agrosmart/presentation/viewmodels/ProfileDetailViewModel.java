@@ -17,9 +17,6 @@ import com.example.agrosmart.domain.usecase.UserDtlUseCase;
 import java.util.Collection;
 import java.util.Objects;
 
-import io.realm.RealmList;
-
-
 public class ProfileDetailViewModel extends ViewModel {
 
     private final String TAG = "PROFILE_DETAIL_VIEWMODEL";

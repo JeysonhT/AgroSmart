@@ -28,9 +28,21 @@ import java.util.concurrent.Executors;
 
 public class CropRepositoryImpl implements CropRepository {
 
-    private final String TAG = "CROP_REPOSITORY_IMPL";
+    private static final String TAG = "CROP_REPOSITORY_IMPL";
 
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db;
+
+    public CropRepositoryImpl() {
+        try {
+            this.db = FirebaseFirestore.getInstance();
+        } catch (Exception e) {
+            this.db = null;
+        }
+    }
+
+    public CropRepositoryImpl(FirebaseFirestore db) {
+        this.db = db;
+    }
 
     @Override
     public CompletableFuture<List<Crop>> getCrops() {

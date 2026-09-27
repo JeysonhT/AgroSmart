@@ -10,10 +10,12 @@ import com.example.agrosmart.domain.repository.CropRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import javax.inject.Inject;
 
 public class CropsUseCase {
     private CropService service;
 
+    @Inject
     public CropsUseCase() {
         service = new CropService(new CropRepositoryImpl());
     }

@@ -13,4 +13,9 @@ public class DetectionResult {
         this.result = result;
     }
 
+    public String getImage64() { return image64; }
+    public void setImage64(String image64) { this.image64 = image64; }
+
+    public String getResult() { return result; }
+    public void setResult(String result) { this.result = result; }
 }

@@ -108,7 +108,6 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="newimageContentDescription">newImage</string>
     <string name="textButtomGenerar">Generar recomendación</string>
     <string name="card_deficiency_text_example">no hay registros</string>
     <string name="str_config_generar_recomendaciones_txt">Guardar recomendaciones automáticamente</string>
@@ -128,9 +127,6 @@
     <string name="fertilizerInfoProviderText">Proveedor</string>
     <string name="fertilizerInfoAMethodText">Metodo de aplicación</string>
     <string name="fertilizerInfoRDoseText">Dosis recomendada</string>
-    <string name="fertilizerimage_content_description">Fertilizer Image</string>
     <string name="deficiencies_fragment_text">Deficiencias</string>
-    <string name="save_new_text">Guardar Noticia</string>
-    <string name="delete_new_text">Eliminar Noticia</string>
-    <string name="localNoticeButtonText">Noticias guardadas</string>
+    <string name="fertilizerimage_content_description">Fertilizer Image</string>
 </resources>

@@ -3,13 +3,20 @@ package com.example.agrosmart.domain.usecase;
 import android.util.Log;
 
 import com.example.agrosmart.data.network.MMLStatsService;
+import com.example.agrosmart.data.repository.impl.MMLStatsRepositoryImpl;
 import com.example.agrosmart.domain.models.MMLStats;
 
 import java.util.concurrent.ExecutionException;
+import javax.inject.Inject;
 
 public class MMLStatsUseCase {
     private final String TAG = "MMLStats_USE_CASE";
     private final MMLStatsService service;
+
+    @Inject
+    public MMLStatsUseCase() {
+        this(new MMLStatsService(new MMLStatsRepositoryImpl()));
+    }
 
     public MMLStatsUseCase(MMLStatsService _service){
         this.service = _service;

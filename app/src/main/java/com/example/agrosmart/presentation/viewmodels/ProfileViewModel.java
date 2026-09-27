@@ -14,9 +14,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Collection;
-
-import io.realm.RealmList;
+import java.util.List;
 
 public class ProfileViewModel extends ViewModel {
 
@@ -50,7 +50,7 @@ public class ProfileViewModel extends ViewModel {
         UserDtlRepository repository = new UserDtlimpl();
 
         try {
-            RealmList<String> lista = new RealmList<>();
+            List<String> lista = new ArrayList<>();
             repository.getUserDetails(username, details -> {
                 if(!details.isEmpty()){
                     lista.addAll((Collection<? extends String>) details.get("soilTypes"));

@@ -13,7 +13,19 @@ public class DetectionResultRepositoryImpl implements DetectionResultRepository 
 
     private final String TAG = "DETECTION_RESULT_REPOSITORY";
 
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db;
+
+    public DetectionResultRepositoryImpl() {
+        try {
+            this.db = FirebaseFirestore.getInstance();
+        } catch (Exception e) {
+            this.db = null;
+        }
+    }
+
+    public DetectionResultRepositoryImpl(FirebaseFirestore db) {
+        this.db = db;
+    }
 
     @Override
     public CompletableFuture<Boolean> saveDetectionResult(DetectionResult result) {

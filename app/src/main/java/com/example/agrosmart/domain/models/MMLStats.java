@@ -14,6 +14,15 @@ public class MMLStats {
     private Long memoryUse;
     private List<Float> inferenceData;
 
+    public Long getInferenceTime() { return inferenceTime; }
+    public void setInferenceTime(Long inferenceTime) { this.inferenceTime = inferenceTime; }
+
+    public Long getMemoryUse() { return memoryUse; }
+    public void setMemoryUse(Long memoryUse) { this.memoryUse = memoryUse; }
+
+    public List<Float> getInferenceData() { return inferenceData; }
+    public void setInferenceData(List<Float> inferenceData) { this.inferenceData = inferenceData; }
+
     public void SetInferenceDataFromArray(float[] data){
         this.inferenceData = new ArrayList<>();
         for(float f : data){

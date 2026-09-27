@@ -12,7 +12,19 @@ public class MMLStatsRepositoryImpl implements MMLStatsRepository {
 
     private final String TAG = "MML_REPOSITORY";
 
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db;
+
+    public MMLStatsRepositoryImpl() {
+        try {
+            this.db = FirebaseFirestore.getInstance();
+        } catch (Exception e) {
+            this.db = null;
+        }
+    }
+
+    public MMLStatsRepositoryImpl(FirebaseFirestore db) {
+        this.db = db;
+    }
 
     @Override
     public CompletableFuture<Void> saveInferenceStats(MMLStats mmlStats) {

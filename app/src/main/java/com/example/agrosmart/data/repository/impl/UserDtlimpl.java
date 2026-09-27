@@ -17,10 +17,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-
-import io.realm.RealmList;
 
 public class UserDtlimpl implements UserDtlRepository {
 
@@ -99,7 +98,7 @@ public class UserDtlimpl implements UserDtlRepository {
             // se procede a realizar la tarea de buscar el documento, si existe se edita, si no se crea
             dodRef.get().addOnCompleteListener(task -> {
                 UserDetails userDetails = new UserDetails();
-                RealmList<String> lista = new RealmList<>();
+                List<String> lista = new ArrayList<>();
                 if(task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {

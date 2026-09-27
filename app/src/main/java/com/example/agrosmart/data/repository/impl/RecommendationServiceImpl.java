@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +26,11 @@ public class RecommendationServiceImpl implements RecomendationRepository {
     RecommendationService api;
 
     private final ExecutorService networkExecutor = Executors.newCachedThreadPool();
+
+    @Inject
+    public RecommendationServiceImpl(RecommendationService api) {
+        this.api = api;
+    }
 
     public RecommendationServiceImpl() {
         this.api = RetrofitClient.recomendationService();

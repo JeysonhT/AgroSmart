@@ -4,12 +4,17 @@ import com.example.agrosmart.data.local.UserDetailsLocalService;
 import com.example.agrosmart.data.network.UserDetailsService;
 import com.example.agrosmart.domain.models.UserDetails;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import javax.inject.Inject;
 
 public class UserDtlUseCase {
     private final UserDetailsService usService = new UserDetailsService();
     private final UserDetailsLocalService uslService = new UserDetailsLocalService();
+
+    @Inject
+    public UserDtlUseCase() {}
 
     public CompletableFuture<UserDetails> getUserDetails(String fbUserName){
         return usService.getUserDetails(fbUserName);
@@ -29,7 +34,7 @@ public class UserDtlUseCase {
 
     public String getSoilTypeFromDetail(String email) throws ExecutionException, InterruptedException {
         CompletableFuture<UserDetails> details = usService.getUserDetails(email);
-
-        return details.get().getSoilTypes().first();
+        List<String> soilTypes = details.get().getSoilTypes();
+        return (soilTypes != null && !soilTypes.isEmpty()) ? soilTypes.get(0) : null;
     }
 }

@@ -1,15 +1,16 @@
 plugins {
     alias(libs.plugins.android.application) apply true
     id 'com.google.gms.google-services' apply true
-    alias(libs.plugins.androidx.navigation.safe.args) apply true
     alias(libs.plugins.secrets.gradle.plugin) apply true
+    alias(libs.plugins.ksp) apply true
+    alias(libs.plugins.hilt.android) apply true
+    alias(libs.plugins.kotlin.compose) apply true
+    alias(libs.plugins.kotlin.serialization) apply true
 }
-//me costo un huevo aplicar este plugin
-apply plugin: 'realm-android'
 
 android {
     namespace 'com.example.agrosmart'
-    compileSdk 36
+    compileSdk 37
     packagingOptions {
         resources {
             pickFirsts += ['mockito-extensions/org.mockito.plugins.MockMaker', 'mockito-extensions/org.mockito.plugins.MemberAccessor']
@@ -20,7 +21,7 @@ android {
     defaultConfig {
         applicationId "com.example.agrosmart"
         minSdk 24
-        targetSdk 36
+        targetSdk 37
         versionCode 1
         versionName "1.0"
 
@@ -38,9 +39,9 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
     buildFeatures {
-        viewBinding true
         mlModelBinding true
         buildConfig true
+        compose true
     }
 
     testOptions {
@@ -55,6 +56,7 @@ android {
 def mockitoVersion = "5.2.0"
 
 dependencies {
+    implementation libs.androidx.core.ktx
     implementation libs.camera.core
     implementation libs.camera.camera2
     implementation libs.camera.lifecycle
@@ -79,13 +81,12 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
     implementation libs.glide
-    implementation libs.navigation.fragment
-    implementation libs.navigation.ui
     implementation libs.play.services.base
     implementation libs.play.services.tasks
     implementation libs.opencsv
     implementation 'androidx.core:core-splashscreen:1.0.1'
-    implementation 'com.airbnb.android:lottie:6.1.0'
+    implementation libs.lottie
+    implementation libs.lottie.compose
 
     implementation libs.litert.support
     implementation libs.litert.metadata
@@ -94,7 +95,6 @@ dependencies {
 
     implementation libs.retrofit
     implementation libs.converter.gson
-    implementation libs.androidx.fragment.testing
 
     // TESTS LOCALES (test)
     testImplementation libs.junit
@@ -123,10 +123,39 @@ dependencies {
         exclude group: 'com.google.protobuf', module: 'protobuf-javalite'
     }
 
-    //database
-    implementation libs.realm.android.library
-
     compileOnly libs.lombok
     annotationProcessor libs.lombok
 
+    // Coroutines
+    implementation libs.kotlinx.coroutines.core
+    implementation libs.kotlinx.coroutines.android
+    testImplementation libs.kotlinx.coroutines.test
+
+    // Lifecycle KTX
+    implementation libs.lifecycle.viewmodel.ktx
+    implementation libs.lifecycle.runtime.ktx
+
+    // Room Database
+    implementation libs.room.runtime
+    implementation libs.room.ktx
+    ksp libs.room.compiler
+
+    // Hilt Dependency Injection
+    implementation libs.hilt.android
+    ksp libs.hilt.compiler
+
+    // Jetpack Compose
+    implementation platform(libs.androidx.compose.bom)
+    implementation libs.androidx.compose.ui
+    implementation libs.androidx.compose.ui.graphics
+    implementation libs.androidx.compose.ui.tooling.preview
+    implementation libs.androidx.compose.material3
+    implementation libs.androidx.compose.runtime.livedata
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.lifecycle.runtime.compose
+    implementation libs.androidx.lifecycle.viewmodel.compose
+    implementation libs.androidx.navigation.compose
+    implementation libs.androidx.hilt.navigation.compose
+    implementation libs.kotlinx.serialization.json
+    debugImplementation libs.androidx.compose.ui.tooling
 }

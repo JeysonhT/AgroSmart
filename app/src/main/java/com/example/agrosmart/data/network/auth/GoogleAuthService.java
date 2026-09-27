@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.fragment.app.Fragment;
+
 
 import com.example.agrosmart.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -25,18 +25,19 @@ import lombok.Getter;
 public class GoogleAuthService {
     @Getter
     private final GoogleSignInClient googleSignInClient;
-    private Fragment fragment;
+    private android.content.Context context;
 
-    public GoogleAuthService(Fragment fragment) {
-        this.fragment = fragment;
+    public GoogleAuthService(android.content.Context context) {
+        this.context = context;
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(fragment.getString(R.string.google_oAuth_client))
+                .requestIdToken(context.getString(R.string.google_oAuth_client))
                 .requestEmail()
                 .build();
 
-        googleSignInClient = GoogleSignIn.getClient(fragment.requireActivity(), gso);
+        googleSignInClient = GoogleSignIn.getClient(context, gso);
     }
+
 
     public Intent starSignIn() {
         return googleSignInClient.getSignInIntent();
@@ -48,7 +49,7 @@ public class GoogleAuthService {
             GoogleSignInAccount account = task.getResult(ApiException.class);
             AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
             FirebaseAuth.getInstance().signInWithCredential(credential)
-                    .addOnCompleteListener(fragment.requireActivity(), authTask -> {
+                    .addOnCompleteListener(authTask -> {
                         if (authTask.isSuccessful()) {
                             listener.onAuthSuccess(FirebaseAuth.getInstance().getCurrentUser());
                         } else {

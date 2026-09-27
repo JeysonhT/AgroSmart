@@ -5,10 +5,12 @@ import com.example.agrosmart.data.repository.impl.DetectionResultRepositoryImpl;
 import com.example.agrosmart.domain.models.DetectionResult;
 
 import java.util.concurrent.CompletableFuture;
+import javax.inject.Inject;
 
 public class DetectionResultUseCase {
     private final DetectionResultService service;
 
+    @Inject
     public DetectionResultUseCase(){
         this.service = new DetectionResultService(new DetectionResultRepositoryImpl());
     }

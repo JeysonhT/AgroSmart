@@ -1,4 +1,4 @@
-package com.example.agrosmart.presentation.viewmodels
+package com.example.agrosmart.presentation.viewmodels.state
 
 import com.example.agrosmart.domain.models.DiagnosisHistory
 

@@ -20,12 +20,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import javax.inject.Inject;
 
 public class UserDtlimpl implements UserDtlRepository {
 
     private final String TAG = "USER_DETAILS_REPOSITORY";
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    @Inject
+    public UserDtlimpl() {}
+
     @Override
     public void postUserDetails(UserDetails userDetails, String email) {
 

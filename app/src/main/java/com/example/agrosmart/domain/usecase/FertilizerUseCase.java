@@ -10,10 +10,12 @@ import com.example.agrosmart.domain.models.Fertilizer;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import javax.inject.Inject;
 
 public class FertilizerUseCase {
     private final FertilizersService service;
 
+    @Inject
     public FertilizerUseCase(){
         this.service = new FertilizersService(new FertilizerRepositoryImpl());
     }

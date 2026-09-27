@@ -8,8 +8,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -19,6 +19,7 @@ import com.example.agrosmart.domain.models.User
 import com.example.agrosmart.domain.repository.AuthRepository
 import com.example.agrosmart.domain.usecase.LoginWithGoogleUseCase
 import com.example.agrosmart.presentation.viewmodels.ProfileViewModel
+import com.example.agrosmart.presentation.viewmodels.state.ProfileUiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -33,7 +34,8 @@ fun ProfileRouteScreen(
     viewModel: ProfileViewModel = viewModel()
 ) {
     val context = LocalContext.current
-    val currentUser by viewModel.userData.observeAsState()
+    val uiState by viewModel.uiState.collectAsState()
+    val currentUser = (uiState as? ProfileUiState.Success)?.user
 
     val googleSignInLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
@@ -75,12 +77,15 @@ fun ProfileRouteScreen(
     LaunchedEffect(currentUser) {
         val email = FirebaseAuth.getInstance().currentUser?.email
         if (!email.isNullOrEmpty()) {
-            viewModel.getUserDetails(email).observeForever { userDetails ->
-                if (userDetails != null && userDetails.status == "Suspendido") {
-                    FirebaseAuth.getInstance().signOut()
-                    viewModel.refreshData()
-                }
-            }
+            viewModel.getUserDetails(email)
+        }
+    }
+
+    LaunchedEffect(uiState) {
+        val successState = uiState as? ProfileUiState.Success
+        if (successState?.userDetails?.status == "Suspendido") {
+            FirebaseAuth.getInstance().signOut()
+            viewModel.refreshData()
         }
     }
 

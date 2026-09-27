@@ -25,7 +25,7 @@ import com.example.agrosmart.core.utils.classes.NetworkChecker
 import com.example.agrosmart.domain.designModels.DiagnosisHistoryListView
 import com.example.agrosmart.domain.models.DiagnosisHistory
 import com.example.agrosmart.presentation.navigation.DiagnosisInfoRoute
-import com.example.agrosmart.presentation.viewmodels.DetectionUiState
+import com.example.agrosmart.presentation.viewmodels.state.DetectionUiState
 import com.example.agrosmart.presentation.viewmodels.DetectionViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -90,7 +90,7 @@ fun DetectionRouteScreen(
         if (!resultArg.isNullOrEmpty() && !imgPathArg.isNullOrEmpty()) {
             val imgBytes = ImageCacheManager.getArrayFromFile(context, imgPathArg)
             if (imgBytes != null && imgBytes.isNotEmpty()) {
-                viewModel.saveDiagnosis(resultArg, imgBytes) { saved ->
+                viewModel.saveDiagnosis(resultArg, imgBytes) { _ ->
                     viewModel.refreshData()
                 }
                 ImageCacheManager.cleanupCache(context)
@@ -149,10 +149,11 @@ fun DetectionRouteScreen(
         histories = historyList,
         isLoading = isLoading,
         onDiagnosisClick = { item ->
+            val imgData = item.image
             onNavigateToDiagnosisInfo(
                 DiagnosisInfoRoute(
                     idDiagnosis = item.id,
-                    cropImage = if (item.image != null) ImageEncoder.encoderBase64(item.image) else "",
+                    cropImage = if (imgData != null) ImageEncoder.encoderBase64(imgData) else "",
                     cropName = if (item.cropIcon == R.drawable.maiz) "Maiz" else if (item.cropIcon == R.drawable.frijoles_rojos) "Frijol" else "Cultivo",
                     diagnosisDate = item.txtDate,
                     diagnosisName = item.deficiency,

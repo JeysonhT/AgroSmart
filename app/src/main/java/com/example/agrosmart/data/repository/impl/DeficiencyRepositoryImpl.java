@@ -11,16 +11,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class DeficiencyRepositoryImpl implements DeficiencyRepository {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    Executor executor = Executors.newSingleThreadExecutor();
 
     @Override
     public CompletableFuture<List<Deficiency>> getDeficiencies() {

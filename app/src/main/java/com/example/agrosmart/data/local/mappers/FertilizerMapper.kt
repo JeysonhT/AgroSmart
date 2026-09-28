@@ -8,13 +8,13 @@ object FertilizerMapper {
     @JvmStatic
     fun toModel(dto: FertilizerDTO): Fertilizer {
         val fertilizer = Fertilizer()
-        fertilizer.setImageResource(ImageEncoder.decoderBase64(dto.getImageFertilizers()))
-        fertilizer.setName(dto.getName())
-        fertilizer.setApplicationMethod(dto.getApplicationMethod())
-        fertilizer.setRecommendedDose(dto.getRecommendedDose())
-        fertilizer.setDescription(dto.getDescription())
-        fertilizer.setSupplier(dto.getSupplier())
-        fertilizer.setType(dto.getType())
+        fertilizer.imageResource = ImageEncoder.decoderBase64(dto.imageFertilizers)
+        fertilizer.name = dto.name
+        fertilizer.applicationMethod = dto.applicationMethod
+        fertilizer.recommendedDose = dto.recommendedDose
+        fertilizer.description = dto.description
+        fertilizer.supplier = dto.supplier
+        fertilizer.type = dto.type
         return fertilizer
     }
 }

@@ -88,7 +88,7 @@ fun DetectionRouteScreen(
 
     LaunchedEffect(resultArg, imgPathArg) {
         if (!resultArg.isNullOrEmpty() && !imgPathArg.isNullOrEmpty()) {
-            val imgBytes = ImageCacheManager.getArrayFromFile(context, imgPathArg)
+            val imgBytes = ImageCacheManager.getArrayFromFile(imgPathArg)
             if (imgBytes != null && imgBytes.isNotEmpty()) {
                 viewModel.saveDiagnosis(resultArg, imgBytes) { _ ->
                     viewModel.refreshData()

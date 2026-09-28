@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -24,7 +23,6 @@ import com.example.agrosmart.core.utils.classes.ImageCacheManager
 import com.example.agrosmart.core.utils.classes.ImageEncoder
 import com.example.agrosmart.core.utils.classes.NetworkChecker
 import com.example.agrosmart.domain.designModels.CropCarouselData
-import com.example.agrosmart.domain.usecase.CropsUseCase
 import com.example.agrosmart.presentation.ui.components.crops.CropScreen
 import com.example.agrosmart.presentation.ui.components.deficiencies.DeficienciesScreen
 import com.example.agrosmart.presentation.ui.components.deficiencies.DeficiencyInfoScreen
@@ -154,7 +152,7 @@ fun AgroSmartNavHost(
             val route = backStackEntry.toRoute<DeficiencyInfoRoute>()
             val imageBitmap = remember(route.imageuri) {
                 if (route.imageuri.isNotBlank()) {
-                    ImageCacheManager.loadImageFromCache(context, route.imageuri)?.asImageBitmap()
+                    ImageCacheManager.loadImageFromCache(route.imageuri)?.asImageBitmap()
                 } else null
             }
 
@@ -228,7 +226,7 @@ fun AgroSmartNavHost(
             val route = backStackEntry.toRoute<FertilizerInfoRoute>()
             val imageBitmap = remember(route.imageuri) {
                 if (route.imageuri.isNotBlank()) {
-                    ImageCacheManager.loadImageFromCache(context, route.imageuri)?.asImageBitmap()
+                    ImageCacheManager.loadImageFromCache(route.imageuri)?.asImageBitmap()
                 } else null
             }
 

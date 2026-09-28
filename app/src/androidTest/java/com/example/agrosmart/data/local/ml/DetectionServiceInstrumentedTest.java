@@ -54,10 +54,10 @@ public class DetectionServiceInstrumentedTest {
 
         // 3. Assert (Verificar)
         assertNotNull("El resultado no debería ser nulo.", result);
-        assertNotNull("El nombre de la clase detectada no debería ser nulo.", result.getResult());
-        assertTrue("El tiempo de inferencia debe ser mayor que cero.", result.getInferenceTime() > 0);
-        assertTrue("El uso de memoria debe ser registrado.", result.getMemoryUse() != 0); // Puede ser positivo o negativo
-        assertTrue("La clase detectada debe estar en la lista de clases conocidas.", actualClasses.contains(result.getResult()));
+        assertNotNull("El nombre de la clase detectada no debería ser nulo.", result.result);
+        assertTrue("El tiempo de inferencia debe ser mayor que cero.", result.inferenceTime > 0);
+        assertTrue("El uso de memoria debe ser registrado.", result.memoryUse != 0); // Puede ser positivo o negativo
+        assertTrue("La clase detectada debe estar en la lista de clases conocidas.", actualClasses.contains(result.result));
     }
 
     private List<String> readClassesFromAssets() throws IOException {

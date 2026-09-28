@@ -52,14 +52,14 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 repository.getUserDetails(username)
-                    .thenAccept { details ->
+                    ?.thenAccept { details ->
                         val currentUser = (_uiState.value as? ProfileUiState.Success)?.user
                         _uiState.value = ProfileUiState.Success(
-                            user = currentUser,
-                            userDetails = details
+                                user = currentUser,
+                                userDetails = details
                         )
                     }
-                    .exceptionally { e ->
+                    ?.exceptionally { e ->
                         Log.e(tag, "Usuario no tiene detalles guardados o error: ${e.message}")
                         _uiState.value = ProfileUiState.Error(e.localizedMessage ?: "Error al obtener detalles")
                         null

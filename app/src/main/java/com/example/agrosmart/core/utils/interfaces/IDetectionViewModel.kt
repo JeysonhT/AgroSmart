@@ -17,7 +17,7 @@ interface IDetectionViewModel {
     fun obtenerRecomendacion(problema: String)
     fun saveDiagnosis(diagnosis: String, image: ByteArray, onSave: Consumer<DiagnosisHistory>?)
     fun getHistory(): LiveData<List<DiagnosisHistory>>
-    fun gethistoriesFromUseCase()
+    fun historiesFromUseCase()
     fun addNewHistory(newHistory: DiagnosisHistory)
     fun deleteHistory(_id: String)
     fun saveRecommendationInDiagnosis(_id: String, value: String)

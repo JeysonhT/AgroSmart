@@ -123,7 +123,7 @@ fun AgroSmartNavHost(
                         val imageUri = ImageCacheManager.saveImageToCache(context, deficiency.imageResource)
                         navController.navigate(
                             DeficiencyInfoRoute(
-                                imageuri = imageUri,
+                                imageuri = imageUri.orEmpty(),
                                 deficiencyName = deficiency.name,
                                 description = deficiency.description,
                                 symptoms = deficiency.symptoms,
@@ -193,7 +193,7 @@ fun AgroSmartNavHost(
                         val imageUri = ImageCacheManager.saveImageToCache(context, fertilizer.imageResource)
                         navController.navigate(
                             FertilizerInfoRoute(
-                                imageuri = imageUri,
+                                imageuri = imageUri.orEmpty(),
                                 name = fertilizer.name ?: "",
                                 description = fertilizer.description ?: "",
                                 type = fertilizer.type ?: "",

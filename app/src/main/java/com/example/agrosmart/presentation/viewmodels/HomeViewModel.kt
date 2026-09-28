@@ -36,42 +36,36 @@ class HomeViewModel @Inject constructor(
 
     override fun loadCrops() {
         _uiState.value = HomeUiState.Loading
-        try {
-            cropsUseCase.crops
-                .thenAccept { list ->
-                    if (!list.isNullOrEmpty()) {
-                        val data = list.map { createCropInfo(it) }
-                        _cropsData.postValue(data)
-                        _uiState.value = HomeUiState.Success(data)
-                        Log.println(Log.ASSERT, tag, "Datos cargados exitosamente")
-                    } else {
-                        val placeholderList = listOf(
-                            CropCarouselData(
-                                R.drawable.no_internet_placeholder,
-                                "No hay conexión a internet",
-                                "",
-                                "",
-                                ""
-                            )
+        viewModelScope.launch {
+            try {
+                val list = cropsUseCase.getCrops()
+                if (list.isNotEmpty()) {
+                    val data = list.map { createCropInfo(it) }
+                    _cropsData.postValue(data)
+                    _uiState.value = HomeUiState.Success(data)
+                    Log.println(Log.ASSERT, tag, "Datos cargados exitosamente")
+                } else {
+                    val placeholderList = listOf(
+                        CropCarouselData(
+                            R.drawable.no_internet_placeholder,
+                            "No hay conexión a internet",
+                            "",
+                            "",
+                            ""
                         )
-                        _cropsData.postValue(placeholderList)
-                        _uiState.value = HomeUiState.Success(placeholderList)
-                    }
+                    )
+                    _cropsData.postValue(placeholderList)
+                    _uiState.value = HomeUiState.Success(placeholderList)
                 }
-                .exceptionally { e ->
-                    Log.e(tag, "Error al cargar los cultivos: ${e.message}")
-                    _uiState.value = HomeUiState.Error(e.localizedMessage ?: "Error al cargar los cultivos")
-                    null
-                }
-        } catch (e: Exception) {
-            Log.e(tag, "Error al cargar los cultivos: ${e.message}", e)
-            _uiState.value = HomeUiState.Error(e.localizedMessage ?: "Error al cargar los cultivos")
+            } catch (e: Exception) {
+                Log.e(tag, "Error al cargar los cultivos: ${e.message}", e)
+                _uiState.value = HomeUiState.Error(e.localizedMessage ?: "Error al cargar los cultivos")
+            }
         }
     }
 
-
     fun createCropInfo(c: Crop): CropCarouselData {
-        val name = c.cropName ?: throw RuntimeException("Fallo al obtener el nombre del cultivo")
+        val name = c.cropName
         return CropCarouselData(
             getCropImage(name),
             name,

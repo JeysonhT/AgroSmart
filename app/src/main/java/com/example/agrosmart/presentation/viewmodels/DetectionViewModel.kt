@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.agrosmart.core.utils.interfaces.CropsCallback
 import com.example.agrosmart.core.utils.interfaces.IDetectionViewModel
 import com.example.agrosmart.data.local.dto.MMLResultDTO
 import com.example.agrosmart.domain.models.Crop
@@ -119,68 +118,68 @@ class DetectionViewModel @Inject constructor(
                 "no excedas las 150 palabras, las listas crealas usando guiones y evita el uso de ateriscos para titulos y para los nombres de la soluciones, " +
                 "dejalos separados de los parrafos para obtener un texto mas limpio"
 
-        try {
-            getRecommendationUseCase.ejecutar(pregunta).thenAccept { respuesta ->
-                _recommendationResponse.postValue(respuesta)
+        viewModelScope.launch {
+
+            _uiState.value = DetectionUiState.Loading
+
+            try {
+                val recommendation = getRecommendationUseCase.ejecutar(pregunta)
+
+                _recommendationResponse.postValue(recommendation)
+
                 val currentHistories = _histories.value.orEmpty()
+
                 _uiState.value = DetectionUiState.Success(
-                    diagnosis = _lastDiagnosis.value,
-                    recommendation = respuesta?.respuesta.orEmpty(),
-                    histories = currentHistories
+                        diagnosis = _lastDiagnosis.value,
+                        recommendation = recommendation?.respuesta.orEmpty(),
+                        histories = currentHistories
                 )
-            }.exceptionally { error ->
-                Log.e(TAG, "Error al obtener recomendación", error)
-                val errorResp = Respuesta("error")
-                _recommendationResponse.postValue(errorResp)
-                _uiState.value = DetectionUiState.Error(error.localizedMessage ?: "Error al obtener recomendación")
-                null
+            } catch (e: Exception){
+                Log.e(TAG, "Exception executing recommendation: ${e.message}", e)
+                _recommendationResponse.postValue(Respuesta("error"))
+                _uiState.value = DetectionUiState.Error(e.localizedMessage ?: "Error al obtener recomendación")
             }
-        } catch (e: Exception) {
-            Log.e(TAG, "Exception executing recommendation: ${e.message}", e)
-            _recommendationResponse.postValue(Respuesta("error"))
-            _uiState.value = DetectionUiState.Error(e.localizedMessage ?: "Error al obtener recomendación")
+
         }
     }
 
     override fun saveDiagnosis(diagnosis: String, image: ByteArray, onSave: Consumer<DiagnosisHistory>?) {
         val name = diagnosis.split(" ").firstOrNull() ?: ""
-        cropsUseCase.getCropByName(name, object : CropsCallback {
-            override fun onCropsLoaded(crops: List<Crop>?) {
-                if (crops.isNullOrEmpty()) {
-                    onError(Exception("Crop not found"))
-                    return
-                }
-                val crop = crops[0]
-                val diagnosisHistory = DiagnosisHistory.builder()
-                    ._id(UUID.randomUUID().toString())
-                    .diagnosisDate(Date())
-                    .Crop(crop)
-                    .deficiency(diagnosis)
-                    .image(image)
-                    .recommendation("")
-                    .lastUpdate(System.currentTimeMillis())
-                    .build()
 
-                onSave?.accept(diagnosisHistory)
+        viewModelScope.launch {
+            val cropByName = cropsUseCase.getCropByName(
+                    name,
+            )
 
-                viewModelScope.launch {
-                    saveDiagnosisUseCase(diagnosisHistory).onSuccess {
-                        _lastDiagnosis.postValue(diagnosisHistory)
-                        Log.d(TAG, "Diagnosis saved successfully")
-                    }.onFailure { e ->
-                        Log.e(TAG, "Error saving diagnosis", e)
-                    }
-                }
+            if(cropByName.isEmpty()) {
+                _uiState.value = DetectionUiState.Error("El cultivo no existe")
             }
 
-            override fun onError(e: Exception) {
-                Log.e(TAG, "Error getting crop by name", e)
-                _uiState.value = DetectionUiState.Error(e.localizedMessage ?: "Error al buscar cultivo")
+            val crop = cropByName[0]
+            val diagnosisHistory = DiagnosisHistory.builder()
+                ._id(UUID.randomUUID().toString())
+                .diagnosisDate(Date())
+                .Crop(crop)
+                .deficiency(diagnosis)
+                .image(image)
+                .recommendation("")
+                .lastUpdate(System.currentTimeMillis())
+                .build()
+
+            onSave?.accept(diagnosisHistory)
+
+            saveDiagnosisUseCase(diagnosisHistory).onSuccess {
+                _lastDiagnosis.postValue(diagnosisHistory)
+                Log.d(TAG, "Diagnosis saved successfully")
+            }.onFailure { e ->
+                Log.e(TAG, "Error saving diagnosis", e)
             }
-        })
+
+        }
+
     }
 
-    override fun gethistoriesFromUseCase() {
+    override fun historiesFromUseCase() {
         observeHistories()
     }
 
@@ -204,7 +203,7 @@ class DetectionViewModel @Inject constructor(
     }
 
     override fun refreshData() {
-        gethistoriesFromUseCase()
+        historiesFromUseCase()
     }
 
     override fun cleanRecommendation() {

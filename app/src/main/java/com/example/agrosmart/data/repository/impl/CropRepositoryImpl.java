@@ -94,7 +94,7 @@ public class CropRepositoryImpl implements CropRepository {
                             document.get("harvestTime", String.class),
                             document.get("type", String.class)
                     );
-                    Log.println(Log.DEBUG, TAG, "Crop name: " + crop[0].getCropName());
+                    Log.println(Log.DEBUG, TAG, "Crop name: " + crop[0].cropName);
                     callback.onCropsLoaded(Collections.singletonList(CropMapper.toEntity(crop[0])));
                 } catch (Exception e) {
                     Log.e(TAG, String.format("Error al obtener los cultivos de la cache: %s", e.getMessage()));

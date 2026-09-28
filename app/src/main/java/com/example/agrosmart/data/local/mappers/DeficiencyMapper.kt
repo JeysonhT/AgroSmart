@@ -8,11 +8,11 @@ object DeficiencyMapper {
     @JvmStatic
     fun toModel(dto: DeficiencyDTO): Deficiency {
         val deficiency = Deficiency()
-        deficiency.setImageResource(ImageEncoder.decoderBase64(dto.getImageDeficiencies()))
-        deficiency.setName(dto.getTitle())
-        deficiency.setDescription(dto.getDescription())
-        deficiency.setSymptoms(dto.getSymptoms())
-        deficiency.setSolutions(dto.getSolutions())
+        deficiency.imageResource = ImageEncoder.decoderBase64(dto.imageDeficiencies?: "")
+        deficiency.name = dto.title
+        deficiency.description = dto.description
+        deficiency.symptoms = dto.symptoms
+        deficiency.solutions = dto.solutions
         // imageResource is not mapped
         return deficiency
     }

@@ -5,7 +5,7 @@ import com.example.agrosmart.data.network.RetrofitClient;
 import com.example.agrosmart.data.network.dto.PreguntaRequest;
 import com.example.agrosmart.data.network.dto.RespuestaResponse;
 import com.example.agrosmart.domain.models.Respuesta;
-import com.example.agrosmart.domain.repository.RecomendationRepository;
+import com.example.agrosmart.domain.repository.RecommendationRepository;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -14,14 +14,13 @@ import java.util.concurrent.Executors;
 import javax.inject.Inject;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 // implementacion del repositorio de recomendaciones
-public class RecommendationServiceImpl implements RecomendationRepository {
+public class RecommendationServiceImpl implements RecommendationRepository {
 
     private static final String TAG = "RECOMMENDATION_SERVICE";
-    // inicialización de lo que sera el cliente http que se encargara de procesar nuestra peticion
+    // inicialización de lo que será el cliente http que se encargara de procesar nuestra petición
     // de generar recomendaciones al backend
     RecommendationService api;
 
@@ -33,7 +32,7 @@ public class RecommendationServiceImpl implements RecomendationRepository {
     }
 
     public RecommendationServiceImpl() {
-        this.api = RetrofitClient.recomendationService();
+        this.api = RetrofitClient.recommendationService();
     }
 
     // la respuesta de la api de gemini se obtendra a traves de los callbacks debido a la naturaleza
@@ -47,6 +46,7 @@ public class RecommendationServiceImpl implements RecomendationRepository {
 
          return CompletableFuture.supplyAsync(() -> {
             try{
+                assert call != null;
                 Response<RespuestaResponse> response = call.execute();
                 if(response.isSuccessful() && response.body() != null){
                     return new Respuesta(response.body().getResponse());

@@ -36,12 +36,13 @@ public class UserDtlimpl implements UserDtlRepository {
 
         System.out.println(userDetails.getRole());
 
-        UserDetailsDto usrDto = new UserDetailsDto(userDetails.getUsername(),
+        var usrDto = new UserDetailsDto(userDetails.getUsername(),
                 userDetails.getPhoneNumber(),
                 email,
                 userDetails.getMunicipality(),
                 new ArrayList<>(userDetails.getSoilTypes()),
                 userDetails.getRole(), userDetails.getStatus());
+
         // se guarda el documento y se le proporciona como identificador el Email de google
         db.collection("userDetails").document(email)
                 .set(usrDto)
@@ -87,7 +88,7 @@ public class UserDtlimpl implements UserDtlRepository {
             } else {
                 Log.d("error de conexión", String.valueOf(task.getException()));
             }
-            // este callback esperara los datos antes de mandar el resultado
+            // este callback esperará los datos antes de mandar el resultado
             callback.onLoaded(details);
         });
     }

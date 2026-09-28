@@ -33,7 +33,6 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import java.util.Date
-import java.util.concurrent.CompletableFuture
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class DetectionViewModelTest {
@@ -80,10 +79,10 @@ class DetectionViewModelTest {
 
     @Suppress("UNCHECKED_CAST")
     @Test
-    fun `obtenerRecomendacion updates recommendationResponse LiveData and UiState`() {
+    fun `obtenerRecomendacion updates recommendationResponse LiveData and UiState`() = runTest {
         val fakeResponse = Respuesta("Recomendación de prueba")
         `when`(getRecommendationUseCase.ejecutar(anyString()))
-            .thenReturn(CompletableFuture.completedFuture(fakeResponse))
+            .thenReturn(fakeResponse)
 
         val observer = mock(Observer::class.java) as Observer<Respuesta?>
         viewModel.getRecommendationResponse().observeForever(observer)
@@ -118,10 +117,10 @@ class DetectionViewModelTest {
     }
 
     @Test
-    fun `cleanRecommendation sets recommendation LiveData to null`() {
+    fun `cleanRecommendation sets recommendation LiveData to null`() = runTest {
         val fakeResponse = Respuesta("Test")
         `when`(getRecommendationUseCase.ejecutar(anyString()))
-            .thenReturn(CompletableFuture.completedFuture(fakeResponse))
+            .thenReturn(fakeResponse)
         viewModel.obtenerRecomendacion("Problema")
 
         viewModel.cleanRecommendation()

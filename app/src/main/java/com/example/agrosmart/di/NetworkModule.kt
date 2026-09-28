@@ -1,7 +1,7 @@
 package com.example.agrosmart.di
 
 import com.example.agrosmart.BuildConfig
-import com.example.agrosmart.data.network.RecommendationService
+import com.example.agrosmart.data.network.retrofitservices.RecommendationService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -104,7 +104,7 @@ fun CameraRouteScreen(
                 } else {
                     try {
                         val cachedPath = ImageCacheManager.saveImageToCache(context, byteArray)
-                        onDetectionComplete(resultado, cachedPath)
+                        onDetectionComplete(resultado, cachedPath.orEmpty())
                     } catch (e: Exception) {
                         errorMessage = e.message ?: "Error al guardar imagen en caché"
                     }

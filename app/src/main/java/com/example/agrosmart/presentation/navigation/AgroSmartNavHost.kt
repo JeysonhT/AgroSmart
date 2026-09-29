@@ -175,11 +175,11 @@ fun AgroSmartNavHost(
         // 5. Fertilizers
         composable<FertilizersRoute> {
             val context = LocalContext.current
-            val viewModel: FertilizerViewModel = viewModel()
+            val viewModel: FertilizerViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsState()
 
             LaunchedEffect(Unit) {
-                viewModel.loadData(context)
+                viewModel.loadData()
             }
 
             val fertilizers = (uiState as? FertilizerUiState.Success)?.fertilizers.orEmpty()

@@ -2,9 +2,11 @@ package com.example.agrosmart.di
 
 import com.example.agrosmart.data.repository.impl.CropRepositoryImpl
 import com.example.agrosmart.data.repository.impl.DiagnosisHistoryLocalRepositoryImpl
+import com.example.agrosmart.data.repository.impl.FertilizerRepositoryImpl
 import com.example.agrosmart.data.repository.impl.RecommendationServiceImpl
 import com.example.agrosmart.domain.repository.CropRepository
 import com.example.agrosmart.domain.repository.DiagnosisHistoryRepository
+import com.example.agrosmart.domain.repository.FertilizerRepository
 import com.example.agrosmart.domain.repository.RecommendationRepository
 import dagger.Binds
 import dagger.Module
@@ -21,6 +23,12 @@ abstract class RepositoryModule {
     abstract fun bindCropRepository(
         impl: CropRepositoryImpl
     ): CropRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindFertilizerRepository(
+        impl: FertilizerRepositoryImpl
+    ): FertilizerRepository
 
     @Binds
     @Singleton

@@ -15,9 +15,9 @@ interface DiagnosisHistoryRepository {
     suspend fun deleteDiagnosisById(id: String): Result<Unit>
 
     // Métodos para compatibilidad regresiva con componentes Java legacy
-    fun getDiagnosisHistories(): CompletableFuture<List<DiagnosisHistory>>
-    fun getLastDiagnosis(): DiagnosisHistory
-    fun saveDiagnosis(history: DiagnosisHistory, callback: DiagnosisHistoryCallback)
-    fun updateDiagnosis(_id: String, param: String, value: String)
-    fun deleteDiagnosis(_id: String)
+    suspend fun getDiagnosisHistories(): List<DiagnosisHistory>
+    suspend fun getLastDiagnosis(): DiagnosisHistory
+    suspend fun saveDiagnosis(history: DiagnosisHistory, callback: DiagnosisHistoryCallback): List<DiagnosisHistory>
+    suspend fun updateDiagnosis(_id: String, param: String, value: String)
+    suspend fun deleteDiagnosis(_id: String)
 }

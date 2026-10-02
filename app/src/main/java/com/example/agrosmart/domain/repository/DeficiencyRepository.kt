@@ -4,5 +4,7 @@ import com.example.agrosmart.domain.models.Deficiency
 import java.util.concurrent.CompletableFuture
 
 interface DeficiencyRepository {
-    val deficiencies: CompletableFuture<MutableList<Deficiency?>?>?
+    suspend fun getDeficiencies(): List<Deficiency>
+    suspend fun deficiencies(): List<Deficiency> = getDeficiencies()
+
 }

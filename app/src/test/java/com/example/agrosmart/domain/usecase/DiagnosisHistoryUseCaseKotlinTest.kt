@@ -111,27 +111,28 @@ class DiagnosisHistoryUseCaseKotlinTest {
             return Result.success(Unit)
         }
 
-        override fun getDiagnosisHistories(): CompletableFuture<List<DiagnosisHistory>> {
-            return CompletableFuture.completedFuture(list.toList())
+        override suspend fun getDiagnosisHistories(): List<DiagnosisHistory> {
+            return list.toList()
         }
 
-        override fun getLastDiagnosis(): DiagnosisHistory {
+        override suspend fun getLastDiagnosis(): DiagnosisHistory {
             return list.firstOrNull() ?: DiagnosisHistory()
         }
 
-        override fun saveDiagnosis(history: DiagnosisHistory, callback: DiagnosisHistoryCallback) {
+        override suspend fun saveDiagnosis(history: DiagnosisHistory, callback: DiagnosisHistoryCallback): List<DiagnosisHistory> {
             list.add(0, history)
             callback.onLoaded(listOf(history))
+            return list.toList()
         }
 
-        override fun updateDiagnosis(_id: String, param: String, value: String) {
+        override suspend fun updateDiagnosis(_id: String, param: String, value: String) {
             val idx = list.indexOfFirst { it.id == _id }
             if (idx >= 0) {
                 list[idx] = list[idx].copy(recommendation = value)
             }
         }
 
-        override fun deleteDiagnosis(_id: String) {
+        override suspend fun deleteDiagnosis(_id: String) {
             list.removeIf { it.id == _id }
         }
     }

@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +20,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.Logout
+import androidx.compose.material.icons.rounded.DataExploration
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Logout
+import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -41,6 +49,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -80,7 +89,8 @@ fun ProfileScreen(
             .background(MaterialTheme.colorScheme.background)
             .verticalScroll(scrollState)
             .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
     ) {
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -102,7 +112,7 @@ fun ProfileScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        // Spacer(modifier = Modifier.height(32.dp))
     }
 }
 
@@ -289,7 +299,7 @@ private fun AccountMenuSection(
         ) {
             // Opción 1: Editar perfil
             ProfileMenuItem(
-                icon = painterResource(id = R.drawable.lapiz_de_usuario_24),
+                icon = ProfileIcons.icons.Edit,
                 title = "Editar datos del perfil",
                 onClick = onEditProfileClick
             )
@@ -302,7 +312,7 @@ private fun AccountMenuSection(
 
             // Opción 2: Ver mis datos
             ProfileMenuItem(
-                icon = painterResource(id = R.drawable.migracion_de_datos_24),
+                icon = ProfileIcons.icons.DataExploration,
                 title = "Ver mis datos",
                 onClick = onViewDataClick
             )
@@ -315,7 +325,7 @@ private fun AccountMenuSection(
 
             // Opción 3: Configuraciones
             ProfileMenuItem(
-                icon = painterResource(id = R.drawable.ajustes),
+                icon = ProfileIcons.icons.Settings,
                 title = "Configuraciones",
                 onClick = onConfigClick
             )
@@ -328,7 +338,7 @@ private fun AccountMenuSection(
 
             // Opción 4: Cerrar sesión
             ProfileMenuItem(
-                icon = painterResource(id = R.drawable.cerrar_sesion_alt_24),
+                icon = ProfileIcons.icons.Logout,
                 title = "Cerrar sesión",
                 textColor = MaterialTheme.colorScheme.error,
                 iconTint = MaterialTheme.colorScheme.error,
@@ -343,7 +353,7 @@ private fun AccountMenuSection(
  */
 @Composable
 private fun ProfileMenuItem(
-    icon: Painter,
+    icon: ImageVector,
     title: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -358,7 +368,7 @@ private fun ProfileMenuItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            painter = icon,
+            imageVector = icon,
             contentDescription = null,
             tint = iconTint,
             modifier = Modifier.size(24.dp)
@@ -410,4 +420,8 @@ private fun ProfileScreenUserPreview() {
             onSignOutClick = {}
         )
     }
+}
+
+object ProfileIcons {
+    val icons = Icons.Rounded
 }

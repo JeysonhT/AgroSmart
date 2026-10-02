@@ -1,6 +1,5 @@
 package com.example.agrosmart.data.local.ml
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import com.example.agrosmart.core.utils.classes.MemoryMonitor.memorySnapshot
@@ -11,17 +10,21 @@ import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
-import java.io.BufferedReader
 import java.io.IOException
-import java.io.InputStreamReader
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class DetectionService {
+@Singleton
+class DetectionService @Inject constructor(
+        private val model: ModelAgrosmart,
+        private val classes: List<String>
+) {
     private val TAG = "DETECTION_SERVICE"
 
-    fun bitmapToTensor(bitmap: Bitmap?): TensorImage? {
+    fun bitmapToTensor(bitmap: Bitmap?): TensorImage {
         //se carga el bitmap a un tensor image
         val tensorImage = TensorImage(DataType.UINT8)
-        // el tipo de dato unit8 corresponde a 0-255 referente a los bits de una imagen e formato rgb
+        // el tipo de dato unit8 corresponde a 0-255 referente a los bits de una imagen y formato rgb
         tensorImage.load(bitmap)
 
         // se tienen que normalizar los bits de la imagen en valores de entre 0 y 1 en formato float
@@ -48,8 +51,7 @@ class DetectionService {
     }
 
     fun processDetection(
-        tensorImage: TensorImage,
-        context: Context
+        tensorImage: TensorImage
     ): MMLResultDTO {
         var resultado: String?
         val resultDTO = MMLResultDTO()
@@ -62,16 +64,10 @@ class DetectionService {
                     "Memoria antes (Total PSS): ${beforeInference.totalPss} KB"
             )
 
-            // instancia del modelo de tensorflow entrenado
-            val model = ModelAgrosmart.newInstance(context)
-
             // creamos la salida, la cual tendrá como valor el resultado que entregue el modelo
             val outputs = model.process(tensorImage.tensorBuffer)
 
-            //obtenemos todas las clases del archivo de clases
-            val clases = readClassFile(context)
-
-            if (!clases.isEmpty()) {
+            if (!classes.isEmpty()) {
                 // obtenemos la salida en un buffer de bytes para proceder a procesarla
                 val output = outputs.getOutputFeature0AsTensorBuffer()
 
@@ -85,7 +81,8 @@ class DetectionService {
                         maxIndex = i
                     }
                 }
-                resultado = clases[maxIndex]
+
+                resultado = classes[maxIndex]
 
                 val afterInference = memorySnapshot
                 Log.i(
@@ -116,26 +113,4 @@ class DetectionService {
         return resultDTO
     }
 
-    private fun readClassFile(context: Context): MutableList<String?> {
-        val clases: MutableList<String?> = ArrayList<String?>()
-
-        val assetManager = context.assets
-
-        try {
-            BufferedReader(
-                    InputStreamReader(assetManager.open("labels.txt"))
-            ).use { reader ->
-                var line: String?
-                while ((reader.readLine()
-                        .also { line = it }) != null
-                ) {
-                    clases.add(line)
-                }
-            }
-        } catch (e: IOException) {
-            throw RuntimeException(e)
-        }
-
-        return clases
-    }
 }

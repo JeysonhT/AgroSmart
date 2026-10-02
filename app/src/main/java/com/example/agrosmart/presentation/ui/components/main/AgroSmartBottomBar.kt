@@ -1,7 +1,10 @@
 package com.example.agrosmart.presentation.ui.components.main
 
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Camera
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -11,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -34,16 +38,24 @@ import com.example.agrosmart.presentation.navigation.PersonalDataRoute
 import com.example.agrosmart.presentation.navigation.ProfileRoute
 import kotlin.reflect.KClass
 
+
+
 sealed class BottomNavItem(
     val route: Any,
     @param:StringRes val titleRes: Int,
-    @param:DrawableRes val iconRes: Int,
+    val iconRes: ImageVector,
     val associatedRoutes: List<KClass<*>>
 ) {
+
+    companion object NavIcons {
+        val _icons = Icons.Rounded
+    }
+
+
     object Home : BottomNavItem(
         route = HomeRoute,
         titleRes = R.string.String_navigation_1,
-        iconRes = R.drawable.hogar_24,
+        iconRes = _icons.Home,
         associatedRoutes = listOf(
             HomeRoute::class,
             CropInfoRoute::class,
@@ -57,7 +69,7 @@ sealed class BottomNavItem(
     object Detection : BottomNavItem(
         route = DetectionRoute(),
         titleRes = R.string.String_navigation_2,
-        iconRes = R.drawable.visor_de_la_camara_24,
+        iconRes = _icons.Camera,
         associatedRoutes = listOf(
             DetectionRoute::class,
             DiagnosisInfoRoute::class
@@ -67,7 +79,7 @@ sealed class BottomNavItem(
     object Profile : BottomNavItem(
         route = ProfileRoute,
         titleRes = R.string.String_navigation_4,
-        iconRes = R.drawable.usuario_del_portapapeles_24,
+        iconRes = _icons.Person,
         associatedRoutes = listOf(
             ProfileRoute::class,
             EditProfileRoute::class,
@@ -119,7 +131,7 @@ fun AgroSmartBottomBar(
                 },
                 icon = {
                     Icon(
-                        painter = painterResource(id = item.iconRes),
+                        imageVector = item.iconRes,
                         contentDescription = stringResource(id = item.titleRes)
                     )
                 },

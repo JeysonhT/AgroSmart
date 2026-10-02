@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.agrosmart.core.utils.interfaces.IDetectionViewModel
 import com.example.agrosmart.data.local.dto.MMLResultDTO
-import com.example.agrosmart.domain.models.Crop
 import com.example.agrosmart.domain.models.DetectionResult
 import com.example.agrosmart.domain.models.DiagnosisHistory
 import com.example.agrosmart.domain.models.MMLStats
@@ -223,6 +222,6 @@ class DetectionViewModel @Inject constructor(
     }
 
     override fun processDetection(image: TensorImage, context: Context): MMLResultDTO {
-        return detectionUseCase.processDetection(image, context)
+        return detectionUseCase.processDetection(image)
     }
 }

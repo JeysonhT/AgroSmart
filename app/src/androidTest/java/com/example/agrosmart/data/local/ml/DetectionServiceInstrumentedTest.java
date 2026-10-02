@@ -50,7 +50,7 @@ public class DetectionServiceInstrumentedTest {
 
         // 2. Act (Actuar)
         // Ejecutamos la detección. Esto llamará al modelo real de TFLite en el emulador/dispositivo.
-        MMLResultDTO result = detectionService.processDetection(tensorImage, context);
+        MMLResultDTO result = detectionService.processDetection(tensorImage);
 
         // 3. Assert (Verificar)
         assertNotNull("El resultado no debería ser nulo.", result);

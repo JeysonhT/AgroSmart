@@ -41,6 +41,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.drawable.toDrawable
 import com.example.agrosmart.R
 import com.example.agrosmart.domain.models.Fertilizer
 import com.example.agrosmart.presentation.theme.AgroSmartTheme
@@ -250,7 +252,7 @@ fun FertilizerCard(
                                 color = MaterialTheme.colorScheme.primaryContainer
                             ) {
                                 Text(
-                                    text = fertilizer.type,
+                                    text = fertilizer.type ?: "",
                                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
                                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
@@ -264,7 +266,7 @@ fun FertilizerCard(
                                 color = MaterialTheme.colorScheme.secondaryContainer
                             ) {
                                 Text(
-                                    text = fertilizer.supplier,
+                                    text = fertilizer.supplier ?: "",
                                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
                                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
@@ -277,7 +279,7 @@ fun FertilizerCard(
                 if (!fertilizer.description.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
-                        text = fertilizer.description,
+                        text = fertilizer.description ?: "",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 2,
@@ -299,16 +301,15 @@ fun FertilizersScreenPreview() {
     AgroSmartTheme {
         FertilizersScreen(
             fertilizers = listOf(
-                Fertilizer("Urea 46%").apply {
-                    type = "Nitrogenado"
-                    supplier = "Fertilizantes del Valle"
-                    description = "Fertilizante de alta concentración nitrogenada ideal para estimular el follaje en etapas tempranas."
-                },
-                Fertilizer("Fosfato Diamónico (DAP)").apply {
-                    type = "Fosfatado"
-                    supplier = "AgroQuímicos Nacionales"
-                    description = "Aporta nitrógeno y fósforo en alta solubilidad para favorecer el enraizamiento y desarrollo."
-                }
+                Fertilizer(
+                        name = "Gramoson",
+                        description = "Fertilizante de alta concentración nitrogenada ideal para estimular el follaje en etapas tempranas.",
+                        applicationMethod = "una sola vez",
+                        recommendedDose = "Todo el tarro",
+                        imageResource = createBitmap(256, 256).ninePatchChunk,
+                        type = "Nitrogenado",
+                        supplier = "Fertilizantes del Valle",
+                        ),
             ),
             onFertilizerClick = {},
             onBackClick = {}

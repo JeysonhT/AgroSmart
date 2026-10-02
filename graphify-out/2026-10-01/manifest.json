@@ -139,6 +139,11 @@
     "ast_hash": "701e34bfe87030234d961d06a94ab7f8",
     "semantic_hash": "701e34bfe87030234d961d06a94ab7f8"
   },
+  "app/src/main/java/com/example/agrosmart/data/network/DeficienciesService.kt": {
+    "mtime": 1790565322.9598145,
+    "ast_hash": "026de8b38c8535c544783bde07f5b2ab",
+    "semantic_hash": "026de8b38c8535c544783bde07f5b2ab"
+  },
   "app/src/main/java/com/example/agrosmart/data/network/DetectionResultService.kt": {
     "mtime": 1790564478.951809,
     "ast_hash": "29032c47061ba58588e3bcebc81f5e0c",
@@ -305,8 +310,8 @@
     "semantic_hash": ""
   },
   "app/src/main/java/com/example/agrosmart/domain/repository/DeficiencyRepository.kt": {
-    "mtime": 1790822299.6654828,
-    "ast_hash": "6c9191160b2f3505faa689a9ba2bc0ae",
+    "mtime": 1790802459.8644679,
+    "ast_hash": "10b31d41b60337a024f9c559b4f59651",
     "semantic_hash": ""
   },
   "app/src/main/java/com/example/agrosmart/domain/repository/DetectionResultRepository.kt": {
@@ -338,6 +343,11 @@
     "mtime": 1790565555.4713573,
     "ast_hash": "a5a178926c209840868fd4c63c5c37ba",
     "semantic_hash": "a5a178926c209840868fd4c63c5c37ba"
+  },
+  "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java": {
+    "mtime": 1790542522.9597855,
+    "ast_hash": "6f04ac27951feb28273104a09c426653",
+    "semantic_hash": "6f04ac27951feb28273104a09c426653"
   },
   "app/src/main/java/com/example/agrosmart/domain/usecase/DeleteDiagnosisUseCase.kt": {
     "mtime": 1790050134.1550286,
@@ -390,8 +400,8 @@
     "semantic_hash": "79516b2b74bab8d88a308b61dc3f90ba"
   },
   "app/src/main/java/com/example/agrosmart/presentation/navigation/AgroSmartNavHost.kt": {
-    "mtime": 1790822562.7303119,
-    "ast_hash": "2fb08ce0d89b1c6041110f0336a1efdd",
+    "mtime": 1790658387.22962,
+    "ast_hash": "d5c3883572c1beed7d22e5b567d96f77",
     "semantic_hash": ""
   },
   "app/src/main/java/com/example/agrosmart/presentation/theme/Color.kt": {
@@ -450,9 +460,9 @@
     "semantic_hash": "9543c61d26eadfb23570c019377da5ed"
   },
   "app/src/main/java/com/example/agrosmart/presentation/ui/components/detection/DetectionScreen.kt": {
-    "mtime": 1790878431.3656423,
-    "ast_hash": "444699bc0a030aea7c1e28c1a2e30f4c",
-    "semantic_hash": ""
+    "mtime": 1790486863.9415975,
+    "ast_hash": "f56c0473c8c31abc1ebab3877f0bb093",
+    "semantic_hash": "f56c0473c8c31abc1ebab3877f0bb093"
   },
   "app/src/main/java/com/example/agrosmart/presentation/ui/components/detection/DiagnosisInfoScreen.kt": {
     "mtime": 1790491343.2159767,
@@ -515,9 +525,9 @@
     "semantic_hash": "d5cd7f6fb371a7de0971032bba35af5f"
   },
   "app/src/main/java/com/example/agrosmart/presentation/viewmodels/DeficiencyViewModel.kt": {
-    "mtime": 1790822742.0435793,
-    "ast_hash": "7064f49596bf90dfcc0c885bd47252ea",
-    "semantic_hash": ""
+    "mtime": 1790543574.677341,
+    "ast_hash": "822a766e0a1f4f30bbdc5406841dc42f",
+    "semantic_hash": "822a766e0a1f4f30bbdc5406841dc42f"
   },
   "app/src/main/java/com/example/agrosmart/presentation/viewmodels/DetectionViewModel.kt": {
     "mtime": 1790663548.9601274,
@@ -910,13 +920,13 @@
     "semantic_hash": ""
   },
   "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt": {
-    "mtime": 1790822742.05513,
-    "ast_hash": "126289496821adf3b85cb0d585aede9c",
+    "mtime": 1790802468.1415665,
+    "ast_hash": "0da6da8c86711d9e658a81377959b753",
     "semantic_hash": ""
   },
   "app/src/main/java/com/example/agrosmart/di/MlModule.kt": {
-    "mtime": 1790879298.4011424,
-    "ast_hash": "819eed23e6bdea6202351117d095c8a8",
+    "mtime": 1790663425.3026354,
+    "ast_hash": "f244781faf50297576e9a40f2ef7865f",
     "semantic_hash": ""
   },
   "app/src/main/java/com/example/agrosmart/domain/repository/IMLDetectionService.kt": {
@@ -932,11 +942,6 @@
   "app/src/test/java/com/example/agrosmart/data/local/mappers/DeficiencyMapperTest.kt": {
     "mtime": 1790802898.1241498,
     "ast_hash": "9dbbb1c0c7bc22554ec016e9d1bc0d09",
-    "semantic_hash": ""
-  },
-  "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.kt": {
-    "mtime": 1790822405.6118324,
-    "ast_hash": "33e3924b3ecf76b560b9720e18244040",
     "semantic_hash": ""
   }
 }

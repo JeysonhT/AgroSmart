@@ -105,11 +105,11 @@ fun AgroSmartNavHost(
         // 3. Deficiencies
         composable<DeficienciesRoute> {
             val context = LocalContext.current
-            val viewModel: DeficiencyViewModel = viewModel()
+            val viewModel: DeficiencyViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsState()
 
             LaunchedEffect(Unit) {
-                viewModel.loadData(context)
+                viewModel.loadData()
             }
 
             val deficiencies = (uiState as? DeficiencyUiState.Success)?.deficiencies.orEmpty()

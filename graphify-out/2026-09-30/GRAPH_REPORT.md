@@ -1,16 +1,16 @@
-# Graph Report - AgroSmart  (2026-10-01)
+# Graph Report - AgroSmart  (2026-09-28)
 
 ## Corpus Check
-- 148 files · ~516,493 words
+- 146 files · ~516,004 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1013 nodes · 1584 edges · 75 communities (57 shown, 18 thin omitted)
+- 997 nodes · 1582 edges · 68 communities (50 shown, 18 thin omitted)
 - Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 101 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4914786a`
+- Built from commit: `6131138a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -78,19 +78,12 @@
 - [[_COMMUNITY_Community 65|Community 65]]
 - [[_COMMUNITY_Community 66|Community 66]]
 - [[_COMMUNITY_Community 67|Community 67]]
-- [[_COMMUNITY_Community 68|Community 68]]
-- [[_COMMUNITY_Community 69|Community 69]]
-- [[_COMMUNITY_Community 70|Community 70]]
-- [[_COMMUNITY_Community 71|Community 71]]
-- [[_COMMUNITY_Community 72|Community 72]]
-- [[_COMMUNITY_Community 73|Community 73]]
-- [[_COMMUNITY_Community 74|Community 74]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `DiagnosisHistory` - 43 edges
 2. `UserDetails` - 40 edges
-3. `Deficiency` - 27 edges
-4. `MMLStats` - 26 edges
+3. `MMLStats` - 26 edges
+4. `Deficiency` - 25 edges
 5. `DetectionViewModel` - 25 edges
 6. `AgroSmartNavHost()` - 23 edges
 7. `User` - 21 edges
@@ -116,31 +109,31 @@
 ## Hyperedges (group relationships)
 - **Clean Architecture Trio (Domain, Data, Presentation)** — agents_clean_architecture, app_src_main_java_com_example_agrosmart_domain_models_crop_crop, app_src_main_java_com_example_agrosmart_data_local_room_entity_diagnosishistoryentity_diagnosishistoryentity [INFERRED 0.95]
 
-## Communities (75 total, 18 thin omitted)
+## Communities (68 total, 18 thin omitted)
 
 ### Community 0 - "User Details & Profile Data"
 Cohesion: 0.05
-Nodes (33): Any, String, OnUserDetailsLoaded, CompletableFuture, String, UserDetailsLocalService, UserDetailsDto, CompletableFuture (+25 more)
+Nodes (34): Any, String, OnUserDetailsLoaded, CompletableFuture, String, UserDetailsLocalService, UserDetailsDto, CompletableFuture (+26 more)
 
 ### Community 1 - "Home & Crop Presentation"
-Cohesion: 0.14
-Nodes (7): HomeViewModel, Int, List, LiveData, StateFlow, String, HomeViewModelTest
+Cohesion: 0.23
+Nodes (7): CropCarouselData, HomeViewModel, Int, List, LiveData, StateFlow, String
 
 ### Community 2 - "Crop Loading & Services"
 Cohesion: 0.08
 Nodes (16): CropDTO, String, CropRepositoryImpl, DocumentSnapshot, List, String, T, Crop (+8 more)
 
 ### Community 3 - "Fertilizer Data & Services"
-Cohesion: 0.05
-Nodes (31): FertilizerDTO, FertilizerMapper, DocumentSnapshot, String, FertilizerRepositoryImpl, List, T, Fertilizer (+23 more)
+Cohesion: 0.06
+Nodes (24): FertilizerDTO, FertilizerMapper, DocumentSnapshot, String, FertilizerRepositoryImpl, List, T, Fertilizer (+16 more)
 
 ### Community 4 - "Network Connectivity & DTOs"
-Cohesion: 0.18
-Nodes (7): Boolean, Context, NetworkChecker, DeficiencyUseCase, CompletableFuture, Context, MutableList
+Cohesion: 0.06
+Nodes (30): Boolean, Context, NetworkChecker, DeficiencyDTO, DeficiencyMapper, DeficienciesService, CompletableFuture, MutableList (+22 more)
 
 ### Community 5 - "MML Stats Async Services"
 Cohesion: 0.07
-Nodes (27): CompletableFuture, Void, MMLStatsService, CompletableFuture, FirebaseFirestore, Override, String, Void (+19 more)
+Nodes (26): CompletableFuture, Void, MMLStatsService, CompletableFuture, FirebaseFirestore, Override, String, Void (+18 more)
 
 ### Community 6 - "Architecture, Room DB & Hilt"
 Cohesion: 0.08
@@ -151,36 +144,36 @@ Cohesion: 0.08
 Nodes (24): DetectionResultService, Boolean, CompletableFuture, DetectionResultRepositoryImpl, Boolean, CompletableFuture, FirebaseFirestore, Override (+16 more)
 
 ### Community 8 - "Google Authentication Service"
-Cohesion: 0.07
-Nodes (22): OkHttpClient, UnsafeOkhttpClient, AuthResultListener, Exception, GoogleAuthService, Context, Intent, AuthRepositoryImpl (+14 more)
+Cohesion: 0.08
+Nodes (20): AuthResultListener, Exception, GoogleAuthService, Context, Intent, AuthRepositoryImpl, Context, Intent (+12 more)
 
 ### Community 9 - "Network Security & History Models"
-Cohesion: 0.11
-Nodes (17): DiagnosisHistoryListView, Any, Boolean, Int, String, Builder, ByteArray, Date (+9 more)
+Cohesion: 0.08
+Nodes (26): OkHttpClient, UnsafeOkhttpClient, DiagnosisHistoryListView, Any, Boolean, Int, String, Builder (+18 more)
 
 ### Community 10 - "Profile & Deficiency UI Screens"
-Cohesion: 0.10
-Nodes (19): Modifier, ProfileRouteScreen(), DeficiencyViewModel, Context, StateFlow, StateFlow, String, ProfileViewModel (+11 more)
+Cohesion: 0.07
+Nodes (26): Modifier, ProfileRouteScreen(), DeficiencyViewModel, Context, StateFlow, FertilizerViewModel, StateFlow, StateFlow (+18 more)
 
 ### Community 11 - "Navigation & App Destinations"
 Cohesion: 0.06
 Nodes (37): CameraRoute, ConfigRoute, CropInfoRoute, DeficienciesRoute, DeficiencyInfoRoute, DetectionRoute, DiagnosisInfoRoute, EditProfileRoute (+29 more)
 
 ### Community 12 - "Detection Service Instrumentation Tests"
-Cohesion: 0.29
-Nodes (7): DetectionServiceInstrumentedTest, Before, Context, List, RunWith, String, Test
+Cohesion: 0.09
+Nodes (22): DetectionServiceInstrumentedTest, Before, Context, List, RunWith, String, Test, Long (+14 more)
 
 ### Community 13 - "AI Recommendation Service & DTOs"
-Cohesion: 0.09
-Nodes (11): PreguntaRequest, RespuestaResponse, RecommendationService, String, RecommendationServiceImpl, OkHttpClient, NetworkModule, String (+3 more)
+Cohesion: 0.08
+Nodes (13): PreguntaRequest, RespuestaResponse, RecommendationService, String, RecommendationServiceImpl, OkHttpClient, NetworkModule, RepositoryModule (+5 more)
 
 ### Community 14 - "User Legacy Domain Models"
 Cohesion: 0.13
 Nodes (17): AllArgsConstructor, Getter, Long, Setter, String, Uri, User, AccountMenuSection() (+9 more)
 
 ### Community 15 - "Detection ViewModel Interface"
-Cohesion: 0.16
-Nodes (4): IDetectionViewModel, ByteArray, Consumer, String
+Cohesion: 0.10
+Nodes (9): IDetectionViewModel, Bitmap, ByteArray, Consumer, Context, List, LiveData, String (+1 more)
 
 ### Community 16 - "Personal Data UI Components"
 Cohesion: 0.10
@@ -191,8 +184,8 @@ Cohesion: 0.11
 Nodes (18): EditProfileRouteScreen(), Modifier, String, EditProfileScreen(), EditProfileScreenPreview(), EditProfileTopBar(), List, Modifier (+10 more)
 
 ### Community 18 - "Recommendation Async Use Cases"
-Cohesion: 0.05
-Nodes (25): DeficiencyDTO, DeficiencyMapper, DocumentSnapshot, String, DeficiencyRepositoryImpl, CompletableFuture, List, MutableList (+17 more)
+Cohesion: 0.15
+Nodes (4): Respuesta, GetRecommendationUseCase, String, DetectionViewModelTest
 
 ### Community 19 - "Detection ViewModel & Image Processing"
 Cohesion: 0.13
@@ -213,10 +206,6 @@ Nodes (4): DiagnosisHistory, Any, Boolean, Int
 ### Community 23 - "Main Activity & Bottom Navigation"
 Cohesion: 0.17
 Nodes (11): MainActivity, AgroSmartBottomBar(), BottomNavItem, Detection, Home, Modifier, Profile, Bundle (+3 more)
-
-### Community 24 - "Diagnosis History Room Repository"
-Cohesion: 0.15
-Nodes (4): Respuesta, GetRecommendationUseCase, String, DetectionViewModelTest
 
 ### Community 25 - "Diagnosis Repository Operations"
 Cohesion: 0.22
@@ -251,12 +240,12 @@ Cohesion: 0.33
 Nodes (4): Flow, Int, List, Result
 
 ### Community 34 - "Diagnosis History Legacy Use Cases"
-Cohesion: 0.20
-Nodes (7): Bitmap, Context, TensorImage, Long, String, MMLResultDTO, FloatArray
+Cohesion: 0.33
+Nodes (3): ByteArray, Consumer, String
 
 ### Community 35 - "Detection UI State & UDF"
-Cohesion: 0.26
-Nodes (10): AgroSmartTheme(), Boolean, HomeScreen(), HomeScreenLoadedPreview(), HomeScreenLoadingPreview(), Boolean, Int, List (+2 more)
+Cohesion: 0.60
+Nodes (5): DetectionUiState, Error, Idle, Loading, Success
 
 ### Community 36 - "Android Instrumented Context Tests"
 Cohesion: 0.60
@@ -267,8 +256,8 @@ Cohesion: 0.40
 Nodes (3): Context, List, PdfGenerator
 
 ### Community 40 - "Hilt Repository Binding Module"
-Cohesion: 0.29
-Nodes (5): Context, List, String, MlModule, ModelAgrosmart
+Cohesion: 0.27
+Nodes (9): AgroSmartTheme(), Boolean, CropCard(), CropCardPreview(), CropsCarousel(), CropsCarouselPreview(), Boolean, List (+1 more)
 
 ### Community 41 - "Save Diagnosis Use Cases"
 Cohesion: 0.50
@@ -284,45 +273,21 @@ Nodes (5): Agrosmart App Móvil  🌽🫘🌱, Arquitectura de la aplicación, F
 
 ### Community 63 - "Community 63"
 Cohesion: 0.36
-Nodes (8): CropCarouselData, CropCard(), CropCardPreview(), CropsCarousel(), CropsCarouselPreview(), Boolean, List, Modifier
+Nodes (8): HomeScreen(), HomeScreenLoadedPreview(), HomeScreenLoadingPreview(), Boolean, Int, List, Modifier, LottieLoadingAnimation()
 
 ### Community 64 - "Community 64"
-Cohesion: 0.36
-Nodes (7): DiagnosisInfoScreen(), DiagnosisInfoScreenPreview(), DiagnosisInfoTopBar(), Bitmap, Boolean, Modifier, String
-
-### Community 65 - "Community 65"
-Cohesion: 0.40
-Nodes (3): DetectionService, Bitmap, TensorImage
-
-### Community 66 - "Community 66"
-Cohesion: 0.48
-Nodes (6): DeficiencyInfoScreen(), DeficiencyInfoScreenPreview(), InfoSectionCard(), ImageBitmap, Modifier, String
-
-### Community 67 - "Community 67"
-Cohesion: 0.40
-Nodes (3): IMLDetectionService, Bitmap, TensorImage
-
-### Community 68 - "Community 68"
-Cohesion: 0.40
-Nodes (3): DetectionUseCase, Bitmap, TensorImage
-
-### Community 70 - "Community 70"
-Cohesion: 0.47
-Nodes (5): CropBadge(), CropScreen(), CropScreenPreview(), Modifier, String
-
-### Community 71 - "Community 71"
-Cohesion: 0.33
-Nodes (3): ByteArray, Consumer, String
-
-### Community 72 - "Community 72"
-Cohesion: 0.60
-Nodes (5): DetectionUiState, Error, Idle, Loading, Success
-
-### Community 73 - "Community 73"
 Cohesion: 0.60
 Nodes (5): Error, HomeUiState, Idle, Loading, Success
 
-### Community 74 - "Community 74"
+### Community 65 - "Community 65"
+Cohesion: 0.48
+Nodes (6): DeficiencyInfoScreen(), DeficiencyInfoScreenPreview(), InfoSectionCard(), ImageBitmap, Modifier, String
+
+### Community 66 - "Community 66"
+Cohesion: 0.47
+Nodes (5): CropBadge(), CropScreen(), CropScreenPreview(), Modifier, String
+
+### Community 67 - "Community 67"
 Cohesion: 0.40
 Nodes (3): IHomeViewModel, List, LiveData
 
@@ -334,17 +299,17 @@ Nodes (3): IHomeViewModel, List, LiveData
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `DetectionViewModel` connect `Detection ViewModel & Image Processing` to `Community 71`, `Community 72`, `Profile & Deficiency UI Screens`, `Navigation & App Destinations`, `Detection ViewModel Interface`, `Diagnosis History Room Repository`, `Recommendation Update Use Cases`?**
-  _High betweenness centrality (0.296) - this node is a cross-community bridge._
-- **Why does `AgroSmartNavHost()` connect `Navigation & App Destinations` to `Community 64`, `Community 66`, `Fertilizer Data & Services`, `Detection UI State & UDF`, `Community 70`, `Profile & Deficiency UI Screens`, `Personal Data UI Components`, `Edit Profile UI Components`, `Recommendation Async Use Cases`, `Main Activity & Bottom Navigation`, `Community 63`?**
-  _High betweenness centrality (0.260) - this node is a cross-community bridge._
-- **Why does `DiagnosisHistory` connect `Diagnosis History Legacy Callbacks` to `Diagnosis History Domain Queries`, `Community 69`, `PDF Generation Utilities`, `Architecture, Room DB & Hilt`, `Google Authentication Service`, `Network Security & History Models`, `Community 71`, `Diagnosis Deletion Actions`, `Detection ViewModel Interface`, `Detection ViewModel & Image Processing`, `Diagnosis History Repository Contract`, `Diagnosis History Unit Tests`, `Diagnosis Repository Operations`, `Diagnosis CRUD Use Cases`, `Diagnosis History Flow & Persistence`?**
-  _High betweenness centrality (0.163) - this node is a cross-community bridge._
+- **Why does `DetectionViewModel` connect `Detection ViewModel & Image Processing` to `Diagnosis History Legacy Use Cases`, `Detection UI State & UDF`, `Profile & Deficiency UI Screens`, `Navigation & App Destinations`, `Detection ViewModel Interface`, `Recommendation Async Use Cases`, `Recommendation Update Use Cases`?**
+  _High betweenness centrality (0.317) - this node is a cross-community bridge._
+- **Why does `AgroSmartNavHost()` connect `Navigation & App Destinations` to `Community 65`, `Home & Crop Presentation`, `Community 66`, `Network Connectivity & DTOs`, `Fertilizer Data & Services`, `Network Security & History Models`, `Profile & Deficiency UI Screens`, `Personal Data UI Components`, `Edit Profile UI Components`, `Main Activity & Bottom Navigation`, `Community 63`?**
+  _High betweenness centrality (0.246) - this node is a cross-community bridge._
+- **Why does `DiagnosisHistory` connect `Diagnosis History Legacy Callbacks` to `Diagnosis History Domain Queries`, `Diagnosis History Legacy Use Cases`, `PDF Generation Utilities`, `Architecture, Room DB & Hilt`, `Network Security & History Models`, `Diagnosis Deletion Actions`, `Detection ViewModel Interface`, `Detection ViewModel & Image Processing`, `Diagnosis History Repository Contract`, `Diagnosis History Unit Tests`, `Diagnosis Repository Operations`, `Diagnosis CRUD Use Cases`, `Diagnosis History Flow & Persistence`?**
+  _High betweenness centrality (0.209) - this node is a cross-community bridge._
 - **What connects `ClickMode`, `DiagnosisHistoryRemoteRepositoryImp`, `HomeRoute` to the rest of the system?**
   _32 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `User Details & Profile Data` be split into smaller, more focused modules?**
-  _Cohesion score 0.05365686944634313 - nodes in this community are weakly interconnected._
-- **Should `Home & Crop Presentation` be split into smaller, more focused modules?**
-  _Cohesion score 0.13970588235294118 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.052614052614052616 - nodes in this community are weakly interconnected._
 - **Should `Crop Loading & Services` be split into smaller, more focused modules?**
   _Cohesion score 0.07692307692307693 - nodes in this community are weakly interconnected._
+- **Should `Fertilizer Data & Services` be split into smaller, more focused modules?**
+  _Cohesion score 0.0647342995169082 - nodes in this community are weakly interconnected._

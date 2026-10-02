@@ -19,6 +19,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.PhotoCamera
+import androidx.compose.material.icons.rounded.PhotoCamera
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -220,7 +224,7 @@ fun DiagnosisHistoryCard(
                 modifier = Modifier.size(36.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.borrar),
+                    imageVector = DetectionIcons.icons.Delete,
                     contentDescription = "Eliminar diagnóstico",
                     modifier = Modifier.size(22.dp)
                 )
@@ -254,7 +258,7 @@ fun DetectionScreen(
                 modifier = Modifier.size(56.dp)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.camara_24),
+                    imageVector = DetectionIcons.icons.PhotoCamera,
                     contentDescription = stringResource(id = R.string.adddetection),
                     modifier = Modifier.size(28.dp)
                 )
@@ -268,7 +272,7 @@ fun DetectionScreen(
                 .padding(innerPadding)
                 .padding(horizontal = 16.dp)
         ) {
-            Spacer(modifier = Modifier.height(12.dp))
+            // Spacer(modifier = Modifier.height(12.dp))
 
             // Título de la pantalla
             Text(
@@ -380,4 +384,8 @@ fun DetectionScreenPreview() {
             )
         }
     }
+}
+
+object DetectionIcons{
+    val icons = Icons.Outlined
 }

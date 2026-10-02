@@ -566,7 +566,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_core_utils_classes_unsafeokhttpclient",
-      "community": 8,
+      "community": 9,
       "norm_label": "unsafeokhttpclient.java"
     },
     {
@@ -576,7 +576,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_core_utils_classes_unsafeokhttpclient_unsafeokhttpclient",
-      "community": 8,
+      "community": 9,
       "norm_label": "unsafeokhttpclient"
     },
     {
@@ -586,7 +586,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_core_utils_classes_unsafeokhttpclient_unsafeokhttpclient_getunsafeokhttpclient",
-      "community": 8,
+      "community": 9,
       "norm_label": ".getunsafeokhttpclient()"
     },
     {
@@ -596,7 +596,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_core_utils_classes_unsafeokhttpclient_java_okhttpclient",
-      "community": 8,
+      "community": 9,
       "norm_label": "okhttpclient"
     },
     {
@@ -916,7 +916,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_core_utils_interfaces_ihomeviewmodel",
-      "community": 74,
+      "community": 1,
       "norm_label": "ihomeviewmodel.kt"
     },
     {
@@ -926,7 +926,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_core_utils_interfaces_ihomeviewmodel_ihomeviewmodel",
-      "community": 74,
+      "community": 1,
       "norm_label": "ihomeviewmodel"
     },
     {
@@ -936,7 +936,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_core_utils_interfaces_ihomeviewmodel_ihomeviewmodel_loadcrops",
-      "community": 74,
+      "community": 1,
       "norm_label": ".loadcrops()"
     },
     {
@@ -946,7 +946,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_core_utils_interfaces_ihomeviewmodel_kt_livedata",
-      "community": 74,
+      "community": 1,
       "norm_label": "livedata"
     },
     {
@@ -956,7 +956,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_core_utils_interfaces_ihomeviewmodel_kt_list",
-      "community": 74,
+      "community": 1,
       "norm_label": "list"
     },
     {
@@ -1116,7 +1116,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_local_dto_deficiencydto",
-      "community": 18,
+      "community": 24,
       "norm_label": "deficiencydto.kt"
     },
     {
@@ -1126,7 +1126,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_local_dto_deficiencydto_deficiencydto",
-      "community": 18,
+      "community": 24,
       "norm_label": "deficiencydto"
     },
     {
@@ -1206,7 +1206,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_local_mappers_deficiencymapper",
-      "community": 18,
+      "community": 24,
       "norm_label": "deficiencymapper.kt"
     },
     {
@@ -1216,7 +1216,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_local_mappers_deficiencymapper_deficiencymapper",
-      "community": 18,
+      "community": 24,
       "norm_label": "deficiencymapper"
     },
     {
@@ -1226,7 +1226,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_local_mappers_deficiencymapper_deficiencymapper_tomodel",
-      "community": 18,
+      "community": 24,
       "norm_label": ".tomodel()"
     },
     {
@@ -1236,7 +1236,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_local_mappers_deficiencymapper_kt_string",
-      "community": 18,
+      "community": 24,
       "norm_label": "string"
     },
     {
@@ -1246,7 +1246,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_local_mappers_deficiencymapper_deficiencymapper_fromdocument",
-      "community": 18,
+      "community": 24,
       "norm_label": ".fromdocument()"
     },
     {
@@ -1256,7 +1256,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_local_mappers_deficiencymapper_kt_documentsnapshot",
-      "community": 18,
+      "community": 24,
       "norm_label": "documentsnapshot"
     },
     {
@@ -1778,6 +1778,46 @@
       "id": "app_src_main_java_com_example_agrosmart_data_mapper_diagnosishistorymapper_toentity",
       "community": 6,
       "norm_label": "toentity()"
+    },
+    {
+      "label": "DeficienciesService.kt",
+      "file_type": "code",
+      "source_file": "app/src/main/java/com/example/agrosmart/data/network/DeficienciesService.kt",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice",
+      "community": 4,
+      "norm_label": "deficienciesservice.kt"
+    },
+    {
+      "label": "DeficienciesService",
+      "file_type": "code",
+      "source_file": "app/src/main/java/com/example/agrosmart/data/network/DeficienciesService.kt",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_deficienciesservice",
+      "community": 4,
+      "norm_label": "deficienciesservice"
+    },
+    {
+      "label": "CompletableFuture",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_kt_completablefuture",
+      "community": 4,
+      "norm_label": "completablefuture"
+    },
+    {
+      "label": "MutableList",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_kt_mutablelist",
+      "community": 4,
+      "norm_label": "mutablelist"
     },
     {
       "label": "DetectionResultService.kt",
@@ -2366,7 +2406,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl",
-      "community": 18,
+      "community": 35,
       "norm_label": "deficiencyrepositoryimpl.kt"
     },
     {
@@ -2376,17 +2416,17 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl",
-      "community": 18,
+      "community": 35,
       "norm_label": "deficiencyrepositoryimpl"
     },
     {
       "label": ".getDeficiencies()",
       "file_type": "code",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L28",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_getdeficiencies",
-      "community": 18,
+      "community": 35,
       "norm_label": ".getdeficiencies()"
     },
     {
@@ -2396,17 +2436,17 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_kt_list",
-      "community": 18,
+      "community": 35,
       "norm_label": "list"
     },
     {
       "label": ".deficiencies()",
       "file_type": "code",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L56",
+      "source_location": "L59",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_deficiencies",
-      "community": 18,
+      "community": 35,
       "norm_label": ".deficiencies()"
     },
     {
@@ -2416,7 +2456,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_kt_completablefuture",
-      "community": 18,
+      "community": 35,
       "norm_label": "completablefuture"
     },
     {
@@ -2426,17 +2466,17 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_kt_mutablelist",
-      "community": 18,
+      "community": 35,
       "norm_label": "mutablelist"
     },
     {
       "label": ".await()",
       "file_type": "code",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L73",
+      "source_location": "L76",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_await",
-      "community": 18,
+      "community": 35,
       "norm_label": ".await()"
     },
     {
@@ -2446,7 +2486,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_kt_t",
-      "community": 18,
+      "community": 35,
       "norm_label": "t"
     },
     {
@@ -2626,7 +2666,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_repository_impl_diagnosishistorylocalrepositoryimpl_diagnosishistorylocalrepositoryimpl_getlastdiagnosissuspend",
-      "community": 22,
+      "community": 25,
       "norm_label": ".getlastdiagnosissuspend()"
     },
     {
@@ -2696,7 +2736,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_data_repository_impl_diagnosishistorylocalrepositoryimpl_diagnosishistorylocalrepositoryimpl_getlastdiagnosis",
-      "community": 22,
+      "community": 25,
       "norm_label": ".getlastdiagnosis()"
     },
     {
@@ -3446,7 +3486,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_di_repositorymodule",
-      "community": 18,
+      "community": 66,
       "norm_label": "repositorymodule.kt"
     },
     {
@@ -3456,7 +3496,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_di_repositorymodule_repositorymodule",
-      "community": 18,
+      "community": 66,
       "norm_label": "repositorymodule"
     },
     {
@@ -3476,7 +3516,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_di_repositorymodule_repositorymodule_binddeficiencyrepository",
-      "community": 18,
+      "community": 66,
       "norm_label": ".binddeficiencyrepository()"
     },
     {
@@ -3496,7 +3536,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_di_repositorymodule_repositorymodule_binddiagnosishistoryrepository",
-      "community": 18,
+      "community": 66,
       "norm_label": ".binddiagnosishistoryrepository()"
     },
     {
@@ -3516,7 +3556,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_di_repositorymodule_repositorymodule_binduserdtlrepository",
-      "community": 18,
+      "community": 66,
       "norm_label": ".binduserdtlrepository()"
     },
     {
@@ -3526,7 +3566,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "com",
-      "community": 18,
+      "community": 66,
       "norm_label": "com"
     },
     {
@@ -3536,7 +3576,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_designmodels_cropcarouseldata",
-      "community": 63,
+      "community": 1,
       "norm_label": "cropcarouseldata.kt"
     },
     {
@@ -3546,7 +3586,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_designmodels_cropcarouseldata_cropcarouseldata",
-      "community": 63,
+      "community": 1,
       "norm_label": "cropcarouseldata"
     },
     {
@@ -3926,7 +3966,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_models_diagnosishistory_diagnosishistory",
-      "community": 22,
+      "community": 21,
       "norm_label": "diagnosishistory"
     },
     {
@@ -3976,7 +4016,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_models_diagnosishistory_diagnosishistory_hashcode",
-      "community": 22,
+      "community": 21,
       "norm_label": ".hashcode()"
     },
     {
@@ -3986,7 +4026,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_models_diagnosishistory_kt_int",
-      "community": 22,
+      "community": 21,
       "norm_label": "int"
     },
     {
@@ -4106,7 +4146,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_models_diagnosishistory_builder_build",
-      "community": 8,
+      "community": 9,
       "norm_label": ".build()"
     },
     {
@@ -4246,7 +4286,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "noargsconstructor",
-      "community": 5,
+      "community": 0,
       "norm_label": "noargsconstructor"
     },
     {
@@ -4366,7 +4406,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_models_respuesta",
-      "community": 24,
+      "community": 13,
       "norm_label": "respuesta.kt"
     },
     {
@@ -4376,7 +4416,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_models_respuesta_respuesta",
-      "community": 24,
+      "community": 13,
       "norm_label": "respuesta"
     },
     {
@@ -4966,7 +5006,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_repository_deficiencyrepository",
-      "community": 18,
+      "community": 64,
       "norm_label": "deficiencyrepository.kt"
     },
     {
@@ -4976,7 +5016,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_repository_deficiencyrepository_deficiencyrepository",
-      "community": 18,
+      "community": 64,
       "norm_label": "deficiencyrepository"
     },
     {
@@ -4986,7 +5026,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_repository_deficiencyrepository_deficiencyrepository_getdeficiencies",
-      "community": 18,
+      "community": 64,
       "norm_label": ".getdeficiencies()"
     },
     {
@@ -4996,7 +5036,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_repository_deficiencyrepository_kt_list",
-      "community": 18,
+      "community": 64,
       "norm_label": "list"
     },
     {
@@ -5006,7 +5046,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_repository_deficiencyrepository_deficiencyrepository_deficiencies",
-      "community": 18,
+      "community": 64,
       "norm_label": ".deficiencies()"
     },
     {
@@ -5016,7 +5056,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_repository_deficiencyrepository_kt_completablefuture",
-      "community": 18,
+      "community": 64,
       "norm_label": "completablefuture"
     },
     {
@@ -5026,7 +5066,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_repository_deficiencyrepository_kt_mutablelist",
-      "community": 18,
+      "community": 64,
       "norm_label": "mutablelist"
     },
     {
@@ -5236,7 +5276,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_repository_diagnosishistoryrepository_diagnosishistoryrepository_getlastdiagnosis",
-      "community": 22,
+      "community": 21,
       "norm_label": ".getlastdiagnosis()"
     },
     {
@@ -5600,30 +5640,50 @@
       "norm_label": "string"
     },
     {
-      "label": "DeficiencyUseCase.kt",
+      "label": "DeficiencyUseCase.java",
       "file_type": "code",
-      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.kt",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase",
       "community": 4,
-      "norm_label": "deficiencyusecase.kt"
+      "norm_label": "deficiencyusecase.java"
     },
     {
       "label": "DeficiencyUseCase",
       "file_type": "code",
-      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.kt",
-      "source_location": "L10",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase",
       "community": 4,
       "norm_label": "deficiencyusecase"
     },
     {
+      "label": ".DeficiencyUseCase()",
+      "file_type": "code",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_deficiencyusecase",
+      "community": 4,
+      "norm_label": ".deficiencyusecase()"
+    },
+    {
+      "label": "Inject",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_inject",
+      "community": 4,
+      "norm_label": "inject"
+    },
+    {
       "label": ".getDeficiencies()",
       "file_type": "code",
-      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.kt",
-      "source_location": "L14",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_getdeficiencies",
       "community": 4,
@@ -5635,7 +5695,7 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_kt_context",
+      "id": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_context",
       "community": 4,
       "norm_label": "context"
     },
@@ -5645,19 +5705,19 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_kt_completablefuture",
+      "id": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_completablefuture",
       "community": 4,
       "norm_label": "completablefuture"
     },
     {
-      "label": "MutableList",
+      "label": "List",
       "file_type": "code",
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_kt_mutablelist",
+      "id": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_list",
       "community": 4,
-      "norm_label": "mutablelist"
+      "norm_label": "list"
     },
     {
       "label": "DeleteDiagnosisUseCase.kt",
@@ -5976,7 +6036,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_usecase_getrecommendationusecase",
-      "community": 24,
+      "community": 13,
       "norm_label": "getrecommendationusecase.kt"
     },
     {
@@ -5986,7 +6046,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_usecase_getrecommendationusecase_getrecommendationusecase",
-      "community": 24,
+      "community": 13,
       "norm_label": "getrecommendationusecase"
     },
     {
@@ -5996,7 +6056,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_usecase_getrecommendationusecase_getrecommendationusecase_invoke",
-      "community": 24,
+      "community": 13,
       "norm_label": ".invoke()"
     },
     {
@@ -6006,7 +6066,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_usecase_getrecommendationusecase_kt_string",
-      "community": 24,
+      "community": 13,
       "norm_label": "string"
     },
     {
@@ -6016,7 +6076,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_usecase_getrecommendationusecase_getrecommendationusecase_ejecutar",
-      "community": 24,
+      "community": 13,
       "norm_label": ".ejecutar()"
     },
     {
@@ -6206,7 +6266,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_usecase_updatediagnosisrecommendationusecase",
-      "community": 29,
+      "community": 27,
       "norm_label": "updatediagnosisrecommendationusecase.kt"
     },
     {
@@ -6216,7 +6276,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_domain_usecase_updatediagnosisrecommendationusecase_updatediagnosisrecommendationusecase",
-      "community": 29,
+      "community": 27,
       "norm_label": "updatediagnosisrecommendationusecase"
     },
     {
@@ -6566,7 +6626,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_theme_theme",
-      "community": 35,
+      "community": 1,
       "norm_label": "theme.kt"
     },
     {
@@ -6576,7 +6636,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_theme_theme_agrosmarttheme",
-      "community": 35,
+      "community": 1,
       "norm_label": "agrosmarttheme()"
     },
     {
@@ -6586,7 +6646,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_theme_theme_kt_boolean",
-      "community": 35,
+      "community": 1,
       "norm_label": "boolean"
     },
     {
@@ -6676,7 +6736,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscreen",
-      "community": 70,
+      "community": 1,
       "norm_label": "cropscreen.kt"
     },
     {
@@ -6686,7 +6746,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscreen_cropscreen",
-      "community": 70,
+      "community": 1,
       "norm_label": "cropscreen()"
     },
     {
@@ -6696,7 +6756,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscreen_kt_modifier",
-      "community": 70,
+      "community": 1,
       "norm_label": "modifier"
     },
     {
@@ -6706,7 +6766,7 @@
       "source_location": "L158",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscreen_cropbadge",
-      "community": 70,
+      "community": 1,
       "norm_label": "cropbadge()"
     },
     {
@@ -6716,7 +6776,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscreen_kt_string",
-      "community": 70,
+      "community": 1,
       "norm_label": "string"
     },
     {
@@ -6726,7 +6786,7 @@
       "source_location": "L187",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscreen_cropscreenpreview",
-      "community": 70,
+      "community": 1,
       "norm_label": "cropscreenpreview()"
     },
     {
@@ -6736,7 +6796,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscomponent",
-      "community": 63,
+      "community": 1,
       "norm_label": "cropscomponent.kt"
     },
     {
@@ -6746,7 +6806,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscomponent_cropcard",
-      "community": 63,
+      "community": 1,
       "norm_label": "cropcard()"
     },
     {
@@ -6756,7 +6816,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscomponent_kt_modifier",
-      "community": 63,
+      "community": 1,
       "norm_label": "modifier"
     },
     {
@@ -6766,7 +6826,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscomponent_cropscarousel",
-      "community": 63,
+      "community": 1,
       "norm_label": "cropscarousel()"
     },
     {
@@ -6776,7 +6836,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscomponent_kt_list",
-      "community": 63,
+      "community": 1,
       "norm_label": "list"
     },
     {
@@ -6786,7 +6846,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscomponent_kt_boolean",
-      "community": 63,
+      "community": 1,
       "norm_label": "boolean"
     },
     {
@@ -6796,7 +6856,7 @@
       "source_location": "L165",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscomponent_cropcardpreview",
-      "community": 63,
+      "community": 1,
       "norm_label": "cropcardpreview()"
     },
     {
@@ -6806,7 +6866,7 @@
       "source_location": "L184",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_crops_cropscomponent_cropscarouselpreview",
-      "community": 63,
+      "community": 1,
       "norm_label": "cropscarouselpreview()"
     },
     {
@@ -6816,7 +6876,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficienciesscreen",
-      "community": 18,
+      "community": 63,
       "norm_label": "deficienciesscreen.kt"
     },
     {
@@ -6826,7 +6886,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficienciesscreen_deficienciesscreen",
-      "community": 18,
+      "community": 63,
       "norm_label": "deficienciesscreen()"
     },
     {
@@ -6836,7 +6896,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficienciesscreen_kt_list",
-      "community": 18,
+      "community": 63,
       "norm_label": "list"
     },
     {
@@ -6846,7 +6906,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficienciesscreen_kt_modifier",
-      "community": 18,
+      "community": 63,
       "norm_label": "modifier"
     },
     {
@@ -6856,7 +6916,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficienciesscreen_kt_boolean",
-      "community": 18,
+      "community": 63,
       "norm_label": "boolean"
     },
     {
@@ -6866,7 +6926,7 @@
       "source_location": "L131",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficienciesscreen_deficienciestopbar",
-      "community": 18,
+      "community": 63,
       "norm_label": "deficienciestopbar()"
     },
     {
@@ -6876,7 +6936,7 @@
       "source_location": "L171",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficienciesscreen_deficiencycard",
-      "community": 18,
+      "community": 63,
       "norm_label": "deficiencycard()"
     },
     {
@@ -6886,7 +6946,7 @@
       "source_location": "L255",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficienciesscreen_deficienciesscreenpreview",
-      "community": 18,
+      "community": 63,
       "norm_label": "deficienciesscreenpreview()"
     },
     {
@@ -6896,7 +6956,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficiencyinfoscreen",
-      "community": 66,
+      "community": 11,
       "norm_label": "deficiencyinfoscreen.kt"
     },
     {
@@ -6906,7 +6966,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficiencyinfoscreen_deficiencyinfoscreen",
-      "community": 66,
+      "community": 11,
       "norm_label": "deficiencyinfoscreen()"
     },
     {
@@ -6916,7 +6976,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficiencyinfoscreen_kt_string",
-      "community": 66,
+      "community": 11,
       "norm_label": "string"
     },
     {
@@ -6926,7 +6986,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficiencyinfoscreen_kt_imagebitmap",
-      "community": 66,
+      "community": 11,
       "norm_label": "imagebitmap"
     },
     {
@@ -6936,7 +6996,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficiencyinfoscreen_kt_modifier",
-      "community": 66,
+      "community": 11,
       "norm_label": "modifier"
     },
     {
@@ -6946,7 +7006,7 @@
       "source_location": "L153",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficiencyinfoscreen_infosectioncard",
-      "community": 66,
+      "community": 11,
       "norm_label": "infosectioncard()"
     },
     {
@@ -6956,7 +7016,7 @@
       "source_location": "L185",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_deficiencies_deficiencyinfoscreen_deficiencyinfoscreenpreview",
-      "community": 66,
+      "community": 11,
       "norm_label": "deficiencyinfoscreenpreview()"
     },
     {
@@ -6966,7 +7026,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_cameraroutescreen",
-      "community": 11,
+      "community": 19,
       "norm_label": "cameraroutescreen.kt"
     },
     {
@@ -6976,7 +7036,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_cameraroutescreen_cameraroutescreen",
-      "community": 11,
+      "community": 19,
       "norm_label": "cameraroutescreen()"
     },
     {
@@ -6986,7 +7046,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_cameraroutescreen_kt_modifier",
-      "community": 11,
+      "community": 19,
       "norm_label": "modifier"
     },
     {
@@ -6996,7 +7056,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_camerascreen",
-      "community": 11,
+      "community": 19,
       "norm_label": "camerascreen.kt"
     },
     {
@@ -7006,7 +7066,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_camerascreen_camerascreen",
-      "community": 11,
+      "community": 19,
       "norm_label": "camerascreen()"
     },
     {
@@ -7016,7 +7076,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_camerascreen_kt_modifier",
-      "community": 11,
+      "community": 19,
       "norm_label": "modifier"
     },
     {
@@ -7026,7 +7086,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_camerascreen_kt_boolean",
-      "community": 11,
+      "community": 19,
       "norm_label": "boolean"
     },
     {
@@ -7036,7 +7096,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_camerascreen_kt_string",
-      "community": 11,
+      "community": 19,
       "norm_label": "string"
     },
     {
@@ -7166,7 +7226,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_diagnosisinfoscreen",
-      "community": 64,
+      "community": 11,
       "norm_label": "diagnosisinfoscreen.kt"
     },
     {
@@ -7176,7 +7236,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_diagnosisinfoscreen_diagnosisinfoscreen",
-      "community": 64,
+      "community": 11,
       "norm_label": "diagnosisinfoscreen()"
     },
     {
@@ -7186,7 +7246,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_diagnosisinfoscreen_kt_string",
-      "community": 64,
+      "community": 11,
       "norm_label": "string"
     },
     {
@@ -7196,7 +7256,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_diagnosisinfoscreen_kt_bitmap",
-      "community": 64,
+      "community": 11,
       "norm_label": "bitmap"
     },
     {
@@ -7206,7 +7266,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_diagnosisinfoscreen_kt_modifier",
-      "community": 64,
+      "community": 11,
       "norm_label": "modifier"
     },
     {
@@ -7216,7 +7276,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_diagnosisinfoscreen_kt_boolean",
-      "community": 64,
+      "community": 11,
       "norm_label": "boolean"
     },
     {
@@ -7226,7 +7286,7 @@
       "source_location": "L359",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_diagnosisinfoscreen_diagnosisinfotopbar",
-      "community": 64,
+      "community": 11,
       "norm_label": "diagnosisinfotopbar()"
     },
     {
@@ -7236,7 +7296,7 @@
       "source_location": "L397",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_detection_diagnosisinfoscreen_diagnosisinfoscreenpreview",
-      "community": 64,
+      "community": 11,
       "norm_label": "diagnosisinfoscreenpreview()"
     },
     {
@@ -7246,7 +7306,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_fertilizers_fertilizerinfoscreen",
-      "community": 11,
+      "community": 9,
       "norm_label": "fertilizerinfoscreen.kt"
     },
     {
@@ -7256,7 +7316,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_fertilizers_fertilizerinfoscreen_fertilizerinfoscreen",
-      "community": 11,
+      "community": 9,
       "norm_label": "fertilizerinfoscreen()"
     },
     {
@@ -7266,7 +7326,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_fertilizers_fertilizerinfoscreen_kt_string",
-      "community": 11,
+      "community": 9,
       "norm_label": "string"
     },
     {
@@ -7276,7 +7336,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_fertilizers_fertilizerinfoscreen_kt_imagebitmap",
-      "community": 11,
+      "community": 9,
       "norm_label": "imagebitmap"
     },
     {
@@ -7286,7 +7346,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_fertilizers_fertilizerinfoscreen_kt_modifier",
-      "community": 11,
+      "community": 9,
       "norm_label": "modifier"
     },
     {
@@ -7296,7 +7356,7 @@
       "source_location": "L178",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_fertilizers_fertilizerinfoscreen_fertilizerbadge",
-      "community": 11,
+      "community": 9,
       "norm_label": "fertilizerbadge()"
     },
     {
@@ -7306,7 +7366,7 @@
       "source_location": "L206",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_fertilizers_fertilizerinfoscreen_fertilizerinfosection",
-      "community": 11,
+      "community": 9,
       "norm_label": "fertilizerinfosection()"
     },
     {
@@ -7316,7 +7376,7 @@
       "source_location": "L238",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_fertilizers_fertilizerinfoscreen_fertilizerinfoscreenpreview",
-      "community": 11,
+      "community": 9,
       "norm_label": "fertilizerinfoscreenpreview()"
     },
     {
@@ -7406,7 +7466,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_home_homescreen",
-      "community": 35,
+      "community": 1,
       "norm_label": "homescreen.kt"
     },
     {
@@ -7416,7 +7476,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_home_homescreen_lottieloadinganimation",
-      "community": 35,
+      "community": 1,
       "norm_label": "lottieloadinganimation()"
     },
     {
@@ -7426,7 +7486,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_home_homescreen_kt_int",
-      "community": 35,
+      "community": 1,
       "norm_label": "int"
     },
     {
@@ -7436,7 +7496,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_home_homescreen_kt_modifier",
-      "community": 35,
+      "community": 1,
       "norm_label": "modifier"
     },
     {
@@ -7446,7 +7506,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_home_homescreen_kt_boolean",
-      "community": 35,
+      "community": 1,
       "norm_label": "boolean"
     },
     {
@@ -7456,7 +7516,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_home_homescreen_homescreen",
-      "community": 35,
+      "community": 1,
       "norm_label": "homescreen()"
     },
     {
@@ -7466,7 +7526,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_home_homescreen_kt_list",
-      "community": 35,
+      "community": 1,
       "norm_label": "list"
     },
     {
@@ -7476,7 +7536,7 @@
       "source_location": "L204",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_home_homescreen_homescreenloadingpreview",
-      "community": 35,
+      "community": 1,
       "norm_label": "homescreenloadingpreview()"
     },
     {
@@ -7486,7 +7546,7 @@
       "source_location": "L220",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_ui_components_home_homescreen_homescreenloadedpreview",
-      "community": 35,
+      "community": 1,
       "norm_label": "homescreenloadedpreview()"
     },
     {
@@ -8043,7 +8103,7 @@
       "label": ".loadData()",
       "file_type": "code",
       "source_file": "app/src/main/java/com/example/agrosmart/presentation/viewmodels/DeficiencyViewModel.kt",
-      "source_location": "L26",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_deficiencyviewmodel_deficiencyviewmodel_loaddata",
       "community": 10,
@@ -8156,7 +8216,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodel_detectionviewmodel_obtenerrecomendacion",
-      "community": 71,
+      "community": 19,
       "norm_label": ".obtenerrecomendacion()"
     },
     {
@@ -8166,7 +8226,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodel_kt_string",
-      "community": 71,
+      "community": 19,
       "norm_label": "string"
     },
     {
@@ -8176,7 +8236,7 @@
       "source_location": "L145",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodel_detectionviewmodel_savediagnosis",
-      "community": 71,
+      "community": 19,
       "norm_label": ".savediagnosis()"
     },
     {
@@ -8186,7 +8246,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodel_kt_bytearray",
-      "community": 71,
+      "community": 19,
       "norm_label": "bytearray"
     },
     {
@@ -8196,7 +8256,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodel_kt_consumer",
-      "community": 71,
+      "community": 19,
       "norm_label": "consumer"
     },
     {
@@ -8226,7 +8286,7 @@
       "source_location": "L192",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodel_detectionviewmodel_deletehistory",
-      "community": 71,
+      "community": 19,
       "norm_label": ".deletehistory()"
     },
     {
@@ -8236,7 +8296,7 @@
       "source_location": "L198",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodel_detectionviewmodel_saverecommendationindiagnosis",
-      "community": 29,
+      "community": 19,
       "norm_label": ".saverecommendationindiagnosis()"
     },
     {
@@ -8336,7 +8396,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_fertilizerviewmodel",
-      "community": 3,
+      "community": 10,
       "norm_label": "fertilizerviewmodel.kt"
     },
     {
@@ -8346,7 +8406,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_fertilizerviewmodel_fertilizerviewmodel",
-      "community": 3,
+      "community": 10,
       "norm_label": "fertilizerviewmodel"
     },
     {
@@ -8356,7 +8416,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_fertilizerviewmodel_kt_stateflow",
-      "community": 3,
+      "community": 10,
       "norm_label": "stateflow"
     },
     {
@@ -8366,7 +8426,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_fertilizerviewmodel_fertilizerviewmodel_loaddata",
-      "community": 3,
+      "community": 10,
       "norm_label": ".loaddata()"
     },
     {
@@ -8736,7 +8796,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_detectionuistate",
-      "community": 72,
+      "community": 19,
       "norm_label": "detectionuistate.kt"
     },
     {
@@ -8746,7 +8806,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_detectionuistate_detectionuistate",
-      "community": 72,
+      "community": 19,
       "norm_label": "detectionuistate"
     },
     {
@@ -8756,7 +8816,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_detectionuistate_idle",
-      "community": 72,
+      "community": 19,
       "norm_label": "idle"
     },
     {
@@ -8766,7 +8826,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_detectionuistate_loading",
-      "community": 72,
+      "community": 19,
       "norm_label": "loading"
     },
     {
@@ -8776,7 +8836,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_detectionuistate_success",
-      "community": 72,
+      "community": 19,
       "norm_label": "success"
     },
     {
@@ -8786,7 +8846,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_detectionuistate_error",
-      "community": 72,
+      "community": 19,
       "norm_label": "error"
     },
     {
@@ -8796,7 +8856,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_fertilizeruistate",
-      "community": 3,
+      "community": 10,
       "norm_label": "fertilizeruistate.kt"
     },
     {
@@ -8806,7 +8866,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_fertilizeruistate_fertilizeruistate",
-      "community": 3,
+      "community": 10,
       "norm_label": "fertilizeruistate"
     },
     {
@@ -8816,7 +8876,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_fertilizeruistate_idle",
-      "community": 3,
+      "community": 10,
       "norm_label": "idle"
     },
     {
@@ -8826,7 +8886,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_fertilizeruistate_loading",
-      "community": 3,
+      "community": 10,
       "norm_label": "loading"
     },
     {
@@ -8836,7 +8896,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_fertilizeruistate_success",
-      "community": 3,
+      "community": 10,
       "norm_label": "success"
     },
     {
@@ -8846,7 +8906,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_fertilizeruistate_error",
-      "community": 3,
+      "community": 10,
       "norm_label": "error"
     },
     {
@@ -8856,7 +8916,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_homeuistate",
-      "community": 73,
+      "community": 1,
       "norm_label": "homeuistate.kt"
     },
     {
@@ -8866,7 +8926,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_homeuistate_homeuistate",
-      "community": 73,
+      "community": 1,
       "norm_label": "homeuistate"
     },
     {
@@ -8876,7 +8936,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_homeuistate_idle",
-      "community": 73,
+      "community": 1,
       "norm_label": "idle"
     },
     {
@@ -8886,7 +8946,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_homeuistate_loading",
-      "community": 73,
+      "community": 1,
       "norm_label": "loading"
     },
     {
@@ -8896,7 +8956,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_homeuistate_success",
-      "community": 73,
+      "community": 1,
       "norm_label": "success"
     },
     {
@@ -8906,7 +8966,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_state_homeuistate_error",
-      "community": 73,
+      "community": 1,
       "norm_label": "error"
     },
     {
@@ -9096,7 +9156,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_data_local_mappers_deficiencymappertest",
-      "community": 18,
+      "community": 24,
       "norm_label": "deficiencymappertest.kt"
     },
     {
@@ -9106,7 +9166,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_data_local_mappers_deficiencymappertest_deficiencymappertest",
-      "community": 18,
+      "community": 24,
       "norm_label": "deficiencymappertest"
     },
     {
@@ -9116,7 +9176,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_data_local_mappers_deficiencymappertest_deficiencymappertest_tomodel_mapsallfieldscorrectly",
-      "community": 18,
+      "community": 24,
       "norm_label": ".tomodel_mapsallfieldscorrectly()"
     },
     {
@@ -9126,7 +9186,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_data_local_mappers_deficiencymappertest_deficiencymappertest_fromdocument_mapssnapshotcorrectly",
-      "community": 18,
+      "community": 24,
       "norm_label": ".fromdocument_mapssnapshotcorrectly()"
     },
     {
@@ -9136,7 +9196,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_data_local_mappers_deficiencymappertest_deficiencymappertest_fromdocument_returnsnullwhennameandtitlearemissing",
-      "community": 18,
+      "community": 24,
       "norm_label": ".fromdocument_returnsnullwhennameandtitlearemissing()"
     },
     {
@@ -9146,7 +9206,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_data_local_mappers_deficiencymappertest_deficiencymappertest_fromdocument_returnsnullwhendataisnull",
-      "community": 18,
+      "community": 24,
       "norm_label": ".fromdocument_returnsnullwhendataisnull()"
     },
     {
@@ -9666,7 +9726,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodeltest",
-      "community": 24,
+      "community": 27,
       "norm_label": "detectionviewmodeltest.kt"
     },
     {
@@ -9676,7 +9736,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodeltest_detectionviewmodeltest",
-      "community": 24,
+      "community": 27,
       "norm_label": "detectionviewmodeltest"
     },
     {
@@ -9686,7 +9746,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodeltest_detectionviewmodeltest_setup",
-      "community": 24,
+      "community": 27,
       "norm_label": ".setup()"
     },
     {
@@ -9696,7 +9756,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodeltest_detectionviewmodeltest_teardown",
-      "community": 24,
+      "community": 27,
       "norm_label": ".teardown()"
     },
     {
@@ -9706,7 +9766,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodeltest_detectionviewmodeltest_obtenerrecomendacion_updates_recommendationresponse_livedata_and_uistate",
-      "community": 24,
+      "community": 13,
       "norm_label": ".`obtenerrecomendacion updates recommendationresponse livedata and uistate`()"
     },
     {
@@ -9716,7 +9776,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodeltest_detectionviewmodeltest_addnewhistory_inserts_at_beginning_of_list_and_updates_last_diagnosis",
-      "community": 24,
+      "community": 27,
       "norm_label": ".`addnewhistory inserts at beginning of list and updates last diagnosis`()"
     },
     {
@@ -9726,7 +9786,7 @@
       "source_location": "L119",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodeltest_detectionviewmodeltest_cleanrecommendation_sets_recommendation_livedata_to_null",
-      "community": 24,
+      "community": 13,
       "norm_label": ".`cleanrecommendation sets recommendation livedata to null`()"
     },
     {
@@ -9736,7 +9796,7 @@
       "source_location": "L131",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodeltest_detectionviewmodeltest_observehistories_collects_flow_and_updates_stateflow_and_livedata",
-      "community": 24,
+      "community": 27,
       "norm_label": ".`observehistories collects flow and updates stateflow and livedata`()"
     },
     {
@@ -9746,7 +9806,7 @@
       "source_location": "L148",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodeltest_detectionviewmodeltest_deletehistory_calls_deletediagnosisusecase",
-      "community": 24,
+      "community": 27,
       "norm_label": ".`deletehistory calls deletediagnosisusecase`()"
     },
     {
@@ -9756,7 +9816,7 @@
       "source_location": "L157",
       "_origin": "ast",
       "id": "app_src_test_java_com_example_agrosmart_presentation_viewmodels_detectionviewmodeltest_detectionviewmodeltest_saverecommendationindiagnosis_calls_updatediagnosisrecommendationusecase",
-      "community": 24,
+      "community": 27,
       "norm_label": ".`saverecommendationindiagnosis calls updatediagnosisrecommendationusecase`()"
     },
     {
@@ -10784,6 +10844,17 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_core_utils_classes_networkchecker",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/core/utils/classes/NetworkChecker.kt",
@@ -10820,8 +10891,8 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.kt",
-      "source_location": "L15",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L25",
       "weight": 1.0,
       "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_getdeficiencies",
       "target": "app_src_main_java_com_example_agrosmart_core_utils_classes_networkchecker_networkchecker_isinternetavailable"
@@ -12860,6 +12931,82 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/data/network/DeficienciesService.kt",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice",
+      "target": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_deficienciesservice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/data/network/DeficienciesService.kt",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "field",
+      "source": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_deficienciesservice",
+      "target": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_kt_completablefuture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/data/network/DeficienciesService.kt",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "source": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_deficienciesservice",
+      "target": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_kt_mutablelist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/data/network/DeficienciesService.kt",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "source": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_deficienciesservice",
+      "target": "app_src_main_java_com_example_agrosmart_domain_models_deficiency_deficiency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_deficienciesservice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_deficienciesservice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_data_network_deficienciesservice_deficienciesservice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/network/DetectionResultService.kt",
       "source_location": "L7",
       "weight": 1.0,
@@ -14040,7 +14187,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L73",
+      "source_location": "L76",
       "weight": 1.0,
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl",
       "target": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_await",
@@ -14050,7 +14197,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L56",
+      "source_location": "L59",
       "weight": 1.0,
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl",
       "target": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_deficiencies",
@@ -14060,7 +14207,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L28",
+      "source_location": "L31",
       "weight": 1.0,
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl",
       "target": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_getdeficiencies",
@@ -14070,7 +14217,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L58",
+      "source_location": "L61",
       "weight": 1.0,
       "context": "field",
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl",
@@ -14081,7 +14228,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L58",
+      "source_location": "L61",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl",
@@ -14092,7 +14239,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L58",
+      "source_location": "L61",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl",
@@ -14121,11 +14268,33 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl"
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L56",
+      "source_location": "L59",
       "weight": 1.0,
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_deficiencies",
       "target": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_getdeficiencies",
@@ -14136,7 +14305,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L31",
+      "source_location": "L34",
       "weight": 1.0,
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_getdeficiencies",
       "target": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_await",
@@ -14146,7 +14315,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L28",
+      "source_location": "L31",
       "weight": 1.0,
       "context": "return_type",
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_getdeficiencies",
@@ -14157,7 +14326,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L28",
+      "source_location": "L31",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_getdeficiencies",
@@ -14168,7 +14337,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L56",
+      "source_location": "L59",
       "weight": 1.0,
       "context": "return_type",
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_deficiencies",
@@ -14179,7 +14348,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L56",
+      "source_location": "L59",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_deficiencies",
@@ -14190,7 +14359,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/data/repository/impl/DeficiencyRepositoryImpl.kt",
-      "source_location": "L73",
+      "source_location": "L76",
       "weight": 1.0,
       "context": "return_type",
       "source": "app_src_main_java_com_example_agrosmart_data_repository_impl_deficiencyrepositoryimpl_deficiencyrepositoryimpl_await",
@@ -16701,10 +16870,21 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_domain_models_deficiency_deficiency",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.kt",
-      "source_location": "L14",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L24",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_getdeficiencies",
@@ -20448,18 +20628,72 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.kt",
-      "source_location": "L10",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L16",
       "weight": 1.0,
       "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase",
       "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase",
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_completablefuture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_inject",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_list",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.kt",
-      "source_location": "L14",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_deficiencyusecase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L24",
       "weight": 1.0,
       "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase",
       "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_getdeficiencies",
@@ -20468,34 +20702,45 @@
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.kt",
-      "source_location": "L14",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "attribute",
+      "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_deficiencyusecase",
+      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_inject",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L24",
       "weight": 1.0,
       "context": "return_type",
       "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_getdeficiencies",
-      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_kt_completablefuture",
+      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_completablefuture",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.kt",
-      "source_location": "L14",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L24",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_getdeficiencies",
-      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_kt_context",
+      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_context",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.kt",
-      "source_location": "L14",
+      "source_file": "app/src/main/java/com/example/agrosmart/domain/usecase/DeficiencyUseCase.java",
+      "source_location": "L24",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_deficiencyusecase_getdeficiencies",
-      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_kt_mutablelist",
+      "target": "app_src_main_java_com_example_agrosmart_domain_usecase_deficiencyusecase_java_list",
       "confidence_score": 1.0
     },
     {
@@ -24368,7 +24613,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/presentation/viewmodels/DeficiencyViewModel.kt",
-      "source_location": "L26",
+      "source_location": "L29",
       "weight": 1.0,
       "source": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_deficiencyviewmodel_deficiencyviewmodel",
       "target": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_deficiencyviewmodel_deficiencyviewmodel_loaddata",
@@ -24378,7 +24623,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/presentation/viewmodels/DeficiencyViewModel.kt",
-      "source_location": "L24",
+      "source_location": "L27",
       "weight": 1.0,
       "context": "field",
       "source": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_deficiencyviewmodel_deficiencyviewmodel",
@@ -24389,7 +24634,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/presentation/viewmodels/DeficiencyViewModel.kt",
-      "source_location": "L24",
+      "source_location": "L27",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_deficiencyviewmodel_deficiencyviewmodel",
@@ -24470,7 +24715,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "app/src/main/java/com/example/agrosmart/presentation/viewmodels/DeficiencyViewModel.kt",
-      "source_location": "L26",
+      "source_location": "L29",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "app_src_main_java_com_example_agrosmart_presentation_viewmodels_deficiencyviewmodel_deficiencyviewmodel_loaddata",
